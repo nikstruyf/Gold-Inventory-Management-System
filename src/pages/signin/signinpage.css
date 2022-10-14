@@ -1,0 +1,82 @@
+.background {
+    background-color: var(--main-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    max-height: 100vh;
+}
+
+.container-signin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 350px;
+    height: 430px;
+    padding: 50px 0;
+    margin: auto;
+}
+
+.header-signin {
+    text-transform: capitalize;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 40px;
+}
+
+.input-userid {
+    box-sizing: border-box;
+    width: 350px;
+    height: 50px;
+    border: solid 2px grey;
+    border-radius: 4px;
+    font-size: 15px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.input-passwd {
+    box-sizing: border-box;
+    width: 350px;
+    height: 50px;
+    border: solid 2px grey;
+    border-radius: 4px;
+    font-size: 15px;
+    margin-bottom: 5px;
+    padding: 0 10px;
+}
+
+.link-forgotpass {
+    color: rgb(60, 60, 255);
+    text-transform: capitalize;
+    width: 100%;
+}
+
+.input-incorrect {
+    opacity: 0;
+    color: var(--fourth-color-red);
+    margin: 10px 0;
+}
+
+.input-incorect.show {
+    opacity: 1;
+}
+
+.button-signin {
+    border: none;
+    border-radius: 7px;
+    background-color: var(--second-color-red);
+    width: 350px;
+    height: 45px;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.button-signin:hover {
+    background-color: var(--main-color-red);
+}

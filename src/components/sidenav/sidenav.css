@@ -1,0 +1,232 @@
+.sidenav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    height: 100vh;
+    width: var(--sidenav-width);
+    background-color: var(--main-color-red);
+    z-index: 90;
+    transition: all 0.5s;
+    font-family: 'Prompt', sans-serif;
+}
+
+.sidenav.short {
+    width: var(--sidenav-short-width);
+}
+
+.sidenav-hamburg {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: -20px;
+    width: 60px;
+    height: 50px;
+    color: white;
+    background-color: var(--main-color-red);
+    border-radius: 0 0 20px 0;
+    cursor: pointer;
+    transition: 0.5s ease-out;
+    z-index: 92;
+}
+
+.sidenav-hamburg.short {
+    right: 0;
+}
+
+.sidenav-header {
+    height: 50px;
+    text-align: center;
+    margin-top: 20px;
+    cursor: default;
+}
+
+.sidenav-header > div {
+    text-transform: uppercase;
+    font-size: 35px;
+    font-weight: 800;
+    color: white;
+    transition: 0.4s ease-in-out;
+}
+
+.sidenav-header.short > div {
+    opacity: 0;
+    transform: translateX(-100px);
+}
+
+.sidenav-menu {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidenav-menu-item {
+    display: flex;
+    align-items: center;
+    color: white;
+    margin: 3px 0;
+    height: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.sidenav-menu-item:not(.active)::before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    margin: 0 5%;
+    height: 50px;
+    background-color:var(--second-bg);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    z-index: 91;
+    display: none;
+}
+
+.sidenav-menu-item:hover::before {
+    display: block;
+}
+
+.icon {
+    margin: 0 18px;
+}
+
+.sidenav-menu-item .icon {
+    transition: 0.4s;
+    z-index: 92;
+}
+
+.sidenav-menu-item:hover:not(.active) .icon {
+    transform: translateY(-5px);
+    color: var(--main-color-red);
+}
+
+.sidenav .sidenav-menu-item .name {
+    font-size: 20px;
+    margin: 0 5px;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+    text-transform: capitalize;
+    z-index: 92;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+.sidenav.short .sidenav-menu-item .name {
+    opacity: 0;
+    transform: translateX(-200px);
+    pointer-events: none;
+}
+
+.sidenav-menu-item:hover .name {
+    color: var(--main-color-red);
+}
+
+.sidenav-menu-item.active {
+    color: var(--main-color-red);
+    background-color: var(--main-bg);
+    box-shadow: 4px 2px 7px grey inset;
+    z-index: 92;
+}
+
+.sidenav .sidenav-menu-item .tooltip {
+    position: absolute;
+    left: 70px;
+    opacity: 0;
+    color: var(--main-color-red);
+    background-color: var(--main-bg);
+    padding: 7px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.35s ease;
+    z-index: 92;
+    pointer-events: none;
+    text-transform: capitalize;
+}
+.sidenav.short .sidenav-menu-item:hover .tooltip {
+    opacity: 1;
+}
+
+.sidenav-account {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    margin: 5%;
+    width: 90%;
+    height: 50px;
+    color: #ffffff;
+    background-color: var(--second-color-red);
+    border-radius: 10px;
+}
+
+.account-box {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    opacity: 1;
+    max-width: 150px;
+    padding: 0 5% 0 5%;
+    cursor: pointer;
+    transition: 0.35s;
+    
+}
+
+.account-box:hover {
+    color: var(--third-color-red);
+}
+
+.sidenav.short .account-box {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.account-icon {
+    padding-right: 5%;
+}
+
+.account-name {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-logout {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: auto;
+    left: 82%;
+    cursor: pointer;
+    transition: 0.35s;
+    background-color: var(--second-color-red);
+}
+
+.account-logout:hover {
+    color: var(--main-color-red);
+}
+
+.sidenav.sidenav.short .account-logout {
+    left: 30%;
+}
+
+.sidenav .sidenav-account .tooltip {
+    position: absolute;
+    left: 50px;
+    opacity: 0;
+    color: var(--main-color-red);
+    background-color: var(--main-bg);
+    padding: 7px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease-in;
+    z-index: 92;
+    pointer-events: none;
+    text-transform: capitalize;
+}
+.sidenav.short .account-logout:hover .tooltip {
+    opacity: 1;
+}

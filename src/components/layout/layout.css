@@ -1,0 +1,22 @@
+.layout {
+    display: flex;
+}
+
+.layout-content {
+    padding-left: var(--sidenav-short-width);
+    transition: all 0.5s;
+    width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+    .layout-content {
+        padding-bottom: var(--bottomnav-height);
+        padding-left: 0;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .layout-content.expand-sidenav {
+        padding-left: var(--sidenav-width);
+    }
+}
