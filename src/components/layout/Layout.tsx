@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './layout.css';
 import { Outlet } from 'react-router-dom';
+
+import { AuthUserProvider } from '../../contexts/AuthUserContex';
+
 import SideNav from '../sidenav/SideNav';
 import BottomNav from '../bottomnav/BottomNav';
 
@@ -23,20 +26,22 @@ function Layout() {
   }, [wide]);
 
   return (
-    <div className="layout">
-      {
-        windowWidth > 500
-          ? <SideNav />
-          : <BottomNav />
-      }
-      <div className={`
-        layout-content
-        ${wide === 'short' ? '' : 'expand-sidenav'}
+    <AuthUserProvider>
+      <div className="layout">
+        {
+          windowWidth > 500
+            ? <SideNav />
+            : <BottomNav />
+        }
+        <div className={`
+          layout-content
+          ${wide === 'short' ? '' : 'expand-sidenav'}
         `}
-      >
-        <Outlet />
+        >
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </AuthUserProvider>
   );
 }
 

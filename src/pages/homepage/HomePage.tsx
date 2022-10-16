@@ -19,14 +19,16 @@ function HomePage() {
         >
           sign in
         </button>
-        <button
-          className="button-go-start"
-          type="submit"
-          onClick={() => { navigate('/inventory'); }}
-          onKeyDown={() => {}}
-        >
-          start
-        </button>
+        <div className="button-gooooooo">
+          <button
+            className="button-go-start"
+            type="submit"
+            onClick={() => { navigate('/inventory'); }}
+            onKeyDown={() => { }}
+          >
+            start
+          </button>
+        </div>
       </div>
     </div>
   );

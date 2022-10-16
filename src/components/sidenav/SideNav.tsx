@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './sidenav.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+
 import selectMenuForUser from '../../functions/SelectMenuForUser';
 
 function SideNav() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [, , removeCookie] = useCookies(['access-token']);
 
   const [isWide, setIsWide] = useState<boolean>(window.innerWidth > 1024);
   const [isActive, setIsActive] = useState<string>(location.pathname);
@@ -17,11 +22,16 @@ function SideNav() {
 
   function handleClick(path: string) {
     setIsActive(path);
-  }
+  } 
 
   function expandSidenavClick(wide: boolean) {
     setIsWide(wide);
     localStorage.setItem('sidenavWidth', wide ? 'expand' : 'short');
+  }
+
+  function logoutAccount() {
+    removeCookie('access-token');
+    navigate('/signin');
   }
 
   useEffect(() => {
@@ -68,7 +78,13 @@ function SideNav() {
           <AccountCircleIcon className="account-icon" />
           <div className="account-name">Nik Kunraho Struyf</div>
         </div>
-        <div className="account-logout">
+        <div
+          className="account-logout"
+          onClick={() => { logoutAccount(); }}
+          onKeyDown={() => {}}
+          role="button"
+          tabIndex={0}
+        >
           <LogoutIcon className="logout-icon" />
           <div className="tooltip">logout</div>
         </div>

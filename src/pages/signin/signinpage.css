@@ -56,10 +56,11 @@
 .input-incorrect {
     opacity: 0;
     color: var(--fourth-color-red);
+    text-align: center;
     margin: 10px 0;
 }
 
-.input-incorect.show {
+.input-incorrect.show {
     opacity: 1;
 }
 

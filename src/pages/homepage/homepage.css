@@ -18,6 +18,10 @@
     margin-bottom: 30px;
 }
 
+.button {
+    display: flex;
+}
+
 .button button {
     font-size: 16px;
     padding: 0.8em;
@@ -42,6 +46,11 @@
     border: solid 2px var(--second-color-red);
     transform: scale(18) rotate(1800deg);
 }
+.button-gooooooo {
+    display: block;
+    width: 130px;
+    height: 50px;
+} 
 
 .button-go-start {
     color: var(--main-bg);
@@ -51,7 +60,7 @@
     transition: all 2s;
 }
 
-.button-go-start:hover {
+.button-gooooooo .button-go-start:hover {
     transform: rotateY(3600deg) translateY(-800px);
 }
 
