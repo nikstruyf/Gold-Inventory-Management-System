@@ -9,20 +9,38 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import selectMenuForUser from '../../functions/SelectMenuForUser';
+import GetUserProfile from '../../functions/GetData';
+
+interface profile {
+  username: string,
+  role: string
+}
 
 function SideNav() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [, , removeCookie] = useCookies(['access-token']);
+  const [cookies, , removeCookie] = useCookies(['access-token']);
 
   const [isWide, setIsWide] = useState<boolean>(window.innerWidth > 1024);
   const [isActive, setIsActive] = useState<string>(location.pathname);
 
-  const userType = 'admin';
+  const [userProfile, setUserProfile] = useState<profile>({
+    username: '',
+    role: ''
+  });
+
+  useEffect(() => {
+    GetUserProfile(cookies['access-token']).then((res) => {
+      setUserProfile({
+        username: res.username,
+        role: res.role
+      });
+    });
+  }, []);
 
   function handleClick(path: string) {
     setIsActive(path);
-  } 
+  }
 
   function expandSidenavClick(wide: boolean) {
     setIsWide(wide);
@@ -59,7 +77,7 @@ function SideNav() {
       </div>
       <div className="sidenav-menu">
         {
-          selectMenuForUser(userType).map((data) => (
+          selectMenuForUser(userProfile.role).map((data) => (
             <Link
               className={`sidenav-menu-item ${isActive === data.path ? 'active' : ''}`}
               to={data.path}
@@ -76,7 +94,7 @@ function SideNav() {
       <div className="sidenav-account">
         <div className="account-box">
           <AccountCircleIcon className="account-icon" />
-          <div className="account-name">Nik Kunraho Struyf</div>
+          <div className="account-name">{userProfile.username}</div>
         </div>
         <div
           className="account-logout"

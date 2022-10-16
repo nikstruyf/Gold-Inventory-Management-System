@@ -167,11 +167,11 @@
     align-items: center;
     box-sizing: border-box;
     opacity: 1;
+    width: 100%;
     max-width: 150px;
     padding: 0 5% 0 5%;
     cursor: pointer;
     transition: 0.35s;
-    
 }
 
 .account-box:hover {
@@ -188,6 +188,7 @@
 }
 
 .account-name {
+    width: max-content;
     font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;

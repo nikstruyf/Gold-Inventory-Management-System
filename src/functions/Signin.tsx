@@ -1,8 +1,6 @@
 import axios from 'axios';
 import api from '../assets/api/apiPath';
 
-const IP = 'http://10.8.0.4:8080';
-
 interface signinRes {
   res: boolean,
   token: string,
@@ -18,7 +16,7 @@ const SigninClick = async (id: string, password: string) => {
   if (id === '' || password === '') {
     return res;
   }
-  await axios.post(`${IP}${api.signin}`, {
+  await axios.post(`${api.IP}${api.signin}`, {
     username: id,
     password,
   }).then((result) => {
