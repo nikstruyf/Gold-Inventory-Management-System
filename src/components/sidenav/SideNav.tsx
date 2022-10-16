@@ -61,6 +61,7 @@ function SideNav() {
 
   return (
     <div className={`sidenav ${isWide ? '' : 'short'}`}>
+      {/* -- Expand&Short button -- */}
       <div
         className={`sidenav-hamburg ${isWide ? '' : 'short'}`}
         onClick={() => { expandSidenavClick(!isWide); }}
@@ -72,9 +73,11 @@ function SideNav() {
           isWide ? <MenuOpenIcon sx={{ fontSize: 40 }} /> : <MenuIcon sx={{ fontSize: 40 }} />
         }
       </div>
+      {/* -- Header -- */}
       <div className={`sidenav-header ${isWide ? '' : 'short'}`}>
         <div>g.i.m.s.</div>
       </div>
+      {/* -- Menu content -- */}
       <div className="sidenav-menu">
         {
           selectMenuForUser(userProfile.role).map((data) => (
@@ -91,6 +94,7 @@ function SideNav() {
           ))
         }
       </div>
+      {/* -- Account content -- */}
       <div className="sidenav-account">
         <div className="account-box">
           <AccountCircleIcon className="account-icon" />

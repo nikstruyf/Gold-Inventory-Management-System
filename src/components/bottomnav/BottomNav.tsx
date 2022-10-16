@@ -1,24 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './bottomnav.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
 import selectMenuForUser from '../../functions/SelectMenuForUser';
+import GetUserProfile from '../../functions/GetData';
+
+interface profile {
+  username: string,
+  role: string
+}
 
 function BottomNav() {
   const location = useLocation();
-
-  const userType = 'admin';
+  const navigate = useNavigate();
+  const [cookies] = useCookies(['access-token']);
 
   const [isActive, setIsActive] = useState<string>(location.pathname);
 
+  const [userProfile, setUserProfile] = useState<profile>({
+    username: '',
+    role: ''
+  });
+
+  useEffect(() => {
+    GetUserProfile(cookies['access-token']).then((res) => {
+      setUserProfile({
+        username: res.username,
+        role: res.role
+      });
+    });
+  }, []);
+
   function handleClick(path: string) {
     setIsActive(path);
+    navigate(path);
   }
 
   return (
     <div className="bottomnav">
       <div className="bottomnav-menu">
         {
-          selectMenuForUser(userType).map((data) => (
+          selectMenuForUser(userProfile.role).map((data) => (
             <Link
               className={`bottomnav-menu-item ${isActive === data.path ? 'active' : ''}`}
               to={data.path}
