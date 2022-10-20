@@ -1,0 +1,17 @@
+.addgoods-page-background {
+    display: flex;
+    background-color: var(--second-bg);
+    min-height: 100vh;
+}
+
+.addgood-page-main-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: var(--main-bg);
+    border-radius: 5px;
+    width: 100%;
+    box-shadow: var(--container-shadow);
+    padding: 10px;
+    margin: 1%;
+}

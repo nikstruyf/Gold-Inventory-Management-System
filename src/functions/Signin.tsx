@@ -7,17 +7,17 @@ interface signinRes {
   username: string
 }
 
-const SigninClick = async (id: string, password: string) => {
+const SigninClick = async (username: string, password: string) => {
   let res: signinRes = {
     res: false,
     token: '',
     username: ''
   };
-  if (id === '' || password === '') {
+  if (username === '' || password === '') {
     return res;
   }
   await axios.post(`${api.IP}${api.signin}`, {
-    username: id,
+    username,
     password,
   }).then((result) => {
     if (result) {

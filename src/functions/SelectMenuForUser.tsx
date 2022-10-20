@@ -2,6 +2,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 // import AssessmentIcon from '@mui/icons-material/Assessment';
 import BadgeIcon from '@mui/icons-material/Badge';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 const AdminMenu = [
   {
@@ -20,9 +21,9 @@ const AdminMenu = [
   //   path: '/report'
   // },
   {
-    icon: BadgeIcon,
-    name: 'employee',
-    path: '/employee'
+    icon: GroupsIcon,
+    name: 'organization',
+    path: '/organization'
   }
 ];
 

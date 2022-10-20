@@ -1,0 +1,26 @@
+.organization-background {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: var(--second-bg);
+    min-height: 100vh;
+}
+
+.organization-page-header {
+    display: flex;
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-left: 30px;
+    font-size: 30px;
+    font-weight: 600;
+    width: 90%;
+    height: 50px;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.organization-page-content {
+    display: flex;
+    box-sizing: border-box;
+    padding: 10px;
+}

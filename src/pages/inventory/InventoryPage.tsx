@@ -15,7 +15,7 @@ function InventoryPage() {
         <div className="inventory-page-option">
           <div className="option-radio">
             <label htmlFor="radio-all" className="radio-label">
-              <input type="radio" id="radio-all" name="radio" />
+              <input type="radio" id="radio-all" name="radio" defaultChecked />
               <span className="radio-ckeckbox" />
               <span>all</span>
             </label>
@@ -31,6 +31,7 @@ function InventoryPage() {
             </label>
           </div>
         </div>
+        {/* -- Page Table -- */}
         <div className="inventory-page-table">
           <Table />
         </div>

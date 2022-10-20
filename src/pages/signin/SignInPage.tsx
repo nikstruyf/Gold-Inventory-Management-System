@@ -35,16 +35,16 @@ function SignInPage() {
           <input
             className="input-userid"
             type="text"
-            placeholder="USER ID"
+            placeholder="Username"
             onChange={(e) => setUserID(e.target.value)}
           />
           <input
             className="input-passwd"
             type="password"
-            placeholder="PASSWORD"
+            placeholder="Password"
             onChange={(e) => setUserPasswd(e.target.value)}
           />
-          <a className="link-forgotpass" href="/">forgot password?</a>
+          {/* <a className="link-forgotpass" href="/">forgot password?</a> */}
           <div className={`input-incorrect ${showInvalid ? 'show' : ''}`}>
             invalid username or password
           </div>

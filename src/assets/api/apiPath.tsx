@@ -3,7 +3,7 @@ const api = {
   signin: '/auth/signin',
   register: '/auth/register',
   getUserProfile: '/auth/profile',
-  IP: 'http://10.8.0.4:8080'
+  IP: 'http://10.8.0.17:8080'
 };
 
 export default api;
