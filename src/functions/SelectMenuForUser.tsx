@@ -1,7 +1,7 @@
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 // import AssessmentIcon from '@mui/icons-material/Assessment';
-import BadgeIcon from '@mui/icons-material/Badge';
+// import BadgeIcon from '@mui/icons-material/Badge';
 import GroupsIcon from '@mui/icons-material/Groups';
 
 const AdminMenu = [
@@ -43,11 +43,11 @@ const OwnerMenu = [
   //   name: 'report',
   //   path: '/report'
   // },
-  {
-    icon: BadgeIcon,
-    name: 'employee',
-    path: '/employee'
-  }
+  // {
+  //   icon: BadgeIcon,
+  //   name: 'employee',
+  //   path: '/employee'
+  // }
 ];
 
 const EmployeeMenu = [

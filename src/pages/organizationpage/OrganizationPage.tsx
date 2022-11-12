@@ -1,7 +1,6 @@
 import React from 'react';
 import './organizationpage.css';
-
-import RegisterContainer from '../../components/registercontainer/RegisterContainer';
+import { Outlet } from 'react-router-dom';
 
 function OrganizationPage() {
   return (
@@ -12,7 +11,7 @@ function OrganizationPage() {
       </div>
       {/* -- Container -- */}
       <div className="organization-page-content">
-        <RegisterContainer />
+        <Outlet />
       </div>
     </div>
   );

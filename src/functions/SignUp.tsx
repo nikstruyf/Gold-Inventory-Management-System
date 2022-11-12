@@ -16,7 +16,8 @@ const SignUpClick = async (token: string, username: string, password: string, ro
       Authorization: `Bearer ${token}`
     },
   }).then((result) => {
-    if (result) {
+    console.log(result.status);
+    if (result.status === 200) {
       res = 'complete';
     }
     return res;

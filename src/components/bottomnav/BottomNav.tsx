@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import selectMenuForUser from '../../functions/SelectMenuForUser';
-import GetUserProfile from '../../functions/GetData';
+import { GetUserProfile } from '../../functions/GetData';
 
 interface profile {
   username: string,

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import './registercontainer.css';
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SignUpClick from '../../functions/SignUp';
 
 function RegisterContainer() {
+  const navigate = useNavigate();
+
   const [cookies] = useCookies(['access-token']);
 
   const [username, setUsername] = useState<string>('');
@@ -22,46 +26,62 @@ function RegisterContainer() {
     return false;
   }
 
-  const handleSubmit = async (e: any) => {
+  async function handleSubmit() {
     if (checkPasswdMatch()) {
       const signup = await SignUpClick(cookies['access-token'], username, userPasswd, userType);
-      e.preventDefault();
       if (signup === 'complete') {
         setFillAll(true);
+        setUsername('');
+        setUserPasswd('');
+        setComfirmUserPasswd('');
+        setUserType('');
+        navigate('/organization');
       } else if (signup === 'empty') {
         setFillAll(false);
-      } else {
-        alert('imcomplete to register!?');
+      } else if (signup === 'incomplete') {
+        alert('incomplete to register!?');
       }
     }
-  };
+  }
 
   useEffect(() => {
     setMatchPasswd(checkPasswdMatch());
   }, [userPasswd, confirmUserPasswd]);
 
   return (
-    <div className="register-main-container">
-      {/* -- Container Header -- */}
-      <div className="register-header">
-        register owner/employee account
+    <div className="organization-page-register">
+      <div className="goback-account">
+        <button
+          className="goback-account-button"
+          type="button"
+          onClick={() => { navigate('/organization'); }}
+        >
+          <ArrowBackIcon />
+        </button>
       </div>
-      {/* -- Container Form -- */}
-      <div className="register-form">
-        <form onSubmit={handleSubmit}>
+      <div className="register-main-container">
+        {/* -- Container Header -- */}
+        <div className="register-header">
+          register owner/employee account
+        </div>
+        {/* -- Container Form -- */}
+        <div className="register-form">
           <input
             type="text"
             placeholder="Account Username"
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
             type="password"
             placeholder="Account Password"
+            value={userPasswd}
             onChange={(e) => setUserPasswd(e.target.value)}
           />
           <input
             type="password"
             placeholder="Confirm Account Password"
+            value={confirmUserPasswd}
             onChange={(e) => setComfirmUserPasswd(e.target.value)}
           />
           <div
@@ -76,7 +96,7 @@ function RegisterContainer() {
             select role
             <select
               id="account-type"
-              defaultValue=""
+              value={userType}
               onChange={(e) => setUserType(e.target.value)}
             >
 
@@ -95,11 +115,12 @@ function RegisterContainer() {
           </div>
           <button
             className="button-signup"
-            type="submit"
+            type="button"
+            onClick={() => { handleSubmit(); }}
           >
             sign up account
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );

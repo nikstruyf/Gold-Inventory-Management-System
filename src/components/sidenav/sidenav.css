@@ -104,12 +104,12 @@
 
 .sidenav .sidenav-menu-item .name {
     font-size: 20px;
-    margin: 0 5px;
     opacity: 1;
     transition: all 0.3s ease-in-out;
     text-transform: capitalize;
     z-index: 92;
     pointer-events: auto;
+    transition: all 0.35 ease-in-out;
     transform: translateX(0);
 }
 
@@ -193,6 +193,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-transform: capitalize;
 }
 
 .account-logout {

@@ -1,3 +1,32 @@
+.organization-page-register {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 25px 0 0;
+    transition: all 0.35s ease-out;
+}
+
+.goback-account-button {
+    width: 50px;
+    padding: 5px;
+    color: var(--main-color-red);
+    font-size: 18px;
+    border: solid 2px var(--main-color-red);
+    border-radius: 5px;
+    background-color: var(--second-bg);
+    margin-left: 20px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.goback-account-button:hover {
+    color: var(--main-bg);
+    border-color: var(--main-color-red);
+    background-color: var(--main-color-red);
+}
+
 .register-main-container {
     display: flex;
     flex-direction: column;
@@ -65,6 +94,7 @@
     padding: 0 10px;
     margin-left: 10px;
     text-transform: capitalize;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 500px) {
@@ -96,18 +126,14 @@
     width: 350px;
     height: 45px;
     color: white;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     text-transform: capitalize;
     margin-top: 10px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s;
 }
 
 .button-signup:hover {
     background-color: var(--main-color-red);
-}
-
-.input-password-match.invalid .button-signup:hover {
-    transform: translateX(100%);
 }

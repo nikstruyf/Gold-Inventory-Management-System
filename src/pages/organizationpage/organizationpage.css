@@ -4,13 +4,15 @@
     box-sizing: border-box;
     background-color: var(--second-bg);
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    padding: 10px;
 }
 
 .organization-page-header {
     display: flex;
     box-sizing: border-box;
-    padding-top: 10px;
-    padding-left: 30px;
+    padding-left: 20px;
     font-size: 30px;
     font-weight: 600;
     width: 90%;
@@ -22,5 +24,4 @@
 .organization-page-content {
     display: flex;
     box-sizing: border-box;
-    padding: 10px;
 }

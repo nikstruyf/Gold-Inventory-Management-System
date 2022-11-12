@@ -1,0 +1,55 @@
+.user-card {
+    background-color: var(--main-bg);
+    border-radius: 5px;
+    box-shadow: var(--container-shadow);
+    width: max-content;
+    padding: 20px;
+}
+
+.user-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    width: 150px;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 500px) {
+    .user-card-content {
+        width: 100px;
+    }
+}
+
+.user-card-icon {
+    color: var(--main-color-red);
+}
+
+.user-card-username {
+    font-weight: 600;
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.user-card-role {
+    color: var(--main-font-grey);
+}
+
+.remove-user-button {
+    color: var(--main-color-yellow);
+    font-size: 14px;
+    font-weight: 600;
+    border: solid 1.5px;
+    border-radius: 5px;
+    background-color: var(--main-bg);
+    margin: 15px 0 5px 0;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.remove-user-button:hover {
+    color: var(--main-bg);
+    background-color: var(--main-color-yellow);
+    border-color: var(--main-color-yellow);
+}

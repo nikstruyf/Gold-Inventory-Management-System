@@ -1,7 +1,7 @@
 import axios from 'axios';
 import api from '../assets/api/apiPath';
 
-async function GetUserProfile(token: string) {
+export async function GetUserProfile(token: string) {
   const userProfile = await axios.get(`${api.IP}${api.getUserProfile}`, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -10,4 +10,11 @@ async function GetUserProfile(token: string) {
   return userProfile.data;
 }
 
-export default GetUserProfile;
+export async function GetQueryAllUser(token: string) {
+  const queryAllUser = await axios.get(`${api.IP}${api.getQueryAllUser}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  });
+  return queryAllUser.data;
+}

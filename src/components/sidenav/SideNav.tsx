@@ -9,7 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import selectMenuForUser from '../../functions/SelectMenuForUser';
-import GetUserProfile from '../../functions/GetData';
+import { GetUserProfile } from '../../functions/GetData';
 
 interface profile {
   username: string,
@@ -21,12 +21,12 @@ function SideNav() {
   const navigate = useNavigate();
   const [cookies, , removeCookie] = useCookies(['access-token']);
 
-  const [isWide, setIsWide] = useState<boolean>(window.innerWidth > 1024);
+  const [isWide, setIsWide] = useState<boolean>(localStorage.getItem('sidenavWidth') === 'expand');
   const [isActive, setIsActive] = useState<string>(location.pathname);
 
   const [userProfile, setUserProfile] = useState<profile>({
-    username: '',
-    role: ''
+    username: 'nik',
+    role: 'admin'
   });
 
   useEffect(() => {
@@ -70,7 +70,9 @@ function SideNav() {
         tabIndex={0}
       >
         {
-          isWide ? <MenuOpenIcon sx={{ fontSize: 40 }} /> : <MenuIcon sx={{ fontSize: 40 }} />
+          isWide
+            ? <MenuOpenIcon sx={{ fontSize: 40 }} />
+            : <MenuIcon sx={{ fontSize: 40 }} />
         }
       </div>
       {/* -- Header -- */}

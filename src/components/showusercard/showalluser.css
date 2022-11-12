@@ -1,0 +1,56 @@
+.organization-page-user {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 15px 10px 40px 10px;
+    width: 100%;
+    transition: all 0.35s ease-out;
+}
+
+.register-account {
+    width: 100%;
+}
+
+.register-account-button {
+    position: relative;
+    right: 0;
+    width: 100px;
+    padding: 5px;
+    color: var(--main-color-red);
+    font-size: 18px;
+    border: solid 2px var(--main-color-red);
+    border-radius: 5px;
+    background-color: var(--second-bg);
+    margin-left: 20px;
+    text-transform: capitalize;
+}
+
+.register-account-button:hover {
+    color: var(--main-bg);
+    border-color: var(--main-color-red);
+    background-color: var(--main-color-red);
+}
+
+.noAccount {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70vh;
+    font-size: large;
+    text-align: center;
+    text-transform: capitalize;
+    color: var(--second-font-grey);
+}
+
+.noAccount.active {
+    display: flex;
+}
+
+.organization-alluser-view {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
