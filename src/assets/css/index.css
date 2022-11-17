@@ -9,6 +9,9 @@
 
     --main-color-yellow: #FCA311;
 
+    --main-color-grey: grey;
+    --second-color-grey: rgb(240, 240, 240);
+
     --main-font-black: #000;
     --main-font-grey: #555;
     --second-font-grey: #bbbbbb;
@@ -19,6 +22,8 @@
     --bottomnav-height: 8vh;
 
     --container-shadow: 0 0 5px #D7D7F1;
+    --box-shadow: -4px -7px 10px #e5e5e5;
+    --card-shadow-red: 0 0 10px #ffcdcd;
 }
 
 body {

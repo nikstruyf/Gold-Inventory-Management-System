@@ -25,7 +25,7 @@ function SideNav() {
   const [isActive, setIsActive] = useState<string>(location.pathname);
 
   const [userProfile, setUserProfile] = useState<profile>({
-    username: 'nik',
+    username: 'username',
     role: 'admin'
   });
 

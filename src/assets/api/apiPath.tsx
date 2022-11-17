@@ -5,7 +5,11 @@ const api = {
   getUserProfile: '/auth/profile',
   getQueryAllUser: '/auth/queryalluser',
   removeUser: '/auth/deleteuser/',
-  IP: 'http://10.8.0.11:8080'
+  addNewGold: '/inventory/newgold',
+  addQueryGold: '/inventory/findgolddetailbydetail/',
+  getAllGoldDetail: '/inventory/getallgolddetail',
+  getAllGoldDetailJoinInventory: '/inventory/getalldetailjoininventory',
+  IP: 'http://10.8.0.3:8080'
 };
 
 export default api;

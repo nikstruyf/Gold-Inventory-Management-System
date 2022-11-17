@@ -66,6 +66,7 @@ function RegisterContainer() {
         </div>
         {/* -- Container Form -- */}
         <div className="register-form">
+          {/* Input */}
           <input
             type="text"
             placeholder="Account Username"
@@ -84,6 +85,7 @@ function RegisterContainer() {
             value={confirmUserPasswd}
             onChange={(e) => setComfirmUserPasswd(e.target.value)}
           />
+          {/* Matching Password Message */}
           <div
             className={`
               input-password-match
@@ -92,10 +94,10 @@ function RegisterContainer() {
           >
             password dose not match
           </div>
-          <label htmlFor="account-type">
-            select role
+          {/* Select */}
+          <div className="select-accuont-type">
+            <span>select role</span>
             <select
-              id="account-type"
               value={userType}
               onChange={(e) => setUserType(e.target.value)}
             >
@@ -104,15 +106,13 @@ function RegisterContainer() {
               <option value="owner">owner</option>
               <option value="employee">employee</option>
             </select>
-          </label>
-          <div
-            className={`
-              input-fillall
-              ${fillAll ? '' : 'invalid'}
-            `}
-          >
+            <span className="custom-arrow" />
+          </div>
+          {/* Fill All Input Message */}
+          <div className={`input-fillall ${fillAll ? '' : 'invalid'}`}>
             please fill all
           </div>
+          {/* Button */}
           <button
             className="button-signup"
             type="button"
