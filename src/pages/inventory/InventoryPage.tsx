@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './inventorypage.css';
-import Table from '../../components/table/Table';
+
+import AddIcon from '@mui/icons-material/Add';
 
 function InventoryPage() {
   return (
@@ -30,10 +32,19 @@ function InventoryPage() {
               <span>werehouse</span>
             </label>
           </div>
+          <div>
+            <Link
+              to="/inventory/addgoods"
+              className="go-to-add-goods"
+            >
+              <AddIcon />
+              <div>add</div>
+            </Link>
+          </div>
         </div>
         {/* -- Page Table -- */}
         <div className="inventory-page-table">
-          <Table />
+          table
         </div>
       </div>
     </div>

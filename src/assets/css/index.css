@@ -2,6 +2,8 @@
     --main-bg: #ffffff;
     --second-bg: #F6F6F6;
 
+    --red-bg: #ffd9d9;
+
     --main-color-red: #B93030;
     --second-color-red: #831818;
     --third-color-red: #dc6969;
@@ -15,6 +17,7 @@
     --main-font-black: #000;
     --main-font-grey: #555;
     --second-font-grey: #bbbbbb;
+    --main-font-white: #ffffff;
 
     --sidenav-width: 200px;
     --sidenav-short-width: 60px;

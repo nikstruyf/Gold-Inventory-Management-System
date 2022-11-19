@@ -9,7 +9,7 @@ export async function AddNewGold(
   goldPercent: number,
   goldDmithFee: number,
   picture: any,
-  otherDetail: string,
+  note: string,
   quantity: number,
   token: string
 ) {
@@ -22,7 +22,7 @@ export async function AddNewGold(
     gold_percent: goldPercent,
     gold_smith_fee: goldDmithFee,
     picture,
-    other_detail: otherDetail,
+    note,
     quantity
   }, {
     headers: {
@@ -36,32 +36,53 @@ export async function AddNewGold(
   return res;
 }
 
-export async function AddQueryGold(
+export async function FindQueryGold(
   code: string,
   type: string,
   detail: string,
   weight: number,
   goldPercent: number,
-  goldDmithFee: number,
-  otherDetail: string,
+  goldSmithFee: number,
   token: string
 ) {
   let res: any = [];
-  await axios.post(`${api.IP}${api.addQueryGold}`, {
+  await axios.post(`${api.IP}${api.findQueryGold}`, {
     code,
     type,
     detail,
     weight,
     gold_percent: goldPercent,
-    gold_smith_fee: goldDmithFee,
-    otherDetail,
+    gold_smith_fee: goldSmithFee,
   }, {
     headers: {
       Authorization: `Bearer ${token}`
     },
   }).then((result) => {
     if (result.status === 200) {
-      res = result.data;
+      res = result.data.data;
+    }
+  });
+  return res;
+}
+
+export async function AddQueryGold(
+  goldDetailId: number,
+  note: string,
+  quantity: number,
+  token: string
+) {
+  let res = 'incomplete';
+  await axios.post(`${api.IP}${api.addQueryGold}`, {
+    gold_detail_id: goldDetailId,
+    quantity,
+    note
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  }).then((result) => {
+    if (result.status === 200) {
+      res = 'complete';
     }
   });
   return res;
