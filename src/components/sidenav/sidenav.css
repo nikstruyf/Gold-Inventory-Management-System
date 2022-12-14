@@ -109,7 +109,7 @@
     text-transform: capitalize;
     z-index: 92;
     pointer-events: auto;
-    transition: all 0.35 ease-in-out;
+    transition: all 0.5 ease-in-out;
     transform: translateX(0);
 }
 

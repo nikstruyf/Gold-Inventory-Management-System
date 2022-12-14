@@ -18,3 +18,12 @@ export async function GetQueryAllUser(token: string) {
   });
   return queryAllUser.data;
 }
+
+export async function GetAllGoldDetailJoinInventory(token: string) {
+  const allGoldDetail = await axios.get(`${api.IP}${api.getAllGoldDetailJoinInventory}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  });
+  return allGoldDetail.data;
+}

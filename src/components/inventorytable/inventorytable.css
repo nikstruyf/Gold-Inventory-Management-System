@@ -1,0 +1,173 @@
+.table-main {
+    display: flex;
+    width: 100%;
+}
+
+.table-main table {
+    width: 100%;
+}
+
+.table-main thead {
+    background-color: var(--main-bg);
+    color: var(--main-color-red);
+    height: 100px;
+    text-transform: capitalize;
+}
+
+.table-main table, th, td {
+    border-collapse: collapse;
+}
+
+.table-main th, td {
+    border: solid 1px var(--second-color-grey);
+    padding: 0 7px;
+}
+
+.head-action {
+    width: 5%;
+}
+
+.head-picture {
+    width: 16%;
+}
+
+.head-code {
+    width: 10%;
+    max-width: 10%;
+}
+
+.head-quantity {
+    width: 5%;
+    max-width: 5%;
+}
+
+.head-type {
+    width: 8%;
+    max-width: 8%;
+}
+
+.head-detail {
+    width: auto;
+}
+
+.head-weight {
+    width: 8%;
+    max-width: 8%;
+}
+
+.head-goldpercent {
+    width: 8%;
+    max-width: 8%;
+}
+
+.head-goldsmithfee {
+    width: 8%;
+    max-width: 8%;
+}
+
+.head-datein {
+    width: 12%;
+    max-width: 12%;
+}
+
+.table-weight-unit {
+    border: solid 2px var(--main-color-red);
+    border-radius: 10px;
+    background-color: transparent;
+    color: var(--main-color-red);
+    font-weight: 600;
+    padding: 0 5px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.table-main-items {
+    height: 70px;
+}
+
+.table-main-items.even {
+    background-color: var(--second-bg);
+}
+
+.body-action {
+    text-align: center;
+}
+
+.body-action button {
+    border: none;
+    background-color: transparent;
+    color: var(--third-color-red);
+    cursor: pointer;
+    outline: none;
+}
+
+.body-action button:hover {
+    color: var(--main-color-red);
+}
+
+.body-quantity {
+    text-align: center;
+}
+
+.row-table-piece {
+    display: none;
+    transform: scaleY(0);
+    transition: transform 5s ease-in-out;
+}
+
+.row-table-piece.expand {
+    display: table-row;
+    transform: scaleY(1);
+}
+
+.body-table-piece {
+    padding: 10px;
+}
+
+.body-table-piece.even {
+    background-color: var(--second-bg);
+}
+
+.table-piece {
+    width: 100%;
+    border: 2px solid var(--second-color-grey);
+}
+
+.table-piece thead {
+    height: 60px;
+}
+
+.head-id {
+    width: 15%;
+    max-width: 15%;
+}
+
+.head-status {
+    width: 8%;
+    max-width: 8%;
+}
+
+.head-datein {
+    width: 15%;
+    max-width: 15%;
+}
+
+.head-note {
+    width: auto;
+}
+
+.table-piece-items {
+    height: 60px;
+}
+
+.table-piece-items:nth-child(odd) {
+    background-color: var(--second-bg);
+}
+
+.table-piece-items:nth-child(even) {
+    background-color: var(--main-bg);
+}
+
+.body-status {
+    text-align: center;
+}

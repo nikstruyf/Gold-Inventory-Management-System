@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import './formaddquerygold.css';
 
@@ -18,6 +19,7 @@ interface goldDetail {
 }
 
 export default function FormAddQueryGold() {
+  const navigate = useNavigate();
   const [cookies] = useCookies(['access-token']);
 
   const [queryState, setQueryState] = useState<number>(0);
@@ -38,7 +40,6 @@ export default function FormAddQueryGold() {
   const [unit, setWeightUnit] = useState<string>('gram');
 
   const [focus, isFocus] = useState<number>(0);
-  const [fillAll, setFillAll] = useState<boolean>(true);
 
   function CheckFillAll() {
     if (code === ''
@@ -49,10 +50,16 @@ export default function FormAddQueryGold() {
       || goldSmithFee === 0
       || quantity === 0
     ) {
-      setFillAll(false);
-    } else {
-      setFillAll(true);
+      return false;
     }
+    return true;
+  }
+
+  function CheckWeight() {
+    if (unit === 'baht') {
+      return ConvertWeight(weight, unit);
+    }
+    return weight;
   }
 
   const query = async (e: any) => {
@@ -65,7 +72,7 @@ export default function FormAddQueryGold() {
       code,
       type,
       detail,
-      weight,
+      CheckWeight(),
       goldPercent,
       goldSmithFee,
       cookies['access-token']
@@ -93,8 +100,7 @@ export default function FormAddQueryGold() {
 
   const save = async (e: any) => {
     e.preventDefault();
-    CheckFillAll();
-    if (fillAll) {
+    if (CheckFillAll()) {
       const addQueryResult = await AddQueryGold(
         goldDetailId,
         note,
@@ -103,6 +109,7 @@ export default function FormAddQueryGold() {
       );
       if (addQueryResult === 'complete') {
         alert('yes');
+        navigate('/inventory');
       }
     }
   };
@@ -228,7 +235,10 @@ export default function FormAddQueryGold() {
                 ${queryState === 1 ? 'active' : ''}
               `}
         >
-          {/* <GoldCard /> */}
+          <div className="result-count">
+            result:
+            {queryResultData === null ? ' 0' : ` ${queryResultData?.length}`}
+          </div>
           <table className="query-result-table">
             <thead>
               <tr className="table-header">
@@ -243,7 +253,7 @@ export default function FormAddQueryGold() {
             </thead>
             <tbody>
               {
-                queryResultData.map((data) => (
+                queryResultData?.map((data) => (
                   <tr
                     className={`table-body ${focus === data.gold_detail_id ? 'highlight' : ''}`}
                     onClick={() => {
@@ -294,12 +304,12 @@ export default function FormAddQueryGold() {
             className="inputbox input-quantity"
             onChange={(e) => { setQuantity(e.target.valueAsNumber); }}
           />
-          <div className={`important-mark ${fillAll || quantity !== 0 ? '' : 'show'}`}>
+          <div className={`important-mark ${CheckFillAll() || quantity !== 0 ? '' : 'show'}`}>
             *
           </div>
         </div>
         {/* Fill All Message */}
-        <div className={`label invalid-fillall-message ${fillAll || quantity !== 0 ? '' : 'show'}`}>
+        <div className={`label invalid-fillall-message ${CheckFillAll() || quantity !== 0 ? '' : 'show'}`}>
           <span />
           plaese fill quantity
         </div>

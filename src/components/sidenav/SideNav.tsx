@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -71,7 +71,7 @@ function SideNav() {
       >
         {
           isWide
-            ? <MenuOpenIcon sx={{ fontSize: 40 }} />
+            ? <KeyboardDoubleArrowLeftIcon sx={{ fontSize: 40 }} />
             : <MenuIcon sx={{ fontSize: 40 }} />
         }
       </div>

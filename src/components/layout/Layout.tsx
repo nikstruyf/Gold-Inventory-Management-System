@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './layout.css';
 import { Outlet } from 'react-router-dom';
 
+import LinearProgress from '@mui/material/LinearProgress';
+
 // import { AuthUserProvider } from '../../contexts/AuthUserContex';
+import { LoadingProvider } from '../../contexts/LoadingContext';
 
 import SideNav from '../sidenav/SideNav';
 import BottomNav from '../bottomnav/BottomNav';
@@ -33,13 +36,18 @@ function Layout() {
             ? <SideNav />
             : <BottomNav />
         }
-      <div className={`
+      <LoadingProvider>
+        <div className={`
           layout-content
           ${wide === 'short' ? '' : 'expand-sidenav'}
         `}
-      >
-        <Outlet />
-      </div>
+        >
+          <div className="loading">
+            <LinearProgress color="inherit" sx={{ width: '100%' }} />
+          </div>
+          <Outlet />
+        </div>
+      </LoadingProvider>
     </div>
   // </AuthUserProvider>
   );

@@ -1,6 +1,6 @@
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-// import AssessmentIcon from '@mui/icons-material/Assessment';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 // import BadgeIcon from '@mui/icons-material/Badge';
 import GroupsIcon from '@mui/icons-material/Groups';
 
@@ -15,11 +15,11 @@ const AdminMenu = [
     name: 'transaction',
     path: '/transaction'
   },
-  // {
-  //   icon: AssessmentIcon,
-  //   name: 'report',
-  //   path: '/report'
-  // },
+  {
+    icon: AssessmentIcon,
+    name: 'report',
+    path: '/report'
+  },
   {
     icon: GroupsIcon,
     name: 'organization',
@@ -38,11 +38,11 @@ const OwnerMenu = [
     name: 'transaction',
     path: '/transaction'
   },
-  // {
-  //   icon: AssessmentIcon,
-  //   name: 'report',
-  //   path: '/report'
-  // },
+  {
+    icon: AssessmentIcon,
+    name: 'report',
+    path: '/report'
+  },
   // {
   //   icon: BadgeIcon,
   //   name: 'employee',

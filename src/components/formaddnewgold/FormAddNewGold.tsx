@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './formaddnewgold.css';
+import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import ImageIcon from '@mui/icons-material/Image';
 
@@ -7,6 +8,7 @@ import { AddNewGold } from '../../functions/AddGold';
 import ConvertWeight from '../../functions/ConvertWeight';
 
 export default function FormAddNewGold() {
+  const navigate = useNavigate();
   const [cookies] = useCookies(['access-token']);
 
   const [code, setCode] = useState<string>('');
@@ -23,8 +25,6 @@ export default function FormAddNewGold() {
   const [previewPic, setPreviewPic] = useState<string>();
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  const [fillAll, setFillAll] = useState<boolean>(true);
-
   function CheckFillAll() {
     if (code === ''
       || type === ''
@@ -35,24 +35,26 @@ export default function FormAddNewGold() {
       // || !picture
       || quantity === 0
     ) {
-      setFillAll(false);
-    } else {
-      setFillAll(true);
+      return false;
     }
+    return true;
+  }
+
+  function CheckWeight() {
+    if (unit === 'baht') {
+      return ConvertWeight(weight, unit);
+    }
+    return weight;
   }
 
   const save = async (e: any) => {
     e.preventDefault();
-    CheckFillAll();
-    if (unit === 'baht') {
-      setWeight(ConvertWeight(weight, unit));
-    }
-    if (fillAll) {
+    if (CheckFillAll()) {
       const addResult = await AddNewGold(
         code,
         type,
         detail,
-        weight,
+        CheckWeight(),
         goldPercent,
         goldSmithFee,
         // picture,
@@ -63,6 +65,7 @@ export default function FormAddNewGold() {
       );
       if (addResult === 'complete') {
         alert('yes');
+        navigate('/inventory');
       }
     }
   };
@@ -108,7 +111,7 @@ export default function FormAddNewGold() {
             className="inputbox input-code"
             onChange={(e) => { setCode(e.target.value); }}
           />
-          <div className={`important-mark ${fillAll || code !== '' ? '' : 'show'}`}>
+          <div className={`important-mark ${CheckFillAll() || code !== '' ? '' : 'show'}`}>
             *
           </div>
         </div>
@@ -129,7 +132,7 @@ export default function FormAddNewGold() {
             </select>
             <span className="custom-arrow" />
           </div>
-          <div className={`important-mark ${fillAll || type !== '' ? '' : 'show'}`}>
+          <div className={`important-mark ${CheckFillAll() || type !== '' ? '' : 'show'}`}>
             *
           </div>
         </div>
@@ -141,7 +144,7 @@ export default function FormAddNewGold() {
             className="inputbox input-detail"
             onChange={(e) => { setDetail(e.target.value); }}
           />
-          <div className={`important-mark ${fillAll || detail !== '' ? '' : 'show'}`}>
+          <div className={`important-mark ${CheckFillAll() || detail !== '' ? '' : 'show'}`}>
             *
           </div>
         </div>
@@ -166,7 +169,7 @@ export default function FormAddNewGold() {
               <span className="custom-arrow" />
             </div>
           </div>
-          <div className={`important-mark ${fillAll || weight !== 0 ? '' : 'show'}`}>
+          <div className={`important-mark ${CheckFillAll() || weight !== 0 ? '' : 'show'}`}>
             *
           </div>
         </div>
@@ -179,7 +182,7 @@ export default function FormAddNewGold() {
             className="inputbox input-goldPercent"
             onChange={(e) => { setGoldPercent(e.target.valueAsNumber); }}
           />
-          <div className={`important-mark ${fillAll || goldPercent !== 0 ? '' : 'show'}`}>
+          <div className={`important-mark ${CheckFillAll() || goldPercent !== 0 ? '' : 'show'}`}>
             *
           </div>
         </div>
@@ -192,7 +195,7 @@ export default function FormAddNewGold() {
             className="inputbox input-goldSmithFee"
             onChange={(e) => { setGoldSmithFee(e.target.valueAsNumber); }}
           />
-          <div className={`important-mark ${fillAll || goldSmithFee !== 0 ? '' : 'show'}`}>
+          <div className={`important-mark ${CheckFillAll() || goldSmithFee !== 0 ? '' : 'show'}`}>
             *
           </div>
         </div>
@@ -231,7 +234,7 @@ export default function FormAddNewGold() {
               }
             }}
           />
-          <div className={`important-mark ${fillAll || picture ? '' : 'show'}`}>
+          <div className={`important-mark ${CheckFillAll() || picture ? '' : 'show'}`}>
             *
           </div>
         </div>
@@ -252,12 +255,12 @@ export default function FormAddNewGold() {
             className="inputbox input-quantity"
             onChange={(e) => { setQuantity(e.target.valueAsNumber); }}
           />
-          <div className={`important-mark ${fillAll || quantity !== 0 ? '' : 'show'}`}>
+          <div className={`important-mark ${CheckFillAll() || quantity !== 0 ? '' : 'show'}`}>
             *
           </div>
         </div>
         {/* Fill All Message */}
-        <div className={`label invalid-fillall-message ${fillAll ? '' : 'show'}`}>
+        <div className={`label invalid-fillall-message ${CheckFillAll() ? '' : 'show'}`}>
           <span />
           plaese fill all details
         </div>

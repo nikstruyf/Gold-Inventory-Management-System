@@ -8,12 +8,13 @@
 
 .inventory-page-header {
     display: flex;
+    justify-content: space-between;
     box-sizing: border-box;
     padding-top: 10px;
     padding-left: 30px;
     font-size: 30px;
     font-weight: 600;
-    width: 90%;
+    width: 100%;
     height: 50px;
     text-transform: capitalize;
     text-align: center;
@@ -38,8 +39,9 @@
     background-color: var(--main-bg);
     border-radius: 5px;
     box-shadow: var(--container-shadow);
-    padding: 0.8em;
+    padding: 8px;
     margin-bottom: 2vh;
+    z-index: 89;
 }
 
 .option-radio {
@@ -54,7 +56,7 @@
     text-transform: capitalize;
     font-weight: 600;
     color: var(--second-font-grey);
-    margin: 0 1em;
+    margin: 0 10px;
     padding-left: 22px;
     transition: all 0.3s;
 }
@@ -84,30 +86,66 @@
     border: solid 1px var(--main-color-red);
 }
 
+.option-input {
+    display: flex;
+    column-gap: 15px;
+}
+
+.option-input-search {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.option-input-search input {
+    padding: 5px;
+    border: 1.5px solid var(--second-font-grey);
+    border-radius: 3px;
+    outline: none;
+    height: 20px;
+    font-size: 14px;
+}
+
+.option-input-search button {
+    border: 2px solid var(--main-color-red);
+    border-radius: 5px;
+    background-color: var(--main-bg);
+    color: var(--main-color-red);
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: capitalize;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.option-input-search button:hover {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+}
+
+.option-vertical-line {
+    border-left: 2px solid var(--second-font-grey);
+    height: auto;
+}
+
 .go-to-add-goods {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: var(--main-bg);
-    border: 2px solid var(--second-font-grey);
-    border-radius: 10px;
+    background-color: var(--main-color-red);
+    border: 2px solid var(--main-color-red);
+    border-radius: 5px;
     padding: 0 10px 0 5px;
-    color: var(--second-font-grey);
+    color: var(--main-font-white);
     text-decoration: none;
     text-transform: capitalize;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.go-to-add-goods:hover {
-    color: var(--main-color-red);
-    border-color: var(--main-color-red);
+    font-size: 16px;
 }
 
 .go-to-add-goods:active {
     transform: translateY(2px);
-    background-color: var(--main-color-red);
-    color: var(--main-font-white);
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
 }
 
 .inventory-page-table {
@@ -118,5 +156,5 @@
     background-color: var(--main-bg);
     border-radius: 5px;
     box-shadow: var(--container-shadow);
-    padding: 0.5em;
+    overflow: hidden;
 }

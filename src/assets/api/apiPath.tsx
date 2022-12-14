@@ -10,7 +10,7 @@ const api = {
   addQueryGold: '/inventory/addgold',
   getAllGoldDetail: '/inventory/getallgolddetail',
   getAllGoldDetailJoinInventory: '/inventory/getalldetailjoininventory',
-  IP: 'http://10.8.0.6:8080'
+  IP: 'http://10.8.0.4:8080'
 };
 
 export default api;

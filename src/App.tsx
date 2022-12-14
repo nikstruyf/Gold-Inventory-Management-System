@@ -7,6 +7,7 @@ import Layout from './components/layout/Layout';
 import InventoryPage from './pages/inventory/InventoryPage';
 import AddGoodsPage from './pages/addgoodspage/AddGoodsPage';
 import TransactionPage from './pages/transaction/TransactionPage';
+import ReportPage from './pages/reportpage/ReportPage';
 import OrganizationPage from './pages/organizationpage/OrganizationPage';
 import ShowAllUser from './components/showusercard/ShowAllUser';
 import RegisterContainer from './components/registercontainer/RegisterContainer';
@@ -22,6 +23,7 @@ function App() {
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/inventory/addgoods" element={<AddGoodsPage />} />
           <Route path="/transaction/" element={<TransactionPage />} />
+          <Route path="/report" element={<ReportPage />} />
           <Route element={<OrganizationPage />}>
             <Route path="/organization" element={<ShowAllUser />} />
             <Route path="/organization/register" element={<RegisterContainer />} />

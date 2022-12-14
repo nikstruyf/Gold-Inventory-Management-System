@@ -29,6 +29,10 @@
     --card-shadow-red: 0 0 10px #ffcdcd;
 }
 
-body {
+*, html, body { 
+    scroll-behavior: smooth !important;
+}
+
+body, button, input {
     font-family: 'Prompt', sans-serif;
 }

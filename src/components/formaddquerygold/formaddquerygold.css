@@ -18,12 +18,23 @@
 
 .query-result-container.active {
     display: flex;
+    flex-direction: column;
+}
+
+.result-count {
+    padding-left: 10px;
+    text-transform: capitalize;
+    font-size: 16px;
 }
 
 .query-result-table {
     width: 100%;
-    border: 0 solid black;
     border-radius: 10px;
+    overflow: hidden;
+}
+
+table, th, td {
+    border-collapse: collapse;
 }
 
 .query-result-table .table-header {
@@ -32,7 +43,7 @@
 }
 
 .query-result-table .table-header th {
-    padding: 10px 0;
+    padding: 10px;
 }
 
 .table-header-picture {
