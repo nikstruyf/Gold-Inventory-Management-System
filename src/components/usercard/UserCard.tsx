@@ -5,6 +5,8 @@ import { useCookies } from 'react-cookie';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import BadgeIcon from '@mui/icons-material/Badge';
 
+import { useLoading } from '../../contexts/LoadingContext';
+
 import RemoveUser from '../../functions/RemoveUser';
 
 function UserCard(props: {username: any, role: any}) {
@@ -12,8 +14,12 @@ function UserCard(props: {username: any, role: any}) {
 
   const [cookies] = useCookies(['access-token']);
 
+  const { setLoading } = useLoading();
+
   async function removeUser(user: string, token: string) {
+    setLoading(true);
     await RemoveUser(user, token);
+    setLoading(false);
     window.location.reload();
   }
 

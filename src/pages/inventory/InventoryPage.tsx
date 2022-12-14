@@ -6,7 +6,6 @@ import './inventorypage.css';
 import AddIcon from '@mui/icons-material/Add';
 
 import InventoryTable from '../../components/inventorytable/InventoryTable';
-import ScrollToTopButton from '../../components/scrolltotopbutton/ScrollToTopButton';
 
 import { GetAllGoldDetailJoinInventory } from '../../functions/GetData';
 
@@ -94,8 +93,6 @@ function InventoryPage() {
         <div className="inventory-page-table">
           <InventoryTable goldData={allGoldDetail} status={filterStatus} />
         </div>
-        {/* -- Back to Top -- */}
-        <ScrollToTopButton />
       </div>
     </div>
   );

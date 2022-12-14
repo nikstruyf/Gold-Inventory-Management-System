@@ -13,7 +13,6 @@ export async function AddNewGold(
   quantity: number,
   token: string
 ) {
-  console.log(`ear ${weight}`);
   let res = 'incomplete';
   await axios.post(`${api.IP}${api.addNewGold}`, {
     code,

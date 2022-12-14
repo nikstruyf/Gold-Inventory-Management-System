@@ -3,12 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import './signinpage.css';
 import { useCookies } from 'react-cookie';
 
+import { useLoading } from '../../contexts/LoadingContext';
+
 import SigninClick from '../../functions/Signin';
 
 function SignInPage() {
   const navigate = useNavigate();
 
   const [, setCookie] = useCookies(['access-token']);
+
+  const { setLoading } = useLoading();
 
   const [userID, setUserID] = useState<string>('');
   const [userPasswd, setUserPasswd] = useState<string>('');
@@ -17,6 +21,7 @@ function SignInPage() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     const signin = await SigninClick(userID, userPasswd);
     if (signin.res) {
       setShowInvalid(false);
@@ -25,6 +30,7 @@ function SignInPage() {
     } else {
       setShowInvalid(true);
     }
+    setLoading(false);
   };
 
   return (

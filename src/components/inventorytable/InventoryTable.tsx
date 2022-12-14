@@ -87,11 +87,10 @@ export default function InventoryTable(props: { goldData: GoldDetailDataType[], 
         <tbody>
           {
             goldInventoryData?.map((detailData: GoldDetailDataType, index: number) => (
-              <>
+              <React.Fragment key={detailData.gold_detail_id}>
                 {/* Row By Type Detail */}
                 <tr
                   className={`table-main-items ${index % 2 !== 0 ? 'odd' : 'even'}`}
-                  key={detailData.gold_detail_id}
                 >
                   <td className="body-action">
                     <button
@@ -181,7 +180,7 @@ export default function InventoryTable(props: { goldData: GoldDetailDataType[], 
                     </table>
                   </td>
                 </tr>
-              </>
+              </React.Fragment>
             ))
           }
         </tbody>

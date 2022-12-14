@@ -26,4 +26,9 @@
     top: 0;
     color: var(--third-color-red);
     width: 100%;
+    display: none;
+}
+
+.loading.active {
+    display: block;
 }

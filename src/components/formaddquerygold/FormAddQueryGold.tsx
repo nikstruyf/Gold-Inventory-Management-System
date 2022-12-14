@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import './formaddquerygold.css';
 
+import { useLoading } from '../../contexts/LoadingContext';
+
 import { FindQueryGold, AddQueryGold } from '../../functions/AddGold';
 import ConvertWeight from '../../functions/ConvertWeight';
 
@@ -21,6 +23,8 @@ interface goldDetail {
 export default function FormAddQueryGold() {
   const navigate = useNavigate();
   const [cookies] = useCookies(['access-token']);
+
+  const { setLoading } = useLoading();
 
   const [queryState, setQueryState] = useState<number>(0);
   const queryResultRef = useRef<null | HTMLDivElement>(null);
@@ -65,6 +69,7 @@ export default function FormAddQueryGold() {
   const query = async (e: any) => {
     e.preventDefault();
     setQueryState(1);
+    setLoading(true);
     if (unit === 'baht') {
       setWeight(ConvertWeight(weight, unit));
     }
@@ -78,6 +83,7 @@ export default function FormAddQueryGold() {
       cookies['access-token']
     );
     setQueryResultData(queryResult);
+    setLoading(false);
     queryResultRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -85,6 +91,7 @@ export default function FormAddQueryGold() {
     GoldDetailId: number,
     Code: string,
     Type: string,
+    Detail: string,
     Weight: number,
     GoldPercent: number,
     GoldSmithFee: number,
@@ -92,6 +99,7 @@ export default function FormAddQueryGold() {
     setGoldDetailId(GoldDetailId);
     setCode(Code);
     setType(Type);
+    setDetail(Detail);
     setWeight(Weight);
     setGoldPercent(GoldPercent);
     setGoldSmithFee(GoldSmithFee);
@@ -100,7 +108,10 @@ export default function FormAddQueryGold() {
 
   const save = async (e: any) => {
     e.preventDefault();
+    console.log(code, type, detail, weight, goldPercent, goldSmithFee, quantity, CheckFillAll());
     if (CheckFillAll()) {
+      setLoading(true);
+      console.log('pass');
       const addQueryResult = await AddQueryGold(
         goldDetailId,
         note,
@@ -108,9 +119,9 @@ export default function FormAddQueryGold() {
         cookies['access-token']
       );
       if (addQueryResult === 'complete') {
-        alert('yes');
         navigate('/inventory');
       }
+      setLoading(false);
     }
   };
 
@@ -261,6 +272,7 @@ export default function FormAddQueryGold() {
                         data.gold_detail_id,
                         data.code,
                         data.type,
+                        data.detail,
                         data.weight,
                         data.gold_percent,
                         data.gold_smith_fee,

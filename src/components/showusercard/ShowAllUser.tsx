@@ -44,13 +44,15 @@ function ShowAllUser() {
       </div>
       <div className="organization-alluser-view">
         {
-                userData?.map((item) => (
-                  <UserCard
-                    username={item.username}
-                    role={item.role}
-                    key={item.username}
-                  />
-                ))
+                userData
+                  ?.sort((c: userDataType) => (c.role === 'owner' ? -1 : 1))
+                  .map((item: userDataType) => (
+                    <UserCard
+                      username={item.username}
+                      role={item.role}
+                      key={item.username}
+                    />
+                  ))
             }
       </div>
     </div>

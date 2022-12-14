@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import { LoadingProvider } from './contexts/LoadingContext';
+
 import HomePage from './pages/homepage/HomePage';
 import SignInPage from './pages/signin/SignInPage';
 import Layout from './components/layout/Layout';
@@ -15,23 +17,25 @@ import EmployeePage from './pages/employeepage/EmployeePage';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signin" element={<SignInPage />} />
-        <Route element={<Layout />}>
-          <Route path="/inventory" element={<InventoryPage />} />
-          <Route path="/inventory/addgoods" element={<AddGoodsPage />} />
-          <Route path="/transaction/" element={<TransactionPage />} />
-          <Route path="/report" element={<ReportPage />} />
-          <Route element={<OrganizationPage />}>
-            <Route path="/organization" element={<ShowAllUser />} />
-            <Route path="/organization/register" element={<RegisterContainer />} />
+    <LoadingProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route element={<Layout />}>
+            <Route path="/inventory" element={<InventoryPage />} />
+            <Route path="/inventory/addgoods" element={<AddGoodsPage />} />
+            <Route path="/transaction/" element={<TransactionPage />} />
+            <Route path="/report" element={<ReportPage />} />
+            <Route element={<OrganizationPage />}>
+              <Route path="/organization" element={<ShowAllUser />} />
+              <Route path="/organization/register" element={<RegisterContainer />} />
+            </Route>
+            <Route path="/employee" element={<EmployeePage />} />
           </Route>
-          <Route path="/employee" element={<EmployeePage />} />
-        </Route>
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </LoadingProvider>
   );
 }
 

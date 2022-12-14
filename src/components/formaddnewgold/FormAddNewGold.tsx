@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import './formaddnewgold.css';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+
 import ImageIcon from '@mui/icons-material/Image';
+
+import { useLoading } from '../../contexts/LoadingContext';
 
 import { AddNewGold } from '../../functions/AddGold';
 import ConvertWeight from '../../functions/ConvertWeight';
@@ -10,6 +13,8 @@ import ConvertWeight from '../../functions/ConvertWeight';
 export default function FormAddNewGold() {
   const navigate = useNavigate();
   const [cookies] = useCookies(['access-token']);
+
+  const { setLoading } = useLoading();
 
   const [code, setCode] = useState<string>('');
   const [type, setType] = useState<string>('');
@@ -50,6 +55,7 @@ export default function FormAddNewGold() {
   const save = async (e: any) => {
     e.preventDefault();
     if (CheckFillAll()) {
+      setLoading(true);
       const addResult = await AddNewGold(
         code,
         type,
@@ -64,9 +70,9 @@ export default function FormAddNewGold() {
         cookies['access-token']
       );
       if (addResult === 'complete') {
-        alert('yes');
         navigate('/inventory');
       }
+      setLoading(false);
     }
   };
 

@@ -6,10 +6,14 @@ import './registercontainer.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SignUpClick from '../../functions/SignUp';
 
+import { useLoading } from '../../contexts/LoadingContext';
+
 function RegisterContainer() {
   const navigate = useNavigate();
 
   const [cookies] = useCookies(['access-token']);
+
+  const { setLoading } = useLoading();
 
   const [username, setUsername] = useState<string>('');
   const [userPasswd, setUserPasswd] = useState<string>('');
@@ -28,6 +32,7 @@ function RegisterContainer() {
 
   async function handleSubmit() {
     if (checkPasswdMatch()) {
+      setLoading(true);
       const signup = await SignUpClick(cookies['access-token'], username, userPasswd, userType);
       if (signup === 'complete') {
         setFillAll(true);
@@ -41,6 +46,7 @@ function RegisterContainer() {
       } else if (signup === 'incomplete') {
         alert('incomplete to register!?');
       }
+      setLoading(false);
     }
   }
 
