@@ -17,6 +17,7 @@ function InventoryPage() {
   const [allGoldDetail, setAllGoldDetail] = useState<GoldDetailDataType[]>([]);
 
   const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [filterType, setFilterType] = useState<string>('all');
 
   useEffect(() => {
     GetAllGoldDetailJoinInventory(cookies['access-token']).then((res) => {
@@ -34,6 +35,7 @@ function InventoryPage() {
       <div className="page-container">
         {/* -- Page Option -- */}
         <div className="inventory-page-option">
+          {/* -- Status Filter -- */}
           <div className="option-radio">
             <label htmlFor="radio-all" className="radio-label">
               <input
@@ -67,7 +69,24 @@ function InventoryPage() {
               <span>werehouse</span>
             </label>
           </div>
+          {/* -- Input -- */}
           <div className="option-input">
+            {/* -- Type Filter -- */}
+            <div className="option-select-type">
+              <select
+                onChange={(e) => { setFilterType(e.target.value); }}
+              >
+                <option value="all">all</option>
+                <option value="Necklace">necklace</option>
+                <option value="Bracelet">bracelet</option>
+                <option value="Ring">ring</option>
+                <option value="Pendant">pendant</option>
+                <option value="Earring">earring</option>
+                <option value="Bangle">bangle</option>
+              </select>
+              <span className="custom-arrow" />
+            </div>
+            {/* -- Code Filter -- */}
             <div className="option-input-search">
               <input
                 type="text"
@@ -91,7 +110,11 @@ function InventoryPage() {
         </div>
         {/* -- Page Table -- */}
         <div className="inventory-page-table">
-          <InventoryTable goldData={allGoldDetail} status={filterStatus} />
+          <InventoryTable
+            goldData={allGoldDetail}
+            status={filterStatus}
+            type={filterType}
+          />
         </div>
       </div>
     </div>

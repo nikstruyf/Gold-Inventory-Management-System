@@ -91,6 +91,52 @@
     column-gap: 15px;
 }
 
+.option-select-type {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.option-select-type select {
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 1em;
+    width: 160px;
+    height: 33px;
+    border: solid 1.5px var(--second-font-grey);
+    border-radius: 4px;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+.option-select-type .custom-arrow {
+    display: block;
+    background-color: inherit;
+    border-radius: 0 4px 4px 0;
+    width: 2em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none
+}
+
+.option-select-type .custom-arrow::after {
+    --size: 0.4em;
+    border-left: var(--size) solid transparent;
+    border-right: var(--size) solid transparent;
+    border-top: var(--size) solid var(--main-color-grey);
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .option-input-search {
     display: flex;
     align-items: center;

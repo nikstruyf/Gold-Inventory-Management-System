@@ -9,8 +9,23 @@ import ConvertDateAndTimeForDisplay from '../../functions/ConvertDateAndTimeForD
 
 import { GoldDetailDataType, GoldInventoryDataType } from '../../interfaces/GoldData';
 
-export default function InventoryTable(props: { goldData: GoldDetailDataType[], status: string }) {
-  const { goldData, status }: { goldData: GoldDetailDataType[], status: string } = props;
+export default function InventoryTable(
+  props: {
+    goldData: GoldDetailDataType[],
+    status: string,
+    type: string
+  }
+) {
+  const {
+    goldData,
+    status,
+    type
+  }: {
+      goldData: GoldDetailDataType[],
+      status: string,
+      type: string
+    } = props;
+
   const [weightUnit, setWeightUnit] = useState<string>('gram');
 
   const [expand, setExpand] = useState<number>(0);
@@ -86,79 +101,85 @@ export default function InventoryTable(props: { goldData: GoldDetailDataType[], 
         {/* Table Body */}
         <tbody>
           {
-            goldInventoryData?.map((detailData: GoldDetailDataType, index: number) => (
-              <React.Fragment key={detailData.gold_detail_id}>
-                {/* Row By Type Detail */}
-                <tr
-                  className={`table-main-items ${index % 2 !== 0 ? 'odd' : 'even'}`}
-                >
-                  <td className="body-action">
-                    <button
-                      type="button"
-                      onClick={
+            goldInventoryData
+              ?.filter((el: GoldDetailDataType) => (
+                type === 'all'
+                  ? el
+                  : el.type === type
+              ))
+              .map((detailData: GoldDetailDataType, index: number) => (
+                <React.Fragment key={detailData.gold_detail_id}>
+                  {/* Row By Type Detail */}
+                  <tr
+                    className={`table-main-items ${index % 2 !== 0 ? 'odd' : 'even'}`}
+                  >
+                    <td className="body-action">
+                      <button
+                        type="button"
+                        onClick={
                         () => {
                           setExpand(
                             expand === detailData.gold_detail_id ? 0 : detailData.gold_detail_id
                           );
                         }
                       }
-                    >
-                      {
+                      >
+                        {
                         expand === detailData.gold_detail_id
                           ? <KeyboardArrowUpIcon sx={{ fontSize: 32 }} />
                           : <KeyboardArrowDownIcon sx={{ fontSize: 32 }} />
                       }
-                    </button>
-                  </td>
-                  <td className="body-picture">
-                    {detailData.picture}
-                  </td>
-                  <td className="body-code">
-                    {detailData.code}
-                  </td>
-                  <td className="body-quantity">
-                    {detailData.inventories?.length}
-                  </td>
-                  <td className="body-type">
-                    {detailData.type}
-                  </td>
-                  <td className="body-detail">
-                    {detailData.detail}
-                  </td>
-                  <td className="body-picture">
-                    {weightUnit === 'Baht' ? ConvertWeight(detailData.weight, 'gram') : detailData.weight}
-                  </td>
-                  <td className="body-picture">
-                    {detailData.gold_percent}
-                  </td>
-                  <td className="body-picture">
-                    {detailData.gold_smith_fee}
-                  </td>
-                </tr>
-                {/* Row By Piece Detail */}
-                <tr className={`row-table-piece ${expand === detailData.gold_detail_id ? 'expand' : ''}`}>
-                  <td colSpan={9} className={`body-table-piece ${index % 2 !== 0 ? 'odd' : 'even'}`}>
-                    <table className="table-piece">
-                      {/* Header Piece Detail */}
-                      <thead>
-                        <tr>
-                          <th className="head-id">
-                            id
-                          </th>
-                          <th className="head-status">
-                            status
-                          </th>
-                          <th className="head-datein">
-                            date in
-                          </th>
-                          <th className="head-note">
-                            note
-                          </th>
-                        </tr>
-                      </thead>
-                      {/* Body Piece Detail */}
-                      <tbody>
-                        {
+                      </button>
+                    </td>
+                    <td className="body-picture">
+                      {detailData.picture}
+                    </td>
+                    <td className="body-code">
+                      {detailData.code}
+                    </td>
+                    <td className="body-quantity">
+                      {detailData.inventories?.length}
+                    </td>
+                    <td className="body-type">
+                      {detailData.type}
+                    </td>
+                    <td className="body-detail">
+                      {detailData.detail}
+                    </td>
+                    <td className="body-picture">
+                      {weightUnit === 'Baht' ? ConvertWeight(detailData.weight, 'gram') : detailData.weight}
+                    </td>
+                    <td className="body-picture">
+                      {detailData.gold_percent}
+                    </td>
+                    <td className="body-picture">
+                      {detailData.gold_smith_fee}
+                    </td>
+                  </tr>
+                  {/* Row By Piece Detail */}
+                  <tr className={`row-table-piece ${expand === detailData.gold_detail_id ? 'expand' : ''}`}>
+                    <td colSpan={9} className={`body-table-piece ${index % 2 !== 0 ? 'odd' : 'even'}`}>
+                      <table className="table-piece">
+                        {/* Header Piece Detail */}
+                        <thead>
+                          <tr>
+                            <th className="head-id">
+                              id
+                            </th>
+                            <th className="head-status">
+                              status
+                            </th>
+                            <th className="head-datein">
+                              date in
+                            </th>
+                            <th className="head-note">
+                              note
+                            </th>
+                          </tr>
+                        </thead>
+                        {/* Body Piece Detail */}
+                        <tbody>
+                          {
                           detailData.inventories?.map((inventoryData: GoldInventoryDataType) => (
                             <tr className="table-piece-items" key={inventoryData.gold_inventory_id}>
                               <td className="body-id">
@@ -176,12 +197,12 @@ export default function InventoryTable(props: { goldData: GoldDetailDataType[], 
                             </tr>
                           ))
                         }
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </React.Fragment>
-            ))
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </React.Fragment>
+              ))
           }
         </tbody>
       </table>

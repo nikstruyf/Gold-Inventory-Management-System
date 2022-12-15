@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 import LinearProgress from '@mui/material/LinearProgress';
 
-import { AuthUserProvider } from '../../contexts/AuthUserContex';
+// import { AuthUserProvider } from '../../contexts/AuthUserContex';
 import { useLoading } from '../../contexts/LoadingContext';
 
 import SideNav from '../sidenav/SideNav';
@@ -31,7 +31,8 @@ function Layout() {
   }, [wide]);
 
   return (
-    <AuthUserProvider>
+    // <AuthUserProvider>
+    <>
       <div className={`loading ${loading ? 'active' : ''}`}>
         <LinearProgress color="inherit" sx={{ width: '100%' }} />
       </div>
@@ -51,7 +52,8 @@ function Layout() {
           <ScrollToTopButton />
         </div>
       </div>
-    </AuthUserProvider>
+    </>
+    // </AuthUserProvider>
   );
 }
 
