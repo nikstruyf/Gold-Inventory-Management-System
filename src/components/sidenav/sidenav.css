@@ -6,7 +6,7 @@
     height: 100vh;
     width: var(--sidenav-width);
     background-color: var(--main-color-red);
-    z-index: 90;
+    z-index: 98;
     transition: all 0.5s;
     font-family: 'Prompt', sans-serif;
 }
@@ -29,6 +29,7 @@
     cursor: pointer;
     transition: 0.5s ease-out;
     z-index: 92;
+    outline: none;
 }
 
 .sidenav-hamburg.short {

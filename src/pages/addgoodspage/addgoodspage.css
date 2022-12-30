@@ -1,15 +1,6 @@
-.addgoods-page-background {
-    display: flex;
-    background-color: var(--second-bg);
-    min-height: 100vh;
-}
-
-.addgood-page-main-container {
-    display: flex;
-    box-sizing: border-box;
+.addgood-page {
     flex-direction: column;
     width: 100%;
-    margin: 1%;
 }
 
 .page-select-form {

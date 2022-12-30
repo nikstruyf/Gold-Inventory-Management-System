@@ -10,7 +10,11 @@ const api = {
   addQueryGold: '/inventory/addgold',
   getAllGoldDetail: '/inventory/getallgolddetail',
   getAllGoldDetailJoinInventory: '/inventory/getalldetailjoininventory',
-  IP: 'http://10.8.0.10:8080'
+  getAllTransactionJoinGold: '/transaction/getalltransactionjoingold',
+  createBuyTransaction: '/transaction/newbuytransaction',
+  findQueryGoldByInventory: '/inventory/getgolddetailjoininventorybydetail',
+  createSellTransaction: '/transaction/newselltransaction',
+  IP: 'http://localhost:8080'
 };
 
 export default api;

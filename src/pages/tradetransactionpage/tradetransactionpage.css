@@ -1,0 +1,141 @@
+.trade-transaction.page-background {
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.trade-transaction.page-header {
+    justify-content: center;
+    padding-left: 0 !important;
+    margin-bottom: 10px;
+}
+
+.trade-transaction.page-container.query-state {
+    display: grid !important;
+    grid-template-columns: 30% auto;
+    gap: 10px;
+    height: 92vh;
+}
+
+.trade-transaction.page-content {
+    flex-direction: column;
+    padding: 20px;
+}
+
+.trade-transaction.page-content.query-input {
+    grid-column: 1;
+    grid-row: 1;
+    height: fit-content;
+}
+
+.trade-transaction .inputbox {
+    display: flex;
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    font-weight: 400;
+    outline: none;
+}
+
+.trade-transaction.select-type select {
+    width: 100%;
+}
+
+.trade-transaction .select-weightUnit select {
+    width: 100%;
+}
+
+.trade-transaction .select-weightUnit {
+    margin-top: 2px;
+}
+
+.trade-transaction.button-search {
+    background-color: var(--main-bg);
+    color: var(--main-color-red);
+    border: 2px solid var(--main-color-red);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: capitalize;
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    margin-top: 20px;
+    transition: 0.2s, transform 0s;
+}
+
+.trade-transaction.button-search:hover {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+}
+
+.trade-transaction.button-search:active {
+    transform: translateY(2px);
+}
+
+.trade-transaction.page-content.query-table {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+}
+
+.trade-transaction.page-content.query-select {
+    grid-column: 1;
+    grid-row: 2;
+    height: fit-content;
+}
+
+.select-result {
+    text-transform: capitalize;
+    font-size: 16px;
+}
+
+.trade-transaction.button-next {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+    border: 2px solid var(--main-color-red);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: capitalize;
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    margin-top: 20px;
+    transition: 0.2s, transform 0s;
+}
+
+.trade-transaction.button-next:hover {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
+}
+
+.trade-transaction.button-next:active {
+    transform: translateY(2px);
+}
+
+.trade-transaction.page-container.confirm-state {
+    align-items: center;
+    height: 100vh;
+}
+
+.trade-transaction.page-content.confirm-state {
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+.trade-transaction.item-select {
+    text-transform: capitalize;
+    margin: 5px 0;
+}
+
+.confirm-state .inputbox {
+    display: flex;
+    width: 450px;
+    min-width: 200px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: 400;
+    outline: none;
+}

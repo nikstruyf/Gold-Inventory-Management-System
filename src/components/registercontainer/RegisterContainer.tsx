@@ -65,9 +65,9 @@ function RegisterContainer() {
           <ArrowBackIcon />
         </button>
       </div>
-      <div className="register-main-container">
+      <div className="register-main page-content">
         {/* -- Container Header -- */}
-        <div className="register-header">
+        <div className="page-content-header">
           register owner/employee account
         </div>
         {/* -- Container Form -- */}

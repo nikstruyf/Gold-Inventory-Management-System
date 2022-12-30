@@ -7,18 +7,21 @@
     width: 100%;
 }
 
-.table-main thead {
+.inventory.table-main thead {
     background-color: var(--main-bg);
     color: var(--main-color-red);
     height: 100px;
     text-transform: capitalize;
 }
 
-.table-main table, th, td {
+.inventory.table-main table,
+.inventory.table-main th,
+.inventory.table-main td {
     border-collapse: collapse;
 }
 
-.table-main th, td {
+.inventory.table-main th,
+.inventory.table-main td {
     border: solid 1px var(--second-color-grey);
     padding: 0 7px;
 }
@@ -107,6 +110,12 @@
 
 .body-quantity {
     text-align: center;
+}
+
+.body-weight,
+.body-goldpercent,
+.body-goldsmithfee {
+    text-align: end;
 }
 
 .row-table-piece {

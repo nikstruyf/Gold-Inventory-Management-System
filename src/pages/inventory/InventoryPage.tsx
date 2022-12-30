@@ -18,6 +18,7 @@ function InventoryPage() {
 
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterType, setFilterType] = useState<string>('all');
+  const [filterCode, setFilterCode] = useState<string>('');
 
   useEffect(() => {
     GetAllGoldDetailJoinInventory(cookies['access-token']).then((res) => {
@@ -26,9 +27,9 @@ function InventoryPage() {
   }, []);
 
   return (
-    <div className="inventory-background">
+    <div className="inventory page-background">
       {/* -- Header -- */}
-      <div className="inventory-page-header">
+      <div className="page-header">
         inventory
       </div>
       {/* -- Container -- */}
@@ -71,6 +72,14 @@ function InventoryPage() {
           </div>
           {/* -- Input -- */}
           <div className="option-input">
+            {/* -- Code Filter -- */}
+            <div className="option-input-search">
+              <input
+                type="text"
+                placeholder="search..."
+                onChange={(e) => { setFilterCode(e.target.value); }}
+              />
+            </div>
             {/* -- Type Filter -- */}
             <div className="option-select-type">
               <select
@@ -86,19 +95,8 @@ function InventoryPage() {
               </select>
               <span className="custom-arrow" />
             </div>
-            {/* -- Code Filter -- */}
-            <div className="option-input-search">
-              <input
-                type="text"
-                placeholder="search..."
-              />
-              <button
-                type="button"
-              >
-                search
-              </button>
-            </div>
             <div className="option-vertical-line" />
+            {/* -- Add New Gold -- */}
             <Link
               to="/inventory/addgoods"
               className="go-to-add-goods"
@@ -109,11 +107,12 @@ function InventoryPage() {
           </div>
         </div>
         {/* -- Page Table -- */}
-        <div className="inventory-page-table">
+        <div className="inventory-table page-content">
           <InventoryTable
             goldData={allGoldDetail}
             status={filterStatus}
             type={filterType}
+            code={filterCode}
           />
         </div>
       </div>

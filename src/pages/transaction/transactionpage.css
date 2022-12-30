@@ -1,0 +1,73 @@
+.transaction.page-background {
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+.page-container {
+    flex-direction: column;
+}
+
+.transaction-page-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 10px;
+    box-sizing: border-box;
+    background-color: var(--main-bg);
+    border-radius: 5px;
+    box-shadow: var(--container-shadow);
+    padding: 8px;
+    margin-bottom: 2vh;
+    z-index: 89;
+}
+
+.option-daterange {
+    display: flex;
+    column-gap: 5px;
+}
+
+.create-transaction {
+    display: flex;
+    column-gap: 10px;
+}
+
+.go-to-create {
+    border: 2px solid var(--main-color-red);
+    border-radius: 5px;
+    color: var(--main-color-red);
+    background-color: var(--main-bg);
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 10px;
+}
+
+.go-to-create:hover {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+}
+
+.go-to-create:active {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
+    transform: translateY(2px);
+}
+
+.transaction-page-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: var(--main-bg);
+    border-radius: 5px;
+    box-shadow: var(--container-shadow);
+    overflow: hidden;
+}
+
+@media screen and (max-width: 1200px) {
+    .transaction-page-option {
+        flex-direction: column;
+    }
+}

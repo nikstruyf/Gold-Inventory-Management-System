@@ -38,14 +38,10 @@
 
 .inputbox {
     display: flex;
-    box-sizing: border-box;
     width: 400px;
     height: 35px;
-    border: solid 2px var(--main-color-grey);
-    border-radius: 4px;
     font-size: 15px;
     font-weight: 400;
-    padding: 0 10px;
     outline: none;
 }
 

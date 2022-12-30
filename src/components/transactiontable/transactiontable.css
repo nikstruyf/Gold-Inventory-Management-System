@@ -1,0 +1,64 @@
+.transaction.table-main {
+    border-collapse: collapse;
+}
+
+.transaction.table-main thead {
+    background-color: var(--main-bg);
+    color: var(--main-color-red);
+    text-transform: capitalize;
+}
+
+.transaction.table-main th,
+.transaction.table-main td {
+    padding: 5px 20px;
+}
+
+.transaction.table-main td {
+    padding: 0 20px;
+}
+
+.transaction .head-date {
+    width: 5%;
+}
+
+.transaction .head-code {
+    width: 10%;
+}
+
+.transaction .head-transtype {
+    width: 7%;
+}
+
+.transaction .head-note {
+    width: auto;
+    text-align: left;
+}
+
+.transaction .head-weight {
+    width: 5%;
+}
+
+.transaction .head-price {
+    width: 7%;
+}
+
+.transaction.row-body:hover {
+    cursor: pointer;
+    background-color: var(--second-color-grey);
+}
+
+.transaction.row-body td {
+    border: 0;
+    border-top: 1px solid var(--second-color-grey);
+}
+
+.body-date,
+.body-transtype {
+    text-align: center;
+}
+
+.transaction .body-weight,
+.body-price {
+    text-align: end;
+}
+

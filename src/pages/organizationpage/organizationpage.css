@@ -1,27 +1,10 @@
-.organization-background {
-    display: flex;
+.organization.page-background {
     flex-direction: column;
     box-sizing: border-box;
-    background-color: var(--second-bg);
-    min-height: 100vh;
     width: 100%;
     overflow-x: hidden;
+}
+
+.organization.page-container {
     padding: 10px;
-}
-
-.organization-page-header {
-    display: flex;
-    box-sizing: border-box;
-    padding-left: 20px;
-    font-size: 30px;
-    font-weight: 600;
-    width: 90%;
-    height: 50px;
-    text-transform: capitalize;
-    text-align: center;
-}
-
-.organization-page-content {
-    display: flex;
-    box-sizing: border-box;
 }

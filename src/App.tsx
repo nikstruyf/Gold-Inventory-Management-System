@@ -9,6 +9,9 @@ import Layout from './components/layout/Layout';
 import InventoryPage from './pages/inventory/InventoryPage';
 import AddGoodsPage from './pages/addgoodspage/AddGoodsPage';
 import TransactionPage from './pages/transaction/TransactionPage';
+import BuyTransactionPage from './pages/buytransactionpage/BuyTransactionPage';
+import SellTransactionPage from './pages/selltransactionpage/SellTransactionPage';
+import TradeTransactionPage from './pages/tradetransactionpage/TradeTransactionPage';
 import ReportPage from './pages/reportpage/ReportPage';
 import OrganizationPage from './pages/organizationpage/OrganizationPage';
 import ShowAllUser from './components/showusercard/ShowAllUser';
@@ -25,7 +28,10 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/inventory" element={<InventoryPage />} />
             <Route path="/inventory/addgoods" element={<AddGoodsPage />} />
-            <Route path="/transaction/" element={<TransactionPage />} />
+            <Route path="/transaction" element={<TransactionPage />} />
+            <Route path="/transaction/buy" element={<BuyTransactionPage />} />
+            <Route path="/transaction/sell" element={<SellTransactionPage />} />
+            <Route path="/transaction/trade" element={<TradeTransactionPage />} />
             <Route path="/report" element={<ReportPage />} />
             <Route element={<OrganizationPage />}>
               <Route path="/organization" element={<ShowAllUser />} />

@@ -6,19 +6,9 @@ import './formaddquerygold.css';
 import { useLoading } from '../../contexts/LoadingContext';
 
 import { FindQueryGold, AddQueryGold } from '../../functions/AddGold';
-import ConvertWeight from '../../functions/ConvertWeight';
+import { ConvertWeight, CheckWeight } from '../../functions/ConvertWeight';
 
-interface goldDetail {
-  gold_detail_id: number,
-  code: string,
-  type: string,
-  detail: string,
-  weight: number,
-  gold_percent: number,
-  gold_smith_fee: number,
-  picture: string,
-  status: string
-}
+import { GoldDetailByQuery } from '../../interfaces/GoldData';
 
 export default function FormAddQueryGold() {
   const navigate = useNavigate();
@@ -29,7 +19,7 @@ export default function FormAddQueryGold() {
   const [queryState, setQueryState] = useState<number>(0);
   const queryResultRef = useRef<null | HTMLDivElement>(null);
 
-  const [queryResultData, setQueryResultData] = useState<goldDetail[]>([]);
+  const [queryResultData, setQueryResultData] = useState<GoldDetailByQuery[]>([]);
 
   const [goldDetailId, setGoldDetailId] = useState<number>(0);
   const [code, setCode] = useState<string>('');
@@ -41,9 +31,12 @@ export default function FormAddQueryGold() {
   const [note, setNote] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(0);
 
-  const [unit, setWeightUnit] = useState<string>('gram');
+  const [unit, setUnit] = useState<string>('gram');
+  const [weightUnit, setWeightUnit] = useState<string>('gram');
 
   const [focus, isFocus] = useState<number>(0);
+
+  const [submit, isSubmit] = useState<boolean>(false);
 
   function CheckFillAll() {
     if (code === ''
@@ -59,11 +52,12 @@ export default function FormAddQueryGold() {
     return true;
   }
 
-  function CheckWeight() {
-    if (unit === 'baht') {
-      return ConvertWeight(weight, unit);
+  function ConvertWeightUnit() {
+    if (weightUnit === 'gram') {
+      setWeightUnit('Baht');
+    } else {
+      setWeightUnit('gram');
     }
-    return weight;
   }
 
   const query = async (e: any) => {
@@ -77,7 +71,7 @@ export default function FormAddQueryGold() {
       code,
       type,
       detail,
-      CheckWeight(),
+      CheckWeight(weight, unit),
       goldPercent,
       goldSmithFee,
       cookies['access-token']
@@ -108,7 +102,7 @@ export default function FormAddQueryGold() {
 
   const save = async (e: any) => {
     e.preventDefault();
-    console.log(code, type, detail, weight, goldPercent, goldSmithFee, quantity, CheckFillAll());
+    isSubmit(true);
     if (CheckFillAll()) {
       setLoading(true);
       console.log('pass');
@@ -160,7 +154,7 @@ export default function FormAddQueryGold() {
             <select
               onChange={(e) => { setType(e.target.value); }}
             >
-              <option value="" hidden>select . . .</option>
+              <option value="">all</option>
               <option value="Necklace">necklace</option>
               <option value="Bracelet">bracelet</option>
               <option value="Ring">ring</option>
@@ -193,7 +187,7 @@ export default function FormAddQueryGold() {
             <span>unit</span>
             <div className="select-weightUnit">
               <select
-                onChange={(e) => { setWeightUnit(e.target.value); }}
+                onChange={(e) => { setUnit(e.target.value); }}
               >
                 <option value="gram">gram</option>
                 <option value="baht">baht</option>
@@ -250,48 +244,66 @@ export default function FormAddQueryGold() {
             result:
             {queryResultData === null ? ' 0' : ` ${queryResultData?.length}`}
           </div>
-          <table className="query-result-table">
-            <thead>
-              <tr className="table-header">
-                <th className="table-header-picture">picture</th>
-                <th className="table-header-code">code</th>
-                <th className="table-header-type">type</th>
-                <th className="table-header-detail">detail</th>
-                <th className="table-header-weight">weight</th>
-                <th className="table-header-goldPercent">gold percent</th>
-                <th className="table-header-goldSmithFee">gold smith fee</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                queryResultData?.map((data) => (
-                  <tr
-                    className={`table-body ${focus === data.gold_detail_id ? 'highlight' : ''}`}
-                    onClick={() => {
-                      SelectQuery(
-                        data.gold_detail_id,
-                        data.code,
-                        data.type,
-                        data.detail,
-                        data.weight,
-                        data.gold_percent,
-                        data.gold_smith_fee,
-                      );
-                    }}
-                    key={data.gold_detail_id}
-                  >
-                    <td>this is picture</td>
-                    <td>{data.code}</td>
-                    <td>{data.type}</td>
-                    <td>{data.detail}</td>
-                    <td>{data.weight}</td>
-                    <td>{data.gold_percent}</td>
-                    <td>{data.gold_smith_fee}</td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+          {/* Query Table */}
+          <div className="query-result-table">
+            <table>
+              <thead>
+                <tr className="table-header">
+                  <th className="table-header-picture">picture</th>
+                  <th className="table-header-code">code</th>
+                  <th className="table-header-type">type</th>
+                  <th className="table-header-detail">detail</th>
+                  <th className="table-header-weight">
+                    weight
+                    <button
+                      className="add-query table-weight-unit"
+                      type="button"
+                      onClick={() => { ConvertWeightUnit(); }}
+                    >
+                      {weightUnit}
+                    </button>
+                  </th>
+                  <th className="table-header-goldPercent">gold percent</th>
+                  <th className="table-header-goldSmithFee">gold smith fee</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  queryResultData?.map((data) => (
+                    <tr
+                      className={`table-body ${focus === data.gold_detail_id ? 'highlight' : ''}`}
+                      onClick={() => {
+                        SelectQuery(
+                          data.gold_detail_id,
+                          data.code,
+                          data.type,
+                          data.detail,
+                          data.weight,
+                          data.gold_percent,
+                          data.gold_smith_fee,
+                        );
+                      }}
+                      key={data.gold_detail_id}
+                    >
+                      <td>this is picture</td>
+                      <td>{data.code}</td>
+                      <td>{data.type}</td>
+                      <td>{data.detail}</td>
+                      <td className="body-value">
+                        {
+                          weightUnit === 'Baht'
+                            ? ConvertWeight(data.weight, 'gram')
+                            : data.weight
+                        }
+                      </td>
+                      <td className="body-value">{data.gold_percent}</td>
+                      <td className="body-value">{data.gold_smith_fee}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       {/* Form Add By Query */}
@@ -321,7 +333,7 @@ export default function FormAddQueryGold() {
           </div>
         </div>
         {/* Fill All Message */}
-        <div className={`label invalid-fillall-message ${CheckFillAll() || quantity !== 0 ? '' : 'show'}`}>
+        <div className={`label invalid-fillall-message ${CheckFillAll() || !submit ? '' : 'show'}`}>
           <span />
           plaese fill quantity
         </div>

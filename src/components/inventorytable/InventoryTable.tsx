@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './inventorytable.css';
 
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-import ConvertWeight from '../../functions/ConvertWeight';
-import ConvertDateAndTimeForDisplay from '../../functions/ConvertDateAndTimeForDisplay';
+import { ConvertWeight } from '../../functions/ConvertWeight';
+import { SplitDateAndTime } from '../../functions/ConvertDateAndTimeForDisplay';
 
 import { GoldDetailDataType, GoldInventoryDataType } from '../../interfaces/GoldData';
 
@@ -13,17 +14,20 @@ export default function InventoryTable(
   props: {
     goldData: GoldDetailDataType[],
     status: string,
-    type: string
+    type: string,
+    code: string
   }
 ) {
   const {
     goldData,
     status,
-    type
+    type,
+    code
   }: {
       goldData: GoldDetailDataType[],
       status: string,
-      type: string
+      type: string,
+      code: string
     } = props;
 
   const [weightUnit, setWeightUnit] = useState<string>('gram');
@@ -45,7 +49,7 @@ export default function InventoryTable(
     const res = [];
     for (let i = 0; i < goldData.length; i += 1) {
       const a = { ...goldData[i] };
-      a.inventories = a.inventories.filter((
+      a.inventories = (a.inventories || []).filter((
         inventoryData: GoldInventoryDataType
       ) => inventoryData.status === status);
       if (a.inventories.length > 0) {
@@ -57,13 +61,13 @@ export default function InventoryTable(
   const goldInventoryData = constructData();
 
   return (
-    <div className="table-main">
+    <div className="inventory table-main">
       <table>
         {/* Table Header */}
         <thead>
           <tr>
             <th className="head-action">
-              expand
+              <UnfoldMoreIcon sx={{ fontSize: 32 }} />
             </th>
             <th className="head-picture">
               picture
@@ -107,6 +111,9 @@ export default function InventoryTable(
                   ? el
                   : el.type === type
               ))
+              .filter((el: GoldDetailDataType) => (
+                el.code.includes(code)
+              ))
               .map((detailData: GoldDetailDataType, index: number) => (
                 <React.Fragment key={detailData.gold_detail_id}>
                   {/* Row By Type Detail */}
@@ -138,7 +145,7 @@ export default function InventoryTable(
                       {detailData.code}
                     </td>
                     <td className="body-quantity">
-                      {detailData.inventories?.length}
+                      {detailData.inventories ? detailData.inventories.length : 0}
                     </td>
                     <td className="body-type">
                       {detailData.type}
@@ -146,13 +153,13 @@ export default function InventoryTable(
                     <td className="body-detail">
                       {detailData.detail}
                     </td>
-                    <td className="body-picture">
+                    <td className="body-weight">
                       {weightUnit === 'Baht' ? ConvertWeight(detailData.weight, 'gram') : detailData.weight}
                     </td>
-                    <td className="body-picture">
+                    <td className="body-goldpercent">
                       {detailData.gold_percent}
                     </td>
-                    <td className="body-picture">
+                    <td className="body-goldsmithfee">
                       {detailData.gold_smith_fee}
                     </td>
                   </tr>
@@ -189,7 +196,7 @@ export default function InventoryTable(
                                 {inventoryData.status}
                               </td>
                               <td className="body-datein">
-                                {ConvertDateAndTimeForDisplay(inventoryData.date_in)}
+                                {SplitDateAndTime(inventoryData.date_in)}
                               </td>
                               <td className="body-note">
                                 {inventoryData.note}

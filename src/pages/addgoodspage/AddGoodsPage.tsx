@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './addgoodspage.css';
 
-// import GoldCard from '../../components/goldcard/GoldCard';
 import FormAddNewGold from '../../components/formaddnewgold/FormAddNewGold';
 import FormAddQueryGold from '../../components/formaddquerygold/FormAddQueryGold';
 
@@ -9,8 +8,8 @@ function AddGoodsPage() {
   const [pageForm, setPageForm] = useState<string>('new');
 
   return (
-    <div className="addgoods-page-background">
-      <div className="addgood-page-main-container">
+    <div className="addgoods page-background">
+      <div className="addgood-page page-container">
         {/* Button Select Type Form */}
         <div className="page-select-form">
           <button

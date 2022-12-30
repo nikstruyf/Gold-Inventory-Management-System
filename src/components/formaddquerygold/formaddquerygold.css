@@ -8,17 +8,17 @@
     margin-top: 20px;
 }
 
-.query-result-container {
-    display: none;
-    border: solid 2px var(--second-color-grey);
-    border-radius: 10px;
-    padding: 10px;
-    max-height: 90vh;
-}
-
 .query-result-container.active {
     display: flex;
     flex-direction: column;
+    border: solid 2px var(--second-color-grey);
+    border-radius: 10px;
+    padding: 10px;
+    max-height: 95vh;
+}
+
+.query-result-container {
+    display: none;
 }
 
 .result-count {
@@ -30,7 +30,14 @@
 .query-result-table {
     width: 100%;
     border-radius: 10px;
-    overflow: hidden;
+    max-height: 50%;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.query-result-table thead {
+    position: sticky;
+    top: 0;
 }
 
 table, th, td {
@@ -63,11 +70,16 @@ table, th, td {
 }
 
 .table-header-weight {
-    width: 10%;
+    width: 8%;
+}
+
+.add-query.table-weight-unit {
+    color: var(--main-font-white);
+    border-color: var(--main-font-white);
 }
 
 .table-header-goldPercent {
-    width: 10%;
+    width: 8%;
 }
 
 .table-header-goldSmithFee {
@@ -90,6 +102,10 @@ table, th, td {
 .query-result-table .table-body.highlight {
     background-color: var(--third-color-red);
     color: var(--main-font-white);
+}
+
+.query-result-table .table-body .body-value {
+    text-align: end;
 }
 
 .form-add-by-query {

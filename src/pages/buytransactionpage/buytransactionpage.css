@@ -1,0 +1,97 @@
+.buy-transaction.page-background {
+    flex-direction: column;
+}
+
+.buy-transaction.page-header {
+    justify-content: center;
+    padding-left: 0 !important;
+    margin-bottom: 10px;
+}
+
+.buy-transaction.page-container {
+    align-items: center;
+}
+
+.buy-transaction.page-content {
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+.input-comp {
+    margin-bottom: 10px;
+}
+
+.input-label {
+    text-transform: capitalize;
+    color: var(--main-font-grey);
+}
+
+.inputbox {
+    display: flex;
+    width: 450px;
+    min-width: 200px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: 400;
+    outline: none;
+}
+
+.gold-price {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    width: 450px;
+    min-width: 200px;
+}
+
+.gold-price .inputbox {
+    width: 48%;
+}
+
+.gold-price .gold-price-range {
+    width: 2%;
+    text-align: center;
+}
+
+.buy-transaction.input-weight {
+    display: flex;
+}
+
+.buy-transaction.input-weight .inputbox {
+    width: 300px;
+    border-radius: 5px 0 0 5px;
+}
+
+.buy-transaction.input-weight .select-weightUnit select {
+    width: 150px;
+    height: 35px;
+    border-radius: 0 5px 5px 0;
+}
+
+.inputbox.note {
+    resize: none;
+    padding: 5px 10px;
+    height: auto;
+    font-size: 17px;
+}
+
+.inputbox.note::-webkit-scrollbar {
+    display: none;
+}
+
+.buy-transaction.button-save {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+    border: 2px solid var(--main-color-red);
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    margin: 20px 0;
+}
+
+.buy-transaction.button-save:hover {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
+}

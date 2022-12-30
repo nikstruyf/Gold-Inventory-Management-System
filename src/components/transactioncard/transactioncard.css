@@ -1,0 +1,115 @@
+.transaction-card-bg {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgba(0,0,0,0.5);
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 99;
+}
+
+.transaction-card-bg.active {
+    display: flex;
+}
+
+.transaction-card.page-content {
+    width: 50vw;
+    min-width: 700px;
+    height: 80vh;
+    min-height: 500px;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+.card-content-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 10px;
+    background-color: var(--main-color-red);
+    width: 40%;
+    color: var(--main-font-white);
+    text-transform: capitalize;
+}
+
+.transaction-value {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.transaction-date,
+.transaction-type {
+    font-size: 16px;
+}
+
+.card-content-right {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.transaction-card.page-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    padding: 10px;
+    border-bottom: 1px solid var(--second-color-grey);
+    height: 10%;
+}
+
+.button-close {
+    cursor: pointer;
+}
+
+.button-close:hover {
+    color: var(--main-font-grey);
+}
+
+.button-close:active {
+    color: var(--main-font-black);
+}
+
+.transaction-card.transaction-amount {
+    height: 20%;
+    padding: 10px 15px;
+}
+
+.value-amount {
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+}
+
+.value-amount.buy {
+    padding-bottom: 10px;
+}
+
+.value-amount.total {
+    font-size: 18px;
+    padding-top: 10px;
+    border-top: 1px solid var(--second-color-grey);
+}
+
+.transaction-card.transaction-detail {
+    height: 70%;
+    padding: 10px 15px;
+}
+
+.transaction-detail .detail {
+    padding: 1% 0;
+}
+
+.datail-head {
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.detail-value {
+    font-size: 16px;
+    color: var(--main-font-grey);
+}

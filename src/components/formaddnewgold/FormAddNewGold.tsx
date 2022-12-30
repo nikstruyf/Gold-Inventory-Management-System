@@ -8,7 +8,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import { useLoading } from '../../contexts/LoadingContext';
 
 import { AddNewGold } from '../../functions/AddGold';
-import ConvertWeight from '../../functions/ConvertWeight';
+import { CheckWeight } from '../../functions/ConvertWeight';
 
 export default function FormAddNewGold() {
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ export default function FormAddNewGold() {
   const [unit, setWeightUnit] = useState<string>('gram');
   const [previewPic, setPreviewPic] = useState<string>();
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const [submit, isSubmit] = useState<boolean>(false);
 
   function CheckFillAll() {
     if (code === ''
@@ -45,22 +46,16 @@ export default function FormAddNewGold() {
     return true;
   }
 
-  function CheckWeight() {
-    if (unit === 'baht') {
-      return ConvertWeight(weight, unit);
-    }
-    return weight;
-  }
-
   const save = async (e: any) => {
     e.preventDefault();
+    isSubmit(true);
     if (CheckFillAll()) {
       setLoading(true);
       const addResult = await AddNewGold(
         code,
         type,
         detail,
-        CheckWeight(),
+        CheckWeight(weight, unit),
         goldPercent,
         goldSmithFee,
         // picture,
@@ -266,7 +261,7 @@ export default function FormAddNewGold() {
           </div>
         </div>
         {/* Fill All Message */}
-        <div className={`label invalid-fillall-message ${CheckFillAll() ? '' : 'show'}`}>
+        <div className={`label invalid-fillall-message ${CheckFillAll() || !submit ? '' : 'show'}`}>
           <span />
           plaese fill all details
         </div>

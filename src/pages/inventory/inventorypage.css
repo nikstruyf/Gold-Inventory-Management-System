@@ -1,30 +1,10 @@
-.inventory-background {
-    display: flex;
+.inventory.page-background {
     flex-direction: column;
     box-sizing: border-box;
-    background-color: var(--second-bg);
-    min-height: 100vh;
 }
 
-.inventory-page-header {
-    display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
-    padding-top: 10px;
-    padding-left: 30px;
-    font-size: 30px;
-    font-weight: 600;
-    width: 100%;
-    height: 50px;
-    text-transform: capitalize;
-    text-align: center;
-}
-
-.page-container {
-    display: flex;      
+.page-container {     
     flex-direction: column;
-    box-sizing: border-box;
-    padding: 10px;
 
 }
 
@@ -46,6 +26,7 @@
 
 .option-radio {
     display: flex;
+    column-gap: 10px;
 }
 
 .radio-label {
@@ -56,7 +37,7 @@
     text-transform: capitalize;
     font-weight: 600;
     color: var(--second-font-grey);
-    margin: 0 10px;
+    margin: 0 5px;
     padding-left: 22px;
     transition: all 0.3s;
 }
@@ -152,23 +133,6 @@
     font-size: 14px;
 }
 
-.option-input-search button {
-    border: 2px solid var(--main-color-red);
-    border-radius: 5px;
-    background-color: var(--main-bg);
-    color: var(--main-color-red);
-    font-weight: 600;
-    font-size: 16px;
-    text-transform: capitalize;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.option-input-search button:hover {
-    background-color: var(--main-color-red);
-    color: var(--main-font-white);
-}
-
 .option-vertical-line {
     border-left: 2px solid var(--second-font-grey);
     height: auto;
@@ -195,12 +159,14 @@
 }
 
 .inventory-page-table {
-    display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
-    background-color: var(--main-bg);
-    border-radius: 5px;
-    box-shadow: var(--container-shadow);
     overflow: hidden;
+}
+
+@media screen and (max-width: 1200px) {
+    .inventory-page-option {
+        flex-direction: column;
+        row-gap: 10px;
+    }
 }

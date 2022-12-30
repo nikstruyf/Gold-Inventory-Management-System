@@ -1,4 +1,4 @@
-import ConvertWeight from "../functions/ConvertWeight";
+import { ConvertWeight } from "../functions/ConvertWeight";
 
 test('convert weight 0.125 baht to 1.9 gram', () => {
     let result = ConvertWeight(0.125, 'baht');

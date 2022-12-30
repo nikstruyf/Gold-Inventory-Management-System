@@ -5,6 +5,7 @@ export interface GoldInventoryDataType {
     date_in: string,
     date_sold: string,
     note: string,
+    is_sold: string
 }
 
 export interface GoldDetailDataType {
@@ -18,4 +19,16 @@ export interface GoldDetailDataType {
     gold_smith_fee: number,
     picture: string,
     inventories: GoldInventoryDataType[]
+}
+
+export interface GoldDetailByQuery {
+    gold_detail_id: number,
+    code: string,
+    type: string,
+    detail: string,
+    weight: number,
+    gold_percent: number,
+    gold_smith_fee: number,
+    picture: string,
+    status: string
 }
