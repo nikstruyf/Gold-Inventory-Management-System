@@ -78,7 +78,32 @@ export async function SellTransaction(
   return res;
 }
 
-export async function TradeTransaction() {
-  const res = 'incomplete';
+export async function TradeTransaction(
+  goldInventoryId: number,
+  goldPrice: string,
+  weight: number,
+  note: string,
+  buyPrice: number,
+  sellPrice: number,
+  token: string
+) {
+  let res = 'incomplete';
+  await axios.post(`${api.IP}${api.createChangeTransaction}`, {
+    gold_inventory_id: goldInventoryId,
+    transaction_type: 'change',
+    gold_price: goldPrice,
+    weight,
+    buy_price: buyPrice,
+    sell_price: sellPrice,
+    note
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  }).then((result) => {
+    if (result.status === 200) {
+      res = 'complete';
+    }
+  });
   return res;
 }

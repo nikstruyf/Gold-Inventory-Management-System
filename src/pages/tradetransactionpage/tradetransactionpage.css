@@ -1,6 +1,5 @@
 .trade-transaction.page-background {
     flex-direction: column;
-    min-height: 100vh;
 }
 
 .trade-transaction.page-header {
@@ -12,8 +11,9 @@
 .trade-transaction.page-container.query-state {
     display: grid !important;
     grid-template-columns: 30% auto;
+    grid-template-rows: auto;
     gap: 10px;
-    height: 92vh;
+    align-items: flex-start;
 }
 
 .trade-transaction.page-content {
@@ -25,6 +25,10 @@
     grid-column: 1;
     grid-row: 1;
     height: fit-content;
+}
+
+.query-form.hide {
+    display: none;
 }
 
 .trade-transaction .inputbox {
@@ -44,11 +48,14 @@
     width: 100%;
 }
 
-.trade-transaction .select-weightUnit {
+.trade-transaction .query.select-weightUnit {
     margin-top: 2px;
 }
 
 .trade-transaction.button-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--main-bg);
     color: var(--main-color-red);
     border: 2px solid var(--main-color-red);
@@ -73,15 +80,113 @@
     transform: translateY(2px);
 }
 
-.trade-transaction.page-content.query-table {
+.button-expand.hide {
+    display: none;
+}
+
+.trade-transaction.page-content.query-result-table {
     grid-column: 2;
     grid-row: 1 / span 2;
+    max-height: 88vh;
+}
+
+.trade-transaction.page-content .query-table {
+    overflow-y: auto;
+}
+
+.trade-transaction.page-content .query-table > table {
+    width: 100%;
+    height: 100%;
+}
+
+.trade-transaction.page-content .query-table thead {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+    text-transform: capitalize;
+    position: sticky;
+    top: 0;
+}
+
+.trade-transaction.page-content .query-table th,
+.trade-transaction.page-content .query-table td {
+    padding: 5px;
+}
+
+.trade-transaction.page-content .query-table td {
+    border: 1px solid var(--second-color-grey);
+}
+
+.query-table .table-weight-unit {
+    color: var(--main-font-white);
+    border-color: var(--main-font-white);
+}
+
+.trade-transaction.table-row {
+    cursor: pointer;
+    border-bottom: 1px solid var(--second-color-grey);
+}
+
+.trade-transaction.table-row:hover {
+    background-color: var(--red-bg);
+}
+
+.trade-transaction.table-row.highlight {
+    background-color: var(--third-color-red);
+    color: var(--main-font-white);
+}
+
+.query-table .head-picture {
+    width: 10%;
+}
+
+.query-table .head-id {
+    width: 10%;
+}
+
+.query-table .head-code {
+    width: 10%;
+}
+
+.query-table .head-type {
+    width: 10%;
+}
+
+.query-table .head-detail {
+    width: 20%;
+}
+
+.query-table .head-weight {
+    width: 7%;
+}
+
+.query-table .head-gold-percent {
+    width: 7%;
+}
+
+.query-table .head-gold-smith-fee {
+    width: 7%;
+}
+
+.query-table .head-note {
+    width: auto;
+}
+
+.trade-transaction.page-content .query-table .body-picture {
+    text-align: center;
+}
+
+.trade-transaction.page-content .query-table .body-value {
+    text-align: end;
 }
 
 .trade-transaction.page-content.query-select {
+    display: none;
     grid-column: 1;
     grid-row: 2;
-    height: fit-content;
+}
+
+.trade-transaction.page-content.query-select.active {
+    display: flex;
 }
 
 .select-result {
@@ -89,53 +194,73 @@
     font-size: 16px;
 }
 
-.trade-transaction.button-next {
-    background-color: var(--main-color-red);
-    color: var(--main-font-white);
-    border: 2px solid var(--main-color-red);
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 18px;
-    text-transform: capitalize;
-    cursor: pointer;
-    width: 100%;
-    height: auto;
-    padding: 5px;
-    margin-top: 20px;
-    transition: 0.2s, transform 0s;
-}
-
-.trade-transaction.button-next:hover {
-    background-color: var(--second-color-red);
-    border-color: var(--second-color-red);
-}
-
-.trade-transaction.button-next:active {
-    transform: translateY(2px);
-}
-
-.trade-transaction.page-container.confirm-state {
+.trade-transaction.gold-price {
+    display: flex;
+    column-gap: 10px;
     align-items: center;
-    height: 100vh;
+    width: 100%;
 }
 
-.trade-transaction.page-content.confirm-state {
+.trade-transaction.gold-price .inputbox {
+    width: 48%;
+    min-width: min-content;
+}
+
+.trade-transaction.gold-price .gold-price-range {
+    width: 2%;
+    text-align: center;
+}
+
+/* buy state */
+.trade-transaction.page-container.buy-state.hide {
+    display: none;
+}
+
+.trade-transaction.page-container.buy-state {
+    align-items: center;
+    min-height: 100vh;
+}
+
+.buy-state .trade-transaction.page-content {
     flex-direction: column;
     justify-content: center;
     padding: 20px;
 }
 
-.trade-transaction.item-select {
-    text-transform: capitalize;
+.buy-state .trade-transaction.item-input-border {
+    border: 3px solid var(--second-color-grey);
+    border-radius: 10px;
+    padding: 0 5px;
     margin: 5px 0;
 }
 
-.confirm-state .inputbox {
+.buy-state .trade-transaction.input-weight {
     display: flex;
-    width: 450px;
-    min-width: 200px;
+}
+
+.buy-state .trade-transaction.input-weight .inputbox {
+    width: 300px;
+    border-radius: 5px 0 0 5px;
+}
+
+.buy-state .trade-transaction.input-weight .select-weightUnit select {
+    width: 150px;
     height: 35px;
-    font-size: 15px;
-    font-weight: 400;
-    outline: none;
+    border-radius: 0 5px 5px 0;
+}
+
+.trade-transaction.button-save {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+    border: 2px solid var(--main-color-red);
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    margin: 20px 0;
+}
+
+.trade-transaction.button-save:hover {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
 }

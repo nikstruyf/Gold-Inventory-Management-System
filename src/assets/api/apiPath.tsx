@@ -14,6 +14,7 @@ const api = {
   createBuyTransaction: '/transaction/newbuytransaction',
   findQueryGoldByInventory: '/inventory/getgolddetailjoininventorybydetail',
   createSellTransaction: '/transaction/newselltransaction',
+  createChangeTransaction: '/transaction/newchangetransaction',
   IP: 'http://localhost:8080'
 };
 

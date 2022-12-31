@@ -86,7 +86,7 @@
 .sell-transaction.page-content.query-result-table {
     grid-column: 2;
     grid-row: 1 / span 2;
-    max-height: 90vh;
+    max-height: 88vh;
 }
 
 .sell-transaction.page-content .query-table {

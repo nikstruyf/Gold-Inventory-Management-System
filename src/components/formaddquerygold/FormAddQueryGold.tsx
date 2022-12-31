@@ -7,6 +7,7 @@ import { useLoading } from '../../contexts/LoadingContext';
 
 import { FindQueryGold, AddQueryGold } from '../../functions/AddGold';
 import { ConvertWeight, CheckWeight } from '../../functions/ConvertWeight';
+import Delay from '../../functions/Delay';
 
 import { GoldDetailByQuery } from '../../interfaces/GoldData';
 
@@ -77,6 +78,7 @@ export default function FormAddQueryGold() {
       cookies['access-token']
     );
     setQueryResultData(queryResult);
+    await Delay(100);
     setLoading(false);
     queryResultRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -105,7 +107,6 @@ export default function FormAddQueryGold() {
     isSubmit(true);
     if (CheckFillAll()) {
       setLoading(true);
-      console.log('pass');
       const addQueryResult = await AddQueryGold(
         goldDetailId,
         note,
