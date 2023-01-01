@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './transactiontable.css';
 
-import { TransactionDataJoinGold, TransactionDataType } from '../../interfaces/TransactionData';
+import { TransactionDataJoinGold } from '../../interfaces/TransactionData';
 
 import { ConvertWeight } from '../../functions/ConvertWeight';
-import { SplitDateAndTime, ConvertDateForDisplay } from '../../functions/ConvertDateAndTimeForDisplay';
+import { ConvertDateForDisplay } from '../../functions/ConvertDateAndTimeForDisplay';
 
 import TransactionCard from '../transactioncard/TransactionCard';
 
@@ -27,23 +27,12 @@ export default function TransactionTable(
 
   const [weightUnit, setWeightUnit] = useState<string>('gram');
 
+  const [activateCard, setActivateCard] = useState<boolean>(false);
+
   const [
     transactionSelect,
     setTransactionSelect
-  ] = useState<TransactionDataType>({
-    transaction_id: 0,
-    transaction_type: '',
-    date: '',
-    gold_price: '',
-    weight: 0,
-    price: 0,
-    gold_detail_id: 0,
-    gold_inventory_id: 0,
-    username: '',
-    buy_price: 0,
-    sell_price: 0,
-    note: ''
-  });
+  ] = useState<TransactionDataJoinGold>();
 
   function ConvertWeightUnit() {
     if (weightUnit === 'gram') {
@@ -53,11 +42,11 @@ export default function TransactionTable(
     }
   }
 
-  console.log(`${ConvertDateForDisplay('2022-11-14T14:32:46.277239+07:00')} ${time}`);
+  console.log(time);
 
   return (
     <div className="transaction table-main">
-      <TransactionCard transaction={transactionSelect} />
+      <TransactionCard data={transactionSelect} active={activateCard} />
       <table>
         {/* -- Table Header -- */}
         <thead>
@@ -102,10 +91,18 @@ export default function TransactionTable(
                 <React.Fragment key={data.transaction.transaction_id}>
                   <tr
                     className="transaction row-body"
-                    onClick={() => { setTransactionSelect(data.transaction); }}
+                    onClick={() => {
+                      setTransactionSelect(data);
+                      setActivateCard(!activateCard);
+                    }}
                   >
                     <td className="body-date">
-                      {SplitDateAndTime(data.transaction.date)}
+                      <div>
+                        {ConvertDateForDisplay(data.transaction.date)[0]}
+                      </div>
+                      <div>
+                        {ConvertDateForDisplay(data.transaction.date)[1]}
+                      </div>
                     </td>
                     <td className="body-code">
                       {data.gold_detail.code}

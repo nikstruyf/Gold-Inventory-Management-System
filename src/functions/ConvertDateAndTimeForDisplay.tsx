@@ -1,4 +1,7 @@
 export function SplitDateAndTime(dateAndTime: string) {
+  if (dateAndTime === '' || !dateAndTime) {
+    return '';
+  }
   const dateNTime = dateAndTime.split('T', 2);
   const date = dateNTime[0].split('-', 3);
   let time = dateNTime[1].split('.', 1);
@@ -7,6 +10,9 @@ export function SplitDateAndTime(dateAndTime: string) {
 }
 
 export function ConvertDateForDisplay(dateAndTime: string) {
+  if (dateAndTime === '' || !dateAndTime) {
+    return ['', '', ''];
+  }
   const month = [
     'Jan',
     'Feb',

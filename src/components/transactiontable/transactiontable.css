@@ -14,7 +14,7 @@
 }
 
 .transaction.table-main td {
-    padding: 0 20px;
+    padding: 5px 20px;
 }
 
 .transaction .head-date {
@@ -55,9 +55,10 @@
 .body-date,
 .body-transtype {
     text-align: center;
+    text-transform: capitalize;
 }
 
-.transaction .body-weight,
+.body-weight,
 .body-price {
     text-align: end;
 }

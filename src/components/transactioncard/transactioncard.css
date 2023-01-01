@@ -41,9 +41,14 @@
     font-weight: 600;
 }
 
-.transaction-date,
-.transaction-type {
+.transaction-date {
     font-size: 16px;
+    text-align: center;
+}
+
+.transaction-type {
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .card-content-right {
@@ -83,10 +88,11 @@
     display: flex;
     justify-content: space-between;
     text-transform: capitalize;
+    padding-bottom: 10px;
 }
 
-.value-amount.buy {
-    padding-bottom: 10px;
+.value-amount.hide {
+    display: none;
 }
 
 .value-amount.total {

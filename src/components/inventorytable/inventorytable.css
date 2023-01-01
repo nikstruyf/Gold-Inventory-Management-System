@@ -179,4 +179,5 @@
 
 .body-status {
     text-align: center;
+    text-transform: capitalize;
 }

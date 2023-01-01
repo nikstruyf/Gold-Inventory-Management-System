@@ -4,36 +4,53 @@ import './transactioncard.css';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { TransactionDataType } from '../../interfaces/TransactionData';
+import { TransactionDataJoinGold } from '../../interfaces/TransactionData';
+
+import { SplitDateAndTime, ConvertDateForDisplay } from '../../functions/ConvertDateAndTimeForDisplay';
+import { ConvertWeight } from '../../functions/ConvertWeight';
 
 export default function TransactionCard(
   props: {
-    transaction: TransactionDataType
+    data: TransactionDataJoinGold | undefined | undefined,
+    active: boolean
   }
 ) {
-  const { transaction }: {transaction: TransactionDataType} = props;
+  const { data, active }: {data: TransactionDataJoinGold | undefined, active: boolean} = props;
 
   const [activate, isActivate] = useState<boolean>(false);
 
   useEffect(() => {
-    if (transaction.transaction_type !== '') {
+    if (data) {
       isActivate(true);
     }
-  }, [transaction]);
+  }, [data, active]);
 
   return (
     <div className={`transaction-card-bg ${activate ? 'active' : ''}`}>
       <div className="transaction-card page-content">
         <div className="card-content-left">
-          <ReceiptLongIcon sx={{ fontSize: 100 }} />
+          <ReceiptLongIcon sx={{ fontSize: 90 }} />
           <div className="transaction-type">
-            change
+            {data?.transaction.transaction_type}
           </div>
           <div className="transaction-value">
-            +฿28600
+            {`
+              ${
+                data?.transaction.transaction_type === 'buy'
+                || (data && data?.transaction.price < 0)
+                  ? '-' : ''
+              }฿${data && Math.abs(data?.transaction.price)}
+            `}
           </div>
           <div className="transaction-date">
-            14 Nov 2022
+            <div className="transaction-time">
+              {SplitDateAndTime(data ? data.transaction.date : '').split(' ')[0]}
+            </div>
+            {`
+              ${ConvertDateForDisplay(data ? data.transaction.date : '')[0]} 
+              ${ConvertDateForDisplay(data ? data.transaction.date : '')[1]} 
+              ${ConvertDateForDisplay(data ? data.transaction.date : '')[2]}
+            `}
           </div>
         </div>
         <div className="card-content-right">
@@ -48,43 +65,81 @@ export default function TransactionCard(
             />
           </div>
           <div className="transaction-card transaction-amount">
-            <div className="value-amount sell">
+            <div
+              className={`
+                value-amount sell
+                ${data?.transaction.transaction_type === 'buy'
+                ? 'hide' : ''
+                }
+              `}
+            >
               <div className="amount-head">sell amount</div>
-              <div>+฿28600</div>
+              <div>
+                {`
+                  ฿${data?.transaction.transaction_type === 'change'
+                  ? data?.transaction.sell_price
+                  : data?.transaction.price
+                  }
+                `}
+              </div>
             </div>
-            <div className="value-amount buy">
+            <div
+              className={`
+                value-amount buy
+                ${data?.transaction.transaction_type === 'sell'
+                ? 'hide' : ''
+                }
+              `}
+            >
               <div className="amount-head">buy amount</div>
-              <div>-฿28600</div>
+              <div>
+                {`
+                  -฿${data?.transaction.transaction_type === 'change'
+                  ? data?.transaction.buy_price
+                  : data?.transaction.price
+                  }
+                `}
+              </div>
             </div>
             <div className="value-amount total">
               <div className="amount-head">total amount</div>
-              <div>+฿28600</div>
+              <div>
+                {`
+                  ${data?.transaction.transaction_type === 'buy'
+                  || (data && data?.transaction.price < 0)
+                  ? '-' : ''
+                  }฿${data && Math.abs(data?.transaction.price)}
+                `}
+              </div>
             </div>
           </div>
           <div className="transaction-card transaction-detail">
             <div className="detail">
               <div className="datail-head">gold price:</div>
-              <div className="detail-value">29950 - 29850</div>
+              <div className="detail-value">{data?.transaction.gold_price}</div>
             </div>
             <div className="detail">
               <div className="datail-head">weight:</div>
-              <div className="detail-value">15.2g / 1Baht</div>
+              <div className="detail-value">
+                {`${data?.transaction.weight}g / 
+                ${ConvertWeight(data ? data?.transaction.weight : 0, 'gram')}Baht`}
+              </div>
             </div>
             <div className="detail">
               <div className="datail-head">code:</div>
-              <div className="detail-value">BR2B025L1</div>
+              <div className="detail-value">{data?.gold_detail.code}</div>
             </div>
             <div className="detail">
               <div className="datail-head">create by:</div>
-              <div className="detail-value">palm</div>
+              <div className="detail-value">{data?.transaction.username}</div>
             </div>
             <div className="detail">
               <div className="datail-head">transaction ID:</div>
-              <div className="detail-value">3060951210</div>
+              <div className="detail-value">{data?.transaction.transaction_id}</div>
             </div>
             <div className="detail">
               <div className="datail-head">note:</div>
-              <div className="detail-value">สร้อยแขนทาโร่ขั้นปล้อง</div>
+              <div className="detail-value">{data?.transaction.note}</div>
             </div>
           </div>
         </div>
