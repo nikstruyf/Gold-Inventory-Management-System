@@ -4,7 +4,7 @@ import './transactiontable.css';
 import { TransactionDataJoinGold } from '../../interfaces/TransactionData';
 
 import { ConvertWeight } from '../../functions/ConvertWeight';
-import { ConvertDateForDisplay } from '../../functions/ConvertDateAndTimeForDisplay';
+import { ConvertDateForDisplay, ConvertDateFoCal } from '../../functions/ConvertDateAndTimeForDisplay';
 
 import TransactionCard from '../transactioncard/TransactionCard';
 
@@ -42,7 +42,12 @@ export default function TransactionTable(
     }
   }
 
-  console.log(time);
+  const dateAfter = new Date(time.split(' ')[0]);
+  const dateBefore = new Date(time.split(' ')[1]);
+
+  if (time.split(' ')[1]) {
+    console.log(time.split(' ')[0], time.split(' ')[1], dateAfter, dateBefore);
+  }
 
   return (
     <div className="transaction table-main">
@@ -87,6 +92,16 @@ export default function TransactionTable(
                   ? el
                   : el.transaction.transaction_type === status
               ))
+              .filter((el: TransactionDataJoinGold) => {
+                if (time.split(' ')[1]) {
+                  return new Date(ConvertDateFoCal(el.transaction.date)) <= dateBefore
+                  && new Date(ConvertDateFoCal(el.transaction.date)) >= dateAfter;
+                }
+                if (time.split(' ')[0]) {
+                  return new Date(ConvertDateFoCal(el.transaction.date)) >= dateAfter;
+                }
+                return el;
+              })
               .map((data: TransactionDataJoinGold) => (
                 <React.Fragment key={data.transaction.transaction_id}>
                   <tr
@@ -108,17 +123,29 @@ export default function TransactionTable(
                       {data.gold_detail.code}
                     </td>
                     <td className="body-transtype">
-                      {data.transaction.transaction_type}
+                      <div className="transtype-flexbox">
+                        <div className={`transtype-color ${data.transaction.transaction_type}`}>
+                          {data.transaction.transaction_type}
+                        </div>
+                      </div>
                     </td>
                     <td className="body-note">
                       {data.transaction.note}
                     </td>
                     <td className="body-weight">
                       {
-                        weightUnit === 'Baht'
-                          ? ConvertWeight(data.gold_detail.weight, 'gram')
-                          : data.gold_detail.weight
+                        data.transaction.transaction_type === 'change'
+                          && (weightUnit === 'Baht'
+                            ? `${ConvertWeight(data.gold_detail.weight, 'gram')} / `
+                            : `${data.gold_detail.weight} / `)
                       }
+                      <div>
+                        {
+                          weightUnit === 'Baht'
+                            ? ConvertWeight(data.transaction.weight, 'gram')
+                            : data.transaction.weight
+                        }
+                      </div>
                     </td>
                     <td className="body-price">
                       {data.transaction.price}

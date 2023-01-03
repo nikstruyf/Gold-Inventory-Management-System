@@ -32,3 +32,8 @@ export function ConvertDateForDisplay(dateAndTime: string) {
   date = date[1].split('/');
   return [date[0], month[Number(date[1]) - 1], date[2]];
 }
+
+export function ConvertDateFoCal(dateAndTime: string) {
+  const res = SplitDateAndTime(dateAndTime).split(' ')[1];
+  return `${res.split('/')[2]}-${res.split('/')[1]}-${res.split('/')[0]}`;
+}

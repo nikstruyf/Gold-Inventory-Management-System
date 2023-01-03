@@ -7,7 +7,7 @@
 
 .goback-account {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 .goback-account-button {
@@ -18,8 +18,7 @@
     border: solid 2px var(--main-color-red);
     border-radius: 5px;
     background-color: var(--second-bg);
-    margin-bottom: 10px;
-    margin-right: 10px;
+    margin: 10px 0 5px 10px;
     display: flex;
     align-items: center;
     justify-content: center;

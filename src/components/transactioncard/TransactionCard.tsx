@@ -121,6 +121,8 @@ export default function TransactionCard(
             <div className="detail">
               <div className="datail-head">weight:</div>
               <div className="detail-value">
+                {data?.transaction.transaction_type === 'change' && `${data?.gold_detail.weight}g / 
+                ${ConvertWeight(data ? data?.gold_detail.weight : 0, 'gram')}Baht change to  `}
                 {`${data?.transaction.weight}g / 
                 ${ConvertWeight(data ? data?.transaction.weight : 0, 'gram')}Baht`}
               </div>

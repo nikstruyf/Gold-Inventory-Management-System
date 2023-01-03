@@ -14,6 +14,17 @@ function TransactionPage() {
 
   const [allTransactionDetail, setAllTransactionDetail] = useState<TransactionDataJoinGold[]>([]);
   const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+
+  const current = new Date();
+  const currentDate = `${
+    current.getFullYear()
+  }-${
+    String(current.getMonth() + 1).padStart(2, '0')
+  }-${
+    String(current.getDate() + 1).padStart(2, '0')
+  }`;
 
   useEffect(() => {
     GetAllTransactionJoinGold(cookies['access-token']).then((res) => {
@@ -32,54 +43,65 @@ function TransactionPage() {
         {/* -- Page Option -- */}
         <div className="transaction-page-option">
           {/* -- Status Filter -- */}
-          <div className="option-radio">
-            <label htmlFor="radio-all" className="radio-label">
-              <input
-                type="radio"
-                id="radio-all"
-                name="radio"
-                defaultChecked
-                onClick={() => { setFilterStatus('all'); }}
-              />
-              <span className="radio-ckeckbox" />
-              <span>all</span>
-            </label>
-            <label htmlFor="radio-sell" className="radio-label">
-              <input
-                type="radio"
-                id="radio-sell"
-                name="radio"
-                onClick={() => { setFilterStatus('sell'); }}
-              />
-              <span className="radio-ckeckbox" />
-              <span>sell</span>
-            </label>
-            <label htmlFor="radio-buy" className="radio-label">
-              <input
-                type="radio"
-                id="radio-buy"
-                name="radio"
-                onClick={() => { setFilterStatus('buy'); }}
-              />
-              <span className="radio-ckeckbox" />
-              <span>buy</span>
-            </label>
-            <label htmlFor="radio-trade" className="radio-label">
-              <input
-                type="radio"
-                id="radio-trade"
-                name="radio"
-                onClick={() => { setFilterStatus('change'); }}
-              />
-              <span className="radio-ckeckbox" />
-              <span>change</span>
-            </label>
+          <div className="option-filter">
+            <div className="option-radio">
+              <label htmlFor="radio-all" className="radio-label">
+                <input
+                  type="radio"
+                  id="radio-all"
+                  name="radio"
+                  defaultChecked
+                  onClick={() => { setFilterStatus('all'); }}
+                />
+                <span className="radio-ckeckbox" />
+                <span>all</span>
+              </label>
+              <label htmlFor="radio-sell" className="radio-label">
+                <input
+                  type="radio"
+                  id="radio-sell"
+                  name="radio"
+                  onClick={() => { setFilterStatus('sell'); }}
+                />
+                <span className="radio-ckeckbox" />
+                <span>sell</span>
+              </label>
+              <label htmlFor="radio-buy" className="radio-label">
+                <input
+                  type="radio"
+                  id="radio-buy"
+                  name="radio"
+                  onClick={() => { setFilterStatus('buy'); }}
+                />
+                <span className="radio-ckeckbox" />
+                <span>buy</span>
+              </label>
+              <label htmlFor="radio-trade" className="radio-label">
+                <input
+                  type="radio"
+                  id="radio-trade"
+                  name="radio"
+                  onClick={() => { setFilterStatus('change'); }}
+                />
+                <span className="radio-ckeckbox" />
+                <span>change</span>
+              </label>
+            </div>
             <div className="option-vertical-line" />
             {/* -- Time Filter -- */}
             <div className="option-daterange">
-              <input type="date" />
+              <input
+                type="date"
+                max={endDate || currentDate}
+                onChange={(e) => { setStartDate(e.target.value); }}
+              />
               <div>to</div>
-              <input type="date" />
+              <input
+                type="date"
+                min={startDate}
+                max={currentDate}
+                onChange={(e) => { setEndDate(e.target.value); }}
+              />
             </div>
           </div>
           {/* -- Create Transaction -- */}
@@ -112,7 +134,7 @@ function TransactionPage() {
           <TransactionTable
             transactionData={allTransactionDetail}
             status={filterStatus}
-            time="all"
+            time={`${startDate} ${endDate}`}
           />
         </div>
       </div>

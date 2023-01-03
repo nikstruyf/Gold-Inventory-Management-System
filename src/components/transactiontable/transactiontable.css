@@ -52,10 +52,42 @@
     border-top: 1px solid var(--second-color-grey);
 }
 
-.body-date,
-.body-transtype {
+.body-date {
     text-align: center;
     text-transform: capitalize;
+}
+
+.body-transtype {
+    text-transform: capitalize;
+    height: 100%;
+}
+
+.transtype-flexbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transtype-color {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--main-font-white);
+    border-radius: 50px;
+    width: fit-content;
+    padding: 2px 10px;
+}
+
+.transtype-color.sell {
+    background-color: var(--main-color-red);
+}
+
+.transtype-color.buy {
+    background-color: var(--main-color-yellow);
+}
+
+.transtype-color.change {
+    background-color: var(--main-color-blue);
 }
 
 .body-weight,

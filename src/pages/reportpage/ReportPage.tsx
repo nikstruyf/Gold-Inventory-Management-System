@@ -3,8 +3,15 @@ import './reportpage.css';
 
 function ReportPage() {
   return (
-    <div className="background">
-      report
+    <div className="inventory page-background">
+      {/* -- Header -- */}
+      <div className="page-header">
+        report
+      </div>
+      {/* -- Container -- */}
+      <div className="page-container">
+        content here
+      </div>
     </div>
   );
 }

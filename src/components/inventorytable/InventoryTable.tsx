@@ -107,12 +107,15 @@ export default function InventoryTable(
           {
             goldInventoryData
               ?.filter((el: GoldDetailDataType) => (
+                el.code.includes(code)
+              ))
+              .filter((el: GoldDetailDataType) => (
                 type === 'all'
                   ? el
                   : el.type === type
               ))
               .filter((el: GoldDetailDataType) => (
-                el.code.includes(code)
+                el.inventories
               ))
               .map((detailData: GoldDetailDataType, index: number) => (
                 <React.Fragment key={detailData.gold_detail_id}>
@@ -193,7 +196,15 @@ export default function InventoryTable(
                                 {inventoryData.gold_inventory_id}
                               </td>
                               <td className="body-status">
-                                {inventoryData.status}
+                                <div className="status-flexbox">
+                                  <div className={`status-color ${inventoryData.status}`}>
+                                    {
+                                      inventoryData.status === 'safe'
+                                        ? 'warehouse'
+                                        : 'storefront'
+                                    }
+                                  </div>
+                                </div>
                               </td>
                               <td className="body-datein">
                                 {SplitDateAndTime(inventoryData.date_in)}

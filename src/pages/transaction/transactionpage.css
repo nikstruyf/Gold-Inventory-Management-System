@@ -9,6 +9,9 @@
 }
 
 .transaction-page-option {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,9 +25,24 @@
     z-index: 89;
 }
 
+.option-filter {
+    display: flex;
+    column-gap: 10px;
+}
+
 .option-daterange {
     display: flex;
+    align-items: center;
     column-gap: 5px;
+}
+
+.option-daterange input {
+    padding: 5px;
+    border: 1.5px solid var(--second-font-grey);
+    border-radius: 3px;
+    outline: none;
+    height: 20px;
+    font-size: 14px;
 }
 
 .create-transaction {
@@ -69,5 +87,16 @@
 @media screen and (max-width: 1200px) {
     .transaction-page-option {
         flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .option-filter {
+        flex-direction: column;
+        row-gap: 5px;
+    }
+
+    .option-vertical-line {
+        display: none;
     }
 }
