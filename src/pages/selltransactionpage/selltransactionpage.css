@@ -121,6 +121,7 @@
 }
 
 .sell-transaction.table-row {
+    transition: all 0.1s ease-out;
     cursor: pointer;
     border-bottom: 1px solid var(--second-color-grey);
 }

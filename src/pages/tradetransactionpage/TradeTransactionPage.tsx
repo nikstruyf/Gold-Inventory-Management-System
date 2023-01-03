@@ -380,7 +380,7 @@ export default function TradeTransactionPage() {
                 type="number"
                 step="0.001"
                 className="inputbox"
-                value={sellPrice}
+                value={sellPrice || undefined}
                 onChange={(e) => { setSellPrice(e.target.valueAsNumber); }}
               />
             </div>
