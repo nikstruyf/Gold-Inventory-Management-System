@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './inventorytable.css';
+import { useNavigate } from 'react-router-dom';
 
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -30,9 +31,12 @@ export default function InventoryTable(
       code: string
     } = props;
 
+  const navigate = useNavigate();
+
+  const [itemSelect, setItemSelect] = useState<number[]>([]);
   const [weightUnit, setWeightUnit] = useState<string>('gram');
 
-  const [expand, setExpand] = useState<number>(0);
+  const [expand, setExpand] = useState<number[]>([]);
 
   function ConvertWeightUnit() {
     if (weightUnit === 'gram') {
@@ -59,6 +63,10 @@ export default function InventoryTable(
     return res;
   }
   const goldInventoryData = constructData();
+
+  useEffect(() => {
+    console.log(itemSelect);
+  }, [itemSelect]);
 
   return (
     <div className="inventory table-main">
@@ -100,6 +108,9 @@ export default function InventoryTable(
             <th className="head-goldsmithfee">
               gold smith fee
             </th>
+            <th className="head-edit">
+              edit
+            </th>
           </tr>
         </thead>
         {/* Table Body */}
@@ -123,22 +134,32 @@ export default function InventoryTable(
                   <tr
                     className={`table-main-items ${index % 2 !== 0 ? 'odd' : 'even'}`}
                   >
-                    <td className="body-action">
+                    <td
+                      className="body-action"
+                    >
                       <button
                         type="button"
                         onClick={
-                        () => {
-                          setExpand(
-                            expand === detailData.gold_detail_id ? 0 : detailData.gold_detail_id
-                          );
+                          () => {
+                            if (expand.indexOf(detailData.gold_detail_id) === -1) {
+                              setExpand([
+                                ...expand,
+                                detailData.gold_detail_id
+                              ]);
+                            } else {
+                              setExpand([
+                                ...expand.slice(0, expand.indexOf(detailData.gold_detail_id)),
+                                ...expand.slice(expand.indexOf(detailData.gold_detail_id) + 1)
+                              ]);
+                            }
+                          }
                         }
-                      }
                       >
                         {
-                        expand === detailData.gold_detail_id
-                          ? <KeyboardArrowUpIcon sx={{ fontSize: 32 }} />
-                          : <KeyboardArrowDownIcon sx={{ fontSize: 32 }} />
-                      }
+                          expand.indexOf(detailData.gold_detail_id) === -1
+                            ? <KeyboardArrowUpIcon sx={{ fontSize: 32 }} />
+                            : <KeyboardArrowDownIcon sx={{ fontSize: 32 }} />
+                        }
                       </button>
                     </td>
                     <td className="body-picture">
@@ -165,14 +186,26 @@ export default function InventoryTable(
                     <td className="body-goldsmithfee">
                       {detailData.gold_smith_fee}
                     </td>
+                    <td className="body-edit">
+                      <button
+                        type="button"
+                        className="button-edit"
+                        onClick={() => { navigate('/inventory/editgoods'); }}
+                      >
+                        edit
+                      </button>
+                    </td>
                   </tr>
                   {/* Row By Piece Detail */}
-                  <tr className={`row-table-piece ${expand === detailData.gold_detail_id ? 'expand' : ''}`}>
+                  <tr className={`row-table-piece ${expand.indexOf(detailData.gold_detail_id) !== -1 ? 'expand' : ''}`}>
                     <td colSpan={9} className={`body-table-piece ${index % 2 !== 0 ? 'odd' : 'even'}`}>
                       <table className="table-piece">
                         {/* Header Piece Detail */}
                         <thead>
                           <tr>
+                            <th className="head-action">
+                              select
+                            </th>
                             <th className="head-id">
                               id
                             </th>
@@ -192,6 +225,36 @@ export default function InventoryTable(
                           {
                           detailData.inventories?.map((inventoryData: GoldInventoryDataType) => (
                             <tr className="table-piece-items" key={inventoryData.gold_inventory_id}>
+                              <td className="body-action">
+                                <div className="action-checkbox">
+                                  <input
+                                    className="checkbox"
+                                    type="checkbox"
+                                    checked={
+                                      itemSelect.indexOf(inventoryData.gold_inventory_id) !== -1
+                                    }
+                                    onChange={(e) => {
+                                      const { target } = e;
+                                      if ((target as HTMLInputElement).checked) {
+                                        setItemSelect([
+                                          ...itemSelect,
+                                          inventoryData.gold_inventory_id
+                                        ]);
+                                      } else {
+                                        setItemSelect([
+                                          ...itemSelect.slice(
+                                            0,
+                                            itemSelect.indexOf(inventoryData.gold_inventory_id)
+                                          ),
+                                          ...itemSelect.slice(
+                                            itemSelect.indexOf(inventoryData.gold_inventory_id) + 1
+                                          )
+                                        ]);
+                                      }
+                                    }}
+                                  />
+                                </div>
+                              </td>
                               <td className="body-id">
                                 {inventoryData.gold_inventory_id}
                               </td>

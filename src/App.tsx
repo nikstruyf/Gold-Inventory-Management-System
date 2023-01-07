@@ -8,6 +8,7 @@ import SignInPage from './pages/signin/SignInPage';
 import Layout from './components/layout/Layout';
 import InventoryPage from './pages/inventory/InventoryPage';
 import AddGoodsPage from './pages/addgoodspage/AddGoodsPage';
+import EditGoodsPage from './pages/editgoodspage/EditGoodsPage';
 import TransactionPage from './pages/transaction/TransactionPage';
 import BuyTransactionPage from './pages/buytransactionpage/BuyTransactionPage';
 import SellTransactionPage from './pages/selltransactionpage/SellTransactionPage';
@@ -28,6 +29,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/inventory" element={<InventoryPage />} />
             <Route path="/inventory/addgoods" element={<AddGoodsPage />} />
+            <Route path="/inventory/editgoods" element={<EditGoodsPage />} />
             <Route path="/transaction" element={<TransactionPage />} />
             <Route path="/transaction/buy" element={<BuyTransactionPage />} />
             <Route path="/transaction/sell" element={<SellTransactionPage />} />

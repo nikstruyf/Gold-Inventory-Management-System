@@ -67,7 +67,7 @@ function InventoryPage() {
                 onClick={() => { setFilterStatus('safe'); }}
               />
               <span className="radio-ckeckbox" />
-              <span>werehouse</span>
+              <span>warehouse</span>
             </label>
           </div>
           {/* -- Input -- */}
@@ -76,8 +76,8 @@ function InventoryPage() {
             <div className="option-input-search">
               <input
                 type="text"
-                placeholder="search..."
-                onChange={(e) => { setFilterCode(e.target.value); }}
+                placeholder="search code . . ."
+                onChange={(e) => { setFilterCode(e.target.value.toLocaleUpperCase()); }}
               />
             </div>
             {/* -- Type Filter -- */}

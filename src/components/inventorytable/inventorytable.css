@@ -54,24 +54,22 @@
 }
 
 .head-weight {
-    width: 8%;
-    max-width: 8%;
+    width: 6%;
 }
 
 .head-goldpercent {
-    width: 8%;
-    max-width: 8%;
+    width: 6%;
 }
 
 .head-goldsmithfee {
-    width: 8%;
-    max-width: 8%;
+    width: 6%;
 }
 
-.head-datein {
-    width: 12%;
-    max-width: 12%;
+.head-edit {
+    width: 8%;
 }
+
+
 
 .table-weight-unit {
     border: solid 2px var(--main-color-red);
@@ -118,6 +116,29 @@
     text-align: end;
 }
 
+.body-edit {
+    text-align: center;
+}
+
+.button-edit {
+    background-color: inherit;
+    color: var(--main-color-yellow);
+    border: 1px solid var(--main-color-yellow);
+    border-radius: 5px;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.button-edit:hover {
+    border-width: 2px;
+}
+
+.button-edit:active {
+    color: var(--main-font-white);
+    background-color: var(--main-color-yellow);
+    border-width: 1px;
+}
+
 .row-table-piece {
     display: none;
 }
@@ -149,7 +170,6 @@
     width: 8%;
     max-width: 8%;
 }
-
 .head-datein {
     width: 15%;
     max-width: 15%;
@@ -169,6 +189,34 @@
 
 .table-piece-items:nth-child(even) {
     background-color: var(--main-bg);
+}
+
+.checkbox {
+    --webkit-appearance: none;
+    appearance: none;
+	background-color: var(--main-bg);
+	border: 1px solid var(--main-color-grey);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 9px;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+    outline: none;
+}
+
+.checkbox:checked {
+	background-color: var(--main-color-red);
+	border: 1px solid var(--main-color-red);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+}
+
+.checkbox:checked:after {
+	content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	color: var(--main-font-white);
 }
 
 .body-status {

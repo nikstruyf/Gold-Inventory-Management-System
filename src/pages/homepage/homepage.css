@@ -57,7 +57,12 @@
     background-color: var(--main-color-red);
     border: solid 2px var(--main-color-red);
     cursor: pointer;
-    transition: all 2s;
+    transition: all 0.5s;
+}
+
+.button-go-start:hover {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
 }
 
 /* .button-gooooooo .button-go-start:hover {
