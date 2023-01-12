@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './buytransactionpage.css';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import { useLoading } from '../../contexts/LoadingContext';
+import { useConfirm } from '../../contexts/ConfirmContext';
 
 import { CheckWeight } from '../../functions/ConvertWeight';
 import { BuyTransaction } from '../../functions/CreateTransaction';
@@ -13,6 +14,7 @@ export default function BuyTransactionPage() {
   const [cookies] = useCookies(['access-token']);
 
   const { setLoading } = useLoading();
+  const { confirm, setConfirm } = useConfirm();
 
   const [goldPriceStart, setGoldPriceStart] = useState<number>(0);
   const [goldPriceEnd, setGoldPriceEnd] = useState<number>(0);
@@ -36,24 +38,45 @@ export default function BuyTransactionPage() {
     return true;
   }
 
-  const buy = async (e: any) => {
+  const buy = (e: any) => {
     e.preventDefault();
     isSubmit(true);
     if (CheckFillAll()) {
-      setLoading(true);
-      const buyResult = await BuyTransaction(
-        `${goldPriceStart} - ${goldPriceEnd}`,
-        CheckWeight(weight, weightUnit),
-        price,
-        note,
-        cookies['access-token']
-      );
-      if (buyResult === 'complete') {
-        navigate('/transaction');
-      }
-      setLoading(false);
+      setConfirm({
+        active: true,
+        message: 'confirm save ?',
+        action: 'buytransaction',
+        status: ''
+      });
     }
   };
+
+  async function Buy() {
+    setLoading(true);
+    const buyResult = await BuyTransaction(
+      `${goldPriceStart} - ${goldPriceEnd}`,
+      CheckWeight(weight, weightUnit),
+      price,
+      note,
+      cookies['access-token']
+    );
+    if (buyResult === 'complete') {
+      navigate('/transaction');
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (confirm.status === 'confirm' && confirm.action === 'buytransaction') {
+      Buy();
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+    }
+  }, [confirm.status]);
 
   return (
     <div className="buy-transaction page-background">

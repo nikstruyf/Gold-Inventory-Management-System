@@ -1,0 +1,91 @@
+.confirm-message-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgba(0,0,0,0.5);
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 99;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.confirm-message-bg.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.confirm-message.page-content {
+    width: 30em;
+    height: 15em;
+    overflow: hidden;
+    box-shadow: none;
+    flex-direction: column;
+    transform: translateY(-50px);
+    transition: 0.2s ease-out;
+}
+
+.confirm-message.page-content.active {
+    transform: translateY(0);
+}
+
+.confirm-message.message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60%;
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.confirm-message.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    column-gap: 5%;
+}
+
+.button-confirm {
+    padding: 1em 5em;
+    border-radius: 10px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: var(--main-bg);
+    background-color: var(--main-color-red);
+    border: solid 2px var(--main-color-red);
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.button-confirm:hover {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
+}
+
+.button-cancel {
+    padding: 1em 5em;
+    border-radius: 10px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: var(--main-color-yellow);
+    background-color: var(--main-bg);
+    border: solid 2px var(--main-color-yellow);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-cancel:hover {
+    color: var(--main-font-white);
+    background-color: var(--main-color-yellow);
+}
+
+.button-confirm:active,
+.button-cancel:active {
+    transform: translateY(3px);
+}

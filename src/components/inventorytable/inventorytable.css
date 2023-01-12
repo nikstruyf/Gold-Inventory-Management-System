@@ -66,10 +66,8 @@
 }
 
 .head-edit {
-    width: 8%;
+    width: 5%;
 }
-
-
 
 .table-weight-unit {
     border: solid 2px var(--main-color-red);
@@ -202,6 +200,7 @@
 	display: inline-block;
 	position: relative;
     outline: none;
+    cursor: pointer;
 }
 
 .checkbox:checked {

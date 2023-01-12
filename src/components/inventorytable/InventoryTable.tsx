@@ -109,7 +109,7 @@ export default function InventoryTable(
               gold smith fee
             </th>
             <th className="head-edit">
-              edit
+              &#8203;
             </th>
           </tr>
         </thead>
@@ -190,7 +190,7 @@ export default function InventoryTable(
                       <button
                         type="button"
                         className="button-edit"
-                        onClick={() => { navigate('/inventory/editgoods'); }}
+                        onClick={() => { navigate(`/inventory/editgoods?id=${detailData.gold_detail_id}`); }}
                       >
                         edit
                       </button>
@@ -198,7 +198,7 @@ export default function InventoryTable(
                   </tr>
                   {/* Row By Piece Detail */}
                   <tr className={`row-table-piece ${expand.indexOf(detailData.gold_detail_id) !== -1 ? 'expand' : ''}`}>
-                    <td colSpan={9} className={`body-table-piece ${index % 2 !== 0 ? 'odd' : 'even'}`}>
+                    <td colSpan={10} className={`body-table-piece ${index % 2 !== 0 ? 'odd' : 'even'}`}>
                       <table className="table-piece">
                         {/* Header Piece Detail */}
                         <thead>

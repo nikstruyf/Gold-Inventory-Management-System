@@ -8,6 +8,7 @@ const api = {
   addNewGold: '/inventory/newgold',
   findQueryGold: '/inventory/findgolddetailbydetail',
   addQueryGold: '/inventory/addgold',
+  editGold: '/inventory/editgolddetail',
   getAllGoldDetail: '/inventory/getallgolddetail',
   getAllGoldDetailJoinInventory: '/inventory/getalldetailjoininventory',
   getAllTransactionJoinGold: '/transaction/getalltransactionjoingold',

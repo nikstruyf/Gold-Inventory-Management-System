@@ -6,6 +6,7 @@ import './selltransactionpage.css';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 import { useLoading } from '../../contexts/LoadingContext';
+import { useConfirm } from '../../contexts/ConfirmContext';
 
 import { FindQueryGoldByInventory, SellTransaction } from '../../functions/CreateTransaction';
 import { ConvertWeight, CheckWeight } from '../../functions/ConvertWeight';
@@ -17,6 +18,7 @@ export default function SellTransactionPage() {
   const [cookies] = useCookies(['access-token']);
 
   const { setLoading } = useLoading();
+  const { confirm, setConfirm } = useConfirm();
 
   const [queryResultData, setQueryResultData] = useState<GoldDetailDataType[]>([]);
 
@@ -72,24 +74,45 @@ export default function SellTransactionPage() {
     setLoading(false);
   };
 
-  const sell = async (e: any) => {
+  const sell = (e: any) => {
     e.preventDefault();
     isSubmit(true);
     if (CheckFillAll()) {
-      setLoading(true);
-      const sellResult = await SellTransaction(
-        goldInventoryId,
-        `${goldPriceStart} - ${goldPriceEnd}`,
-        price,
-        note,
-        cookies['access-token']
-      );
-      if (sellResult === 'complete') {
-        navigate('/transaction');
-      }
-      setLoading(false);
+      setConfirm({
+        active: true,
+        message: 'confirm save ?',
+        action: 'selltransaction',
+        status: ''
+      });
     }
   };
+
+  async function Sell() {
+    setLoading(true);
+    const sellResult = await SellTransaction(
+      goldInventoryId,
+      `${goldPriceStart} - ${goldPriceEnd}`,
+      price,
+      note,
+      cookies['access-token']
+    );
+    if (sellResult === 'complete') {
+      navigate('/transaction');
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (confirm.status === 'confirm' && confirm.action === 'selltransaction') {
+      Sell();
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+    }
+  }, [confirm.status]);
 
   async function firstRender() {
     const queryResult = await FindQueryGoldByInventory(

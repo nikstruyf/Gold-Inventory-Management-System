@@ -1,0 +1,23 @@
+.editgoods.page-container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.editgoods.page-content {
+    flex-direction: column;
+    padding: 10px;
+}
+
+.editgood-form-notice {
+    color: var(--main-color-yellow);
+    border: solid 1px var(--main-color-yellow);
+    border-radius: 5px;
+    padding: 0 10px;
+    margin-left: 10px;
+    text-transform: capitalize;
+    width: max-content;
+}
+
+.editgood-form-notice > span {
+    font-weight: 600;
+}

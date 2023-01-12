@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 import ImageIcon from '@mui/icons-material/Image';
 
 import { useLoading } from '../../contexts/LoadingContext';
+import { useConfirm } from '../../contexts/ConfirmContext';
 
 import { AddNewGold } from '../../functions/AddGold';
 import { CheckWeight } from '../../functions/ConvertWeight';
@@ -15,6 +16,7 @@ export default function FormAddNewGold() {
   const [cookies] = useCookies(['access-token']);
 
   const { setLoading } = useLoading();
+  const { confirm, setConfirm } = useConfirm();
 
   const [code, setCode] = useState<string>('');
   const [type, setType] = useState<string>('');
@@ -46,30 +48,51 @@ export default function FormAddNewGold() {
     return true;
   }
 
-  const save = async (e: any) => {
+  const save = (e: any) => {
     e.preventDefault();
     isSubmit(true);
     if (CheckFillAll()) {
-      setLoading(true);
-      const addResult = await AddNewGold(
-        code,
-        type,
-        detail,
-        CheckWeight(weight, unit),
-        goldPercent,
-        goldSmithFee,
-        // picture,
-        '',
-        note,
-        quantity,
-        cookies['access-token']
-      );
-      if (addResult === 'complete') {
-        navigate('/inventory');
-      }
-      setLoading(false);
+      setConfirm({
+        active: true,
+        message: 'confirm save ?',
+        action: 'addnewgold',
+        status: ''
+      });
     }
   };
+
+  async function PutData() {
+    setLoading(true);
+    const addResult = await AddNewGold(
+      code,
+      type,
+      detail,
+      CheckWeight(weight, unit),
+      goldPercent,
+      goldSmithFee,
+      // picture,
+      '',
+      note,
+      quantity,
+      cookies['access-token']
+    );
+    if (addResult === 'complete') {
+      navigate('/inventory');
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (confirm.status === 'confirm' && confirm.action === 'addnewgold') {
+      PutData();
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+    }
+  }, [confirm.status]);
 
   const resetState = () => {
     setPicture(undefined);

@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import './formaddquerygold.css';
 
 import { useLoading } from '../../contexts/LoadingContext';
+import { useConfirm } from '../../contexts/ConfirmContext';
 
 import { FindQueryGold, AddQueryGold } from '../../functions/AddGold';
 import { ConvertWeight, CheckWeight } from '../../functions/ConvertWeight';
@@ -16,6 +17,7 @@ export default function FormAddQueryGold() {
   const [cookies] = useCookies(['access-token']);
 
   const { setLoading } = useLoading();
+  const { confirm, setConfirm } = useConfirm();
 
   const [queryState, setQueryState] = useState<number>(0);
   const queryResultRef = useRef<null | HTMLDivElement>(null);
@@ -102,23 +104,44 @@ export default function FormAddQueryGold() {
     isFocus(GoldDetailId);
   }
 
-  const save = async (e: any) => {
+  const save = (e: any) => {
     e.preventDefault();
     isSubmit(true);
     if (CheckFillAll()) {
-      setLoading(true);
-      const addQueryResult = await AddQueryGold(
-        goldDetailId,
-        note,
-        quantity,
-        cookies['access-token']
-      );
-      if (addQueryResult === 'complete') {
-        navigate('/inventory');
-      }
-      setLoading(false);
+      setConfirm({
+        active: true,
+        message: 'confirm save ?',
+        action: 'addquerygold',
+        status: ''
+      });
     }
   };
+
+  async function PutData() {
+    setLoading(true);
+    const addQueryResult = await AddQueryGold(
+      goldDetailId,
+      note,
+      quantity,
+      cookies['access-token']
+    );
+    if (addQueryResult === 'complete') {
+      navigate('/inventory');
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (confirm.status === 'confirm' && confirm.action === 'addquerygold') {
+      PutData();
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+    }
+  }, [confirm.status]);
 
   const resetState = () => {
     setCode('');

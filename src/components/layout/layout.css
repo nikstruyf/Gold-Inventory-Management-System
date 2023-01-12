@@ -29,6 +29,17 @@
     display: none;
 }
 
-.loading.active {
+.confirm {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: none;
+    z-index: 99;
+}
+
+.loading.active,
+.confirm.active {
     display: block;
 }
+
+

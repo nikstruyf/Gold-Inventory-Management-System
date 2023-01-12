@@ -10,6 +10,7 @@ import { useLoading } from '../../contexts/LoadingContext';
 import SideNav from '../sidenav/SideNav';
 import BottomNav from '../bottomnav/BottomNav';
 import ScrollToTopButton from '../scrolltotopbutton/ScrollToTopButton';
+import ConfirmMessage from '../confirmmessage/ConfirmMessage';
 
 function Layout() {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -35,6 +36,7 @@ function Layout() {
       <div className={`loading ${loading ? 'active' : ''}`}>
         <LinearProgress color="inherit" sx={{ width: '100%' }} />
       </div>
+      <ConfirmMessage />
       <div className="layout">
         {
           windowWidth > 500

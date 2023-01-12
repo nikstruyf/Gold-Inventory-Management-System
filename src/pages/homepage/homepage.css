@@ -22,16 +22,13 @@
     display: flex;
 }
 
-.button button {
+.button-go-signin {
     font-size: 16px;
     padding: 0.8em;
     width: 8em;
     border-radius: 10px;
     text-transform: capitalize;
     font-weight: 600;
-}
-
-.button-go-signin {
     margin-right: 20px;
     color: var(--main-color-red);
     background-color: var(--main-bg);
@@ -53,6 +50,12 @@
 } 
 
 .button-go-start {
+    font-size: 16px;
+    padding: 0.8em;
+    width: 8em;
+    border-radius: 10px;
+    text-transform: capitalize;
+    font-weight: 600;
     color: var(--main-bg);
     background-color: var(--main-color-red);
     border: solid 2px var(--main-color-red);

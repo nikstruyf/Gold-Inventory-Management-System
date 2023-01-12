@@ -35,11 +35,7 @@ export default function TransactionCard(
           </div>
           <div className="transaction-value">
             {`
-              ${
-                data?.transaction.transaction_type === 'buy'
-                || (data && data?.transaction.price < 0)
-                  ? '-' : ''
-              }฿${data && Math.abs(data?.transaction.price)}
+              ฿${data && Math.abs(data?.transaction.price)}
             `}
           </div>
           <div className="transaction-date">
@@ -94,7 +90,7 @@ export default function TransactionCard(
               <div className="amount-head">buy amount</div>
               <div>
                 {`
-                  -฿${data?.transaction.transaction_type === 'change'
+                  ฿${data?.transaction.transaction_type === 'change'
                   ? data?.transaction.buy_price
                   : data?.transaction.price
                   }
@@ -105,10 +101,7 @@ export default function TransactionCard(
               <div className="amount-head">total amount</div>
               <div>
                 {`
-                  ${data?.transaction.transaction_type === 'buy'
-                  || (data && data?.transaction.price < 0)
-                  ? '-' : ''
-                  }฿${data && Math.abs(data?.transaction.price)}
+                  ฿${data && Math.abs(data?.transaction.price)}
                 `}
               </div>
             </div>
