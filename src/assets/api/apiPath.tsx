@@ -9,6 +9,8 @@ const api = {
   findQueryGold: '/inventory/findgolddetailbydetail',
   addQueryGold: '/inventory/addgold',
   editGold: '/inventory/editgolddetail',
+  getGoldDetailById: '/inventory/getgolddetailbygolddetailid/',
+  setGoldStatus: '/inventory/setgoldinventorystatus',
   getAllGoldDetail: '/inventory/getallgolddetail',
   getAllGoldDetailJoinInventory: '/inventory/getalldetailjoininventory',
   getAllTransactionJoinGold: '/transaction/getalltransactionjoingold',

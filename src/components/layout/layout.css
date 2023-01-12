@@ -27,6 +27,7 @@
     color: var(--third-color-red);
     width: 100%;
     display: none;
+    z-index: 100;
 }
 
 .confirm {

@@ -6,9 +6,13 @@ import { useCookies } from 'react-cookie';
 import ImageIcon from '@mui/icons-material/Image';
 
 import { useLoading } from '../../contexts/LoadingContext';
+import { useConfirm } from '../../contexts/ConfirmContext';
 
-import { CheckWeight } from '../../functions/ConvertWeight';
-import EditGold from '../../functions/EditGold';
+import { CheckWeight, ConvertWeight } from '../../functions/ConvertWeight';
+import { EditGold } from '../../functions/EditGold';
+import { GetGoldDetailById } from '../../functions/GetData';
+
+import { GoldDetailDataType } from '../../interfaces/GoldData';
 
 export default function EditGoodsPage() {
   const [searchParams] = useSearchParams();
@@ -16,6 +20,9 @@ export default function EditGoodsPage() {
   const [cookies] = useCookies(['access-token']);
 
   const { setLoading } = useLoading();
+  const { confirm, setConfirm } = useConfirm();
+
+  // const [goldData, setGoldData] = useState<GoldDetailDataType>();
 
   const [code, setCode] = useState<string>('');
   const [type, setType] = useState<string>('');
@@ -24,12 +31,40 @@ export default function EditGoodsPage() {
   const [goldPercent, setGoldPercent] = useState<number>(0);
   const [goldSmithFee, setGoldSmithFee] = useState<number>(0);
   const [picture, setPicture] = useState();
-  const [note, setNote] = useState<string>('');
 
   const [unit, setWeightUnit] = useState<string>('gram');
   const [previewPic, setPreviewPic] = useState<string>();
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [submit, isSubmit] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   setCode(goldData!?.code);
+  //   setType(goldData!?.type);
+  //   setDetail(goldData!?.detail);
+  //   setWeight(goldData!?.weight);
+  //   setGoldPercent(goldData!?.gold_percent);
+  //   setGoldSmithFee(goldData!?.gold_smith_fee);
+  //   // setPicture();
+  // }, [goldData]);
+
+  async function setState(data: GoldDetailDataType) {
+    setCode(data.code);
+    setType(data.type);
+    setDetail(data.detail);
+    setWeight(data.weight);
+    setGoldPercent(data.gold_percent);
+    setGoldSmithFee(data.gold_smith_fee);
+    // setPicture();
+  }
+
+  useEffect(() => {
+    GetGoldDetailById(
+      searchParams.get('id'),
+      cookies['access-token']
+    ).then((res) => {
+      setState(res.data);
+    });
+  }, []);
 
   function CheckFillAll() {
     if (code === ''
@@ -49,23 +84,12 @@ export default function EditGoodsPage() {
     e.preventDefault();
     isSubmit(true);
     if (CheckFillAll()) {
-      setLoading(true);
-      const addResult = await EditGold(
-        code,
-        type,
-        detail,
-        CheckWeight(weight, unit),
-        goldPercent,
-        goldSmithFee,
-        // picture,
-        '',
-        note,
-        cookies['access-token']
-      );
-      if (addResult === 'complete') {
-        navigate('/inventory');
-      }
-      setLoading(false);
+      setConfirm({
+        active: true,
+        message: 'confirm save ?',
+        action: 'edit item',
+        status: ''
+      });
     }
   };
 
@@ -80,6 +104,38 @@ export default function EditGoodsPage() {
       setPreviewPic(undefined);
     }
   }, [picture]);
+
+  async function Edit() {
+    setLoading(true);
+    const editResult = await EditGold(
+      Number(searchParams.get('id')),
+      code,
+      type,
+      detail,
+      CheckWeight(weight, unit),
+      goldPercent,
+      goldSmithFee,
+      // picture,
+      '',
+      cookies['access-token']
+    );
+    if (editResult === 'complete') {
+      navigate('/inventory');
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (confirm.status === 'confirm' && confirm.action === 'edit item') {
+      Edit();
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+    }
+  }, [confirm.status]);
 
   return (
     <div className="editgoods page-background">
@@ -97,6 +153,7 @@ export default function EditGoodsPage() {
               <input
                 type="text"
                 className="inputbox input-code"
+                value={code}
                 onChange={(e) => { setCode(e.target.value); }}
               />
               <div className={`important-mark ${CheckFillAll() || code !== '' ? '' : 'show'}`}>
@@ -109,8 +166,8 @@ export default function EditGoodsPage() {
               <div className="select-type">
                 <select
                   onChange={(e) => { setType(e.target.value); }}
+                  value={type}
                 >
-                  <option value="" hidden>select . . .</option>
                   <option value="Necklace">necklace</option>
                   <option value="Bracelet">bracelet</option>
                   <option value="Ring">ring</option>
@@ -129,6 +186,7 @@ export default function EditGoodsPage() {
               <span>detail</span>
               <input
                 type="text"
+                value={detail}
                 className="inputbox input-detail"
                 onChange={(e) => { setDetail(e.target.value); }}
               />
@@ -142,6 +200,7 @@ export default function EditGoodsPage() {
               <input
                 type="number"
                 step="0.00000001"
+                value={(unit === 'baht' ? ConvertWeight(weight, 'gram') : weight) || 0}
                 className="inputbox weight-value"
                 onChange={(e) => { setWeight(e.target.valueAsNumber); }}
               />
@@ -167,6 +226,7 @@ export default function EditGoodsPage() {
               <input
                 type="number"
                 step="0.0001"
+                value={goldPercent || 0}
                 className="inputbox input-goldPercent"
                 onChange={(e) => { setGoldPercent(e.target.valueAsNumber); }}
               />
@@ -180,6 +240,7 @@ export default function EditGoodsPage() {
               <input
                 type="number"
                 step="0.0001"
+                value={goldSmithFee || 0}
                 className="inputbox input-goldSmithFee"
                 onChange={(e) => { setGoldSmithFee(e.target.valueAsNumber); }}
               />
@@ -225,15 +286,6 @@ export default function EditGoodsPage() {
               <div className={`important-mark ${CheckFillAll() || picture ? '' : 'show'}`}>
                 *
               </div>
-            </div>
-            {/* Other Detail */}
-            <div className="label input-otherDetail">
-              <span>note</span>
-              <textarea
-                rows={4}
-                className="inputbox input-otherDetail"
-                onChange={(e) => { setNote(e.target.value); }}
-              />
             </div>
             {/* Fill All Message */}
             <div className={`label invalid-fillall-message ${CheckFillAll() || !submit ? '' : 'show'}`}>

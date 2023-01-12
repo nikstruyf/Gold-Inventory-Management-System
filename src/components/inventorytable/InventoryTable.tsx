@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './inventorytable.css';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+import { useLoading } from '../../contexts/LoadingContext';
+import { useConfirm } from '../../contexts/ConfirmContext';
+
 import { ConvertWeight } from '../../functions/ConvertWeight';
 import { SplitDateAndTime } from '../../functions/ConvertDateAndTimeForDisplay';
+import { SetGoldStatus } from '../../functions/EditGold';
 
 import { GoldDetailDataType, GoldInventoryDataType } from '../../interfaces/GoldData';
 
@@ -32,6 +37,10 @@ export default function InventoryTable(
     } = props;
 
   const navigate = useNavigate();
+  const [cookies] = useCookies(['access-token']);
+
+  const { setLoading } = useLoading();
+  const { confirm, setConfirm } = useConfirm();
 
   const [itemSelect, setItemSelect] = useState<number[]>([]);
   const [weightUnit, setWeightUnit] = useState<string>('gram');
@@ -65,11 +74,58 @@ export default function InventoryTable(
   const goldInventoryData = constructData();
 
   useEffect(() => {
-    console.log(itemSelect);
-  }, [itemSelect]);
+    if (confirm.status === 'confirm' && confirm.action === 'delete item') {
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+      alert('delete');
+    }
+  }, [confirm.status]);
+
+  async function ChangeStatus(sta: string) {
+    setLoading(true);
+    const setStatusRes = await SetGoldStatus(itemSelect, sta, cookies['access-token']);
+    if (setStatusRes === 'complete') {
+      window.location.reload();
+    }
+    setLoading(false);
+  }
 
   return (
     <div className="inventory table-main">
+      {/* Select Item Option */}
+      <div className={`inventory table-select ${itemSelect.length > 0 ? 'active' : ''}`}>
+        <div className="inventory button-group">
+          <button
+            className="button move"
+            type="button"
+            onClick={() => { ChangeStatus('front'); }}
+          >
+            move to storefront
+          </button>
+          <button
+            className="button move"
+            type="button"
+            onClick={() => { ChangeStatus('safe'); }}
+          >
+            move to warehouse
+          </button>
+        </div>
+        <div className="inventory item-qauntity">
+          {`${itemSelect.length} items selected`}
+        </div>
+        <div className="inventory button-group">
+          <button
+            className="button delete"
+            type="button"
+          >
+            delete
+          </button>
+        </div>
+      </div>
       <table>
         {/* Table Header */}
         <thead>

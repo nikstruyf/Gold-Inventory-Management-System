@@ -25,6 +25,7 @@ function ShowAllUser() {
     GetQueryAllUser(cookies['access-token']).then((res) => {
       setUserData(res.data);
     });
+    console.log(userData);
   }, []);
 
   return (
@@ -38,7 +39,7 @@ function ShowAllUser() {
           register
         </button>
       </div>
-      <div className={`noAccount ${userData.length === 0 ? 'active' : ''}`}>
+      <div className={`noAccount ${userData === null || userData.length === 0 ? 'active' : ''}`}>
         <PersonAddAltIcon sx={{ fontSize: 100 }} />
         no account? let&rsquo;s register first!
       </div>

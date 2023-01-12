@@ -1,5 +1,6 @@
 .table-main {
     display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -24,6 +25,75 @@
 .inventory.table-main td {
     border: solid 1px var(--second-color-grey);
     padding: 0 7px;
+}
+
+.inventory.table-select {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 55px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: var(--main-bg);
+    border-radius: 5px;
+    box-shadow: var(--container-shadow);
+    padding: 8px 12px;
+    z-index: 89;
+}
+
+.inventory.table-select.active {
+    display: flex;
+}
+
+.inventory.button-group {
+    display: flex;
+    column-gap: 10px;
+}
+
+.inventory.item-qauntity {
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.inventory > .button {
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-transform: capitalize;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.button.move {
+    color: var(--main-font-white);
+    background-color: var(--main-color-red);
+    border-color: var(--main-color-red);
+}
+
+.button.move:hover {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
+}
+
+.button.move:active {
+    transform: translateY(2px);
+}
+
+.button.delete {
+    color: var(--main-color-red);
+    background-color: var(--main-font-white);
+    border-color: var(--main-color-red);
+}
+
+.button.delete:hover {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+}
+
+.button.delete:active {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
 }
 
 .head-action {
@@ -244,4 +314,17 @@
 
 .status-color.safe {
     background-color: var(--main-color-yellow);
+}
+
+@media screen and (max-width: 1200px) {
+    .inventory.table-select {
+        top: 90px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .inventory.table-select {
+        flex-direction: column;
+        row-gap: 10px;
+    }
 }
