@@ -176,6 +176,10 @@
     text-align: center;
 }
 
+.trade-transaction.page-content .query-table .body-picture > img {
+    max-height: 70px;
+}
+
 .trade-transaction.page-content .query-table .body-value {
     text-align: end;
 }

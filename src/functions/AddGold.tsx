@@ -8,7 +8,7 @@ export async function AddNewGold(
   weight: number,
   goldPercent: number,
   goldDmithFee: number,
-  picture: any,
+  picture: string,
   note: string,
   quantity: number,
   token: string

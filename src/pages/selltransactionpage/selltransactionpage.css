@@ -175,6 +175,10 @@
     text-align: center;
 }
 
+.sell-transaction.page-content .query-table .body-picture > img {
+    max-height: 70px;
+}
+
 .sell-transaction.page-content .query-table .body-value {
     text-align: end;
 }

@@ -104,6 +104,14 @@ table, th, td {
     color: var(--main-font-white);
 }
 
+.query-result-table .table-body .body-picture {
+    max-width: 10%;
+}
+
+.query-result-table .table-body .body-picture > img {
+    height: 70px;
+}
+
 .query-result-table .table-body .body-value {
     text-align: end;
 }

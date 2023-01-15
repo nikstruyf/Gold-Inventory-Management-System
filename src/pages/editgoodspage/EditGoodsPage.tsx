@@ -2,8 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import './editgoodspage.css';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 
 import ImageIcon from '@mui/icons-material/Image';
+
+import { storage } from '../../functions/FirebaseConnection';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
@@ -22,30 +25,18 @@ export default function EditGoodsPage() {
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
 
-  // const [goldData, setGoldData] = useState<GoldDetailDataType>();
-
   const [code, setCode] = useState<string>('');
   const [type, setType] = useState<string>('');
   const [detail, setDetail] = useState<string>('');
   const [weight, setWeight] = useState<number>(0);
   const [goldPercent, setGoldPercent] = useState<number>(0);
   const [goldSmithFee, setGoldSmithFee] = useState<number>(0);
-  const [picture, setPicture] = useState();
+  const [picture, setPicture] = useState<File>();
 
   const [unit, setWeightUnit] = useState<string>('gram');
   const [previewPic, setPreviewPic] = useState<string>();
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [submit, isSubmit] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   setCode(goldData!?.code);
-  //   setType(goldData!?.type);
-  //   setDetail(goldData!?.detail);
-  //   setWeight(goldData!?.weight);
-  //   setGoldPercent(goldData!?.gold_percent);
-  //   setGoldSmithFee(goldData!?.gold_smith_fee);
-  //   // setPicture();
-  // }, [goldData]);
 
   async function setState(data: GoldDetailDataType) {
     setCode(data.code);
@@ -54,7 +45,7 @@ export default function EditGoodsPage() {
     setWeight(data.weight);
     setGoldPercent(data.gold_percent);
     setGoldSmithFee(data.gold_smith_fee);
-    // setPicture();
+    setPreviewPic(data.picture);
   }
 
   useEffect(() => {
@@ -73,7 +64,7 @@ export default function EditGoodsPage() {
       || weight === 0
       || goldPercent === 0
       || goldSmithFee === 0
-      // || !picture
+      || (!picture && previewPic === '')
     ) {
       return false;
     }
@@ -93,6 +84,47 @@ export default function EditGoodsPage() {
     }
   };
 
+  async function Edit() {
+    setLoading(true);
+
+    let downloadUrl;
+    if (!picture) {
+      downloadUrl = previewPic;
+    } else {
+      const storageRef = ref(storage, `gold-pictures/${picture.name}`);
+      const snapshot = await uploadBytes(storageRef, picture);
+      downloadUrl = await getDownloadURL(snapshot.ref);
+    }
+
+    const editResult = await EditGold(
+      Number(searchParams.get('id')),
+      code,
+      type,
+      detail,
+      CheckWeight(weight, unit),
+      goldPercent,
+      goldSmithFee,
+      downloadUrl,
+      cookies['access-token']
+    );
+    if (editResult === 'complete') {
+      navigate('/inventory');
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (confirm.status === 'confirm' && confirm.action === 'edit item') {
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+      Edit();
+    }
+  }, [confirm.status]);
+
   useEffect(() => {
     if (picture) {
       const reader = new FileReader();
@@ -104,38 +136,6 @@ export default function EditGoodsPage() {
       setPreviewPic(undefined);
     }
   }, [picture]);
-
-  async function Edit() {
-    setLoading(true);
-    const editResult = await EditGold(
-      Number(searchParams.get('id')),
-      code,
-      type,
-      detail,
-      CheckWeight(weight, unit),
-      goldPercent,
-      goldSmithFee,
-      // picture,
-      '',
-      cookies['access-token']
-    );
-    if (editResult === 'complete') {
-      navigate('/inventory');
-    }
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    if (confirm.status === 'confirm' && confirm.action === 'edit item') {
-      Edit();
-      setConfirm({
-        active: false,
-        message: '',
-        action: '',
-        status: ''
-      });
-    }
-  }, [confirm.status]);
 
   return (
     <div className="editgoods page-background">
@@ -275,6 +275,7 @@ export default function EditGoodsPage() {
                 className="input-picture-file"
                 ref={fileInputRef}
                 accept="image/*"
+                // value={e.target.files[0]}
                 onChange={(e: any) => {
                   if (e.target.files[0]) {
                     setPicture(e.target.files[0]);

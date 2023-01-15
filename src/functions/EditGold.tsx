@@ -39,7 +39,6 @@ export async function SetGoldStatus(
   status: string,
   token: string
 ) {
-  console.log(goldInventoryId, status, token);
   let res = 'incomplete';
   await axios.patch(`${api.IP}${api.setGoldStatus}`, {
     gold_inventory_id: goldInventoryId,

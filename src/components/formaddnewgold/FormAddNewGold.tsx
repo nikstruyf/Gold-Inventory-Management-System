@@ -2,8 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import './formaddnewgold.css';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 
 import ImageIcon from '@mui/icons-material/Image';
+
+import { storage } from '../../functions/FirebaseConnection';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
@@ -24,11 +27,11 @@ export default function FormAddNewGold() {
   const [weight, setWeight] = useState<number>(0);
   const [goldPercent, setGoldPercent] = useState<number>(0);
   const [goldSmithFee, setGoldSmithFee] = useState<number>(0);
-  const [picture, setPicture] = useState();
   const [note, setNote] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(0);
 
   const [unit, setWeightUnit] = useState<string>('gram');
+  const [picture, setPicture] = useState<File>();
   const [previewPic, setPreviewPic] = useState<string>();
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [submit, isSubmit] = useState<boolean>(false);
@@ -40,7 +43,7 @@ export default function FormAddNewGold() {
       || weight === 0
       || goldPercent === 0
       || goldSmithFee === 0
-      // || !picture
+      || !picture
       || quantity === 0
     ) {
       return false;
@@ -48,7 +51,7 @@ export default function FormAddNewGold() {
     return true;
   }
 
-  const save = (e: any) => {
+  const save = async (e: any) => {
     e.preventDefault();
     isSubmit(true);
     if (CheckFillAll()) {
@@ -61,8 +64,14 @@ export default function FormAddNewGold() {
     }
   };
 
-  async function PutData() {
+  async function Add() {
     setLoading(true);
+
+    if (!picture) return;
+    const storageRef = ref(storage, `gold-pictures/${picture.name}`);
+    const snapshot = await uploadBytes(storageRef, picture);
+    const downloadUrl = await getDownloadURL(snapshot.ref);
+
     const addResult = await AddNewGold(
       code,
       type,
@@ -70,27 +79,26 @@ export default function FormAddNewGold() {
       CheckWeight(weight, unit),
       goldPercent,
       goldSmithFee,
-      // picture,
-      '',
+      downloadUrl,
       note,
       quantity,
       cookies['access-token']
     );
     if (addResult === 'complete') {
       navigate('/inventory');
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   useEffect(() => {
     if (confirm.status === 'confirm' && confirm.action === 'addnewgold') {
-      PutData();
       setConfirm({
         active: false,
         message: '',
         action: '',
         status: ''
       });
+      Add();
     }
   }, [confirm.status]);
 

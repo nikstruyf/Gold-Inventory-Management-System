@@ -24,7 +24,7 @@ export default function ScrollToTopButton() {
       onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
       onKeyDown={() => {}}
     >
-      <ArrowUpwardIcon sx={{ fontSize: 40 }} />
+      <ArrowUpwardIcon sx={{ fontSize: 30 }} />
     </div>
   );
 }

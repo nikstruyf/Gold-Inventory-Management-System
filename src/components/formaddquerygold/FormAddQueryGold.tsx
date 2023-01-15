@@ -31,6 +31,7 @@ export default function FormAddQueryGold() {
   const [weight, setWeight] = useState<number>(0);
   const [goldPercent, setGoldPercent] = useState<number>(0);
   const [goldSmithFee, setGoldSmithFee] = useState<number>(0);
+  const [previewPic, setPreviewPic] = useState<string>('');
   const [note, setNote] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(0);
 
@@ -48,6 +49,7 @@ export default function FormAddQueryGold() {
       || weight === 0
       || goldPercent === 0
       || goldSmithFee === 0
+      || previewPic === ''
       || quantity === 0
     ) {
       return false;
@@ -93,6 +95,7 @@ export default function FormAddQueryGold() {
     Weight: number,
     GoldPercent: number,
     GoldSmithFee: number,
+    Picture: string
   ) {
     setGoldDetailId(GoldDetailId);
     setCode(Code);
@@ -101,6 +104,7 @@ export default function FormAddQueryGold() {
     setWeight(Weight);
     setGoldPercent(GoldPercent);
     setGoldSmithFee(GoldSmithFee);
+    setPreviewPic(Picture);
     isFocus(GoldDetailId);
   }
 
@@ -305,11 +309,14 @@ export default function FormAddQueryGold() {
                           data.weight,
                           data.gold_percent,
                           data.gold_smith_fee,
+                          data.picture
                         );
                       }}
                       key={data.gold_detail_id}
                     >
-                      <td>this is picture</td>
+                      <td className="body-picture">
+                        <img src={data.picture} alt={String(data.gold_detail_id)} />
+                      </td>
                       <td>{data.code}</td>
                       <td>{data.type}</td>
                       <td>{data.detail}</td>

@@ -281,7 +281,7 @@ export default function SellTransactionPage() {
                         }}
                       >
                         <td className="body-picture">
-                          this is picture
+                          <img src={el.picture} alt={String(el.gold_detail_id)} />
                         </td>
                         <td>
                           {data.gold_inventory_id}
