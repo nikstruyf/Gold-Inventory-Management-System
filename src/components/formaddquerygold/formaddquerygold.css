@@ -14,7 +14,7 @@
     border: solid 2px var(--second-color-grey);
     border-radius: 10px;
     padding: 10px;
-    max-height: 95vh;
+    max-height: 90vh;
 }
 
 .query-result-container {

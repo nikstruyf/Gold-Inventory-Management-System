@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './signinpage.css';
 import { useCookies } from 'react-cookie';
@@ -18,6 +18,10 @@ function SignInPage() {
   const [userPasswd, setUserPasswd] = useState<string>('');
 
   const [showInvalid, setShowInvalid] = useState<boolean>(false);
+
+  useEffect(() => {
+    setShowInvalid(false);
+  }, [userID, userPasswd]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -52,7 +56,11 @@ function SignInPage() {
           />
           {/* <a className="link-forgotpass" href="/">forgot password?</a> */}
           <div className={`input-incorrect ${showInvalid ? 'show' : ''}`}>
-            invalid username or password
+            {
+              userID === '' || userPasswd === ''
+                ? 'please enter username and password'
+                : 'invalid username or password'
+            }
           </div>
           <button
             className="button-signin"

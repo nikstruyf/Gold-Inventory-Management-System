@@ -54,3 +54,23 @@ export async function SetGoldStatus(
   });
   return res;
 }
+
+export async function DeleteGold(
+  goldInventoryId: number[],
+  token: string
+) {
+  let res = 'incomplete';
+  await axios.delete(`${api.IP}${api.deleteGold}`, {
+    data: {
+      gold_inventory_id: goldInventoryId
+    },
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  }).then((result) => {
+    if (result.status === 200) {
+      res = 'complete';
+    }
+  });
+  return res;
+}

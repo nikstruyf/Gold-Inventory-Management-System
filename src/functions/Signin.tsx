@@ -27,7 +27,7 @@ const SigninClick = async (username: string, password: string) => {
         username: result.data.username
       };
     }
-  });
+  }).catch(() => res);
   return res;
 };
 

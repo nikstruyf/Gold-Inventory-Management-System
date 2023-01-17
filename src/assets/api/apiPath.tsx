@@ -11,6 +11,7 @@ const api = {
   editGold: '/inventory/editgolddetail',
   getGoldDetailById: '/inventory/getgolddetailbygolddetailid/',
   setGoldStatus: '/inventory/setgoldinventorystatus',
+  deleteGold: '/inventory/delete-gold-inventory-by-id',
   getAllGoldDetail: '/inventory/getallgolddetail',
   getAllGoldDetailJoinInventory: '/inventory/getalldetailjoininventory',
   getAllTransactionJoinGold: '/transaction/getalltransactionjoingold',

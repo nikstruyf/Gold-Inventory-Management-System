@@ -12,7 +12,7 @@ import { useConfirm } from '../../contexts/ConfirmContext';
 
 import { ConvertWeight } from '../../functions/ConvertWeight';
 import { SplitDateAndTime } from '../../functions/ConvertDateAndTimeForDisplay';
-import { SetGoldStatus } from '../../functions/EditGold';
+import { SetGoldStatus, DeleteGold } from '../../functions/EditGold';
 
 import { GoldDetailDataType, GoldInventoryDataType } from '../../interfaces/GoldData';
 
@@ -73,18 +73,6 @@ export default function InventoryTable(
   }
   const goldInventoryData = constructData();
 
-  useEffect(() => {
-    if (confirm.status === 'confirm' && confirm.action === 'delete item') {
-      setConfirm({
-        active: false,
-        message: '',
-        action: '',
-        status: ''
-      });
-      alert('delete');
-    }
-  }, [confirm.status]);
-
   async function ChangeStatus(sta: string) {
     setLoading(true);
     const setStatusRes = await SetGoldStatus(itemSelect, sta, cookies['access-token']);
@@ -93,6 +81,27 @@ export default function InventoryTable(
     }
     setLoading(false);
   }
+
+  async function Delete() {
+    setLoading(true);
+    const deleteGold = await DeleteGold(itemSelect, cookies['access-token']);
+    if (deleteGold === 'complete') {
+      window.location.reload();
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (confirm.status === 'confirm' && confirm.action === 'delete item') {
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+      Delete();
+    }
+  }, [confirm.status]);
 
   return (
     <div className="inventory table-main">
@@ -121,12 +130,20 @@ export default function InventoryTable(
           <button
             className="button delete"
             type="button"
+            onClick={() => {
+              setConfirm({
+                active: true,
+                message: 'continue delete?',
+                action: 'delete item',
+                status: ''
+              });
+            }}
           >
             delete
           </button>
         </div>
       </div>
-      <table>
+      <table className="inventory main-table">
         {/* Table Header */}
         <thead>
           <tr>

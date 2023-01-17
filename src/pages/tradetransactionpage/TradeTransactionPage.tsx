@@ -4,6 +4,7 @@ import { useCookies } from 'react-cookie';
 import './tradetransactionpage.css';
 
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
@@ -88,7 +89,10 @@ export default function TradeTransactionPage() {
 
   const next = async (e: any) => {
     e.preventDefault();
-    if (CheckFillAll()) {
+    if (goldInventoryId !== 0
+      && goldPriceStart !== 0
+      && goldPriceEnd !== 0
+      && sellPrice !== 0) {
       setBuyState(true);
       await Delay(100);
       isSubmit(false);
@@ -435,41 +439,43 @@ export default function TradeTransactionPage() {
           </div>
           {/* Form trade Transaction */}
           <form onSubmit={trade}>
-            <div className="trade-transaction item-input-border">
-              {/* Selected Item */}
-              <div className="select-result">
-                {`gold ID: ${goldInventoryId}`}
-              </div>
-              {/* Input Gold Price */}
-              <div className="input-comp">
-                <div className="input-label">
-                  gold price
-                  <span className={`important-mark
+            {/* Input Gold Price */}
+            <div className="input-comp">
+              <div className="input-label">
+                gold price
+                <span
+                  className={`important-mark
                     ${
                       CheckFillAll()
                         || goldPriceStart !== 0
                         || goldPriceEnd !== 0
                         ? '' : 'show'
-                    }`}
-                  >
-                    *
-                  </span>
-                </div>
-                <div className="trade-transaction gold-price">
-                  <input
-                    type="number"
-                    className="inputbox"
-                    value={goldPriceStart}
-                    onChange={(e) => { setGoldPriceStart(e.target.valueAsNumber); }}
-                  />
-                  <span className="gold-price-range">-</span>
-                  <input
-                    type="number"
-                    className="inputbox"
-                    value={goldPriceEnd}
-                    onChange={(e) => { setGoldPriceEnd(e.target.valueAsNumber); }}
-                  />
-                </div>
+                      }
+                  `}
+                >
+                  *
+                </span>
+              </div>
+              <div className="trade-transaction gold-price">
+                <input
+                  type="number"
+                  className="inputbox"
+                  value={goldPriceStart}
+                  onChange={(e) => { setGoldPriceStart(e.target.valueAsNumber); }}
+                />
+                <span className="gold-price-range">-</span>
+                <input
+                  type="number"
+                  className="inputbox"
+                  value={goldPriceEnd}
+                  onChange={(e) => { setGoldPriceEnd(e.target.valueAsNumber); }}
+                />
+              </div>
+            </div>
+            <div className="trade-transaction item-input-border">
+              {/* Selected Item */}
+              <div className="select-result">
+                {`gold ID: ${goldInventoryId}`}
               </div>
               {/* Input Price */}
               <div className="input-comp">
@@ -488,7 +494,13 @@ export default function TradeTransactionPage() {
                 />
               </div>
             </div>
+            <div className="trade-transaction change-icon">
+              <ChangeCircleOutlinedIcon sx={{ fontSize: 40 }} />
+            </div>
             <div className="trade-transaction item-input-border">
+              <div className="select-result">
+                customer&#39;s gold details
+              </div>
               {/* Input Weight */}
               <div className="input-comp">
                 <div className="input-label">

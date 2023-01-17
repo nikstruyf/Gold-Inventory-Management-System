@@ -8,7 +8,7 @@
     width: 100%;
 }
 
-.inventory.table-main thead {
+.inventory.main-table > thead {
     background-color: var(--main-bg);
     color: var(--main-color-red);
     height: 100px;
@@ -178,7 +178,7 @@
     text-align: center;
 }
 
-.body-picture > img {
+.body-picture img {
     max-height: 7em;
     margin-top: 5px;
 }
@@ -232,7 +232,17 @@
 
 .table-piece {
     width: 100%;
-    margin: 5px 0 10px 0;
+    margin: 10px 0 30px 0;
+}
+
+.table-piece {
+    border-bottom: solid 2px var(--main-color-grey);
+}
+
+.table-piece > thead {
+    background-color: var(--main-bg);
+    color: var(--main-color-red);
+    text-transform: capitalize;
 }
 
 .table-piece thead {
