@@ -60,10 +60,9 @@ export async function DeleteGold(
   token: string
 ) {
   let res = 'incomplete';
-  await axios.delete(`${api.IP}${api.deleteGold}`, {
-    data: {
-      gold_inventory_id: goldInventoryId
-    },
+  await axios.post(`${api.IP}${api.deleteGold}`, {
+    gold_inventory_id: goldInventoryId
+  }, {
     headers: {
       Authorization: `Bearer ${token}`
     },

@@ -267,6 +267,10 @@
     width: auto;
 }
 
+.head-serial {
+    width: 5%;
+}
+
 .table-piece-items {
     height: 60px;
 }
@@ -329,11 +333,33 @@
 }
 
 .status-color.front {
-    background-color: var(--main-color-red);
+    background-color: var(--third-color-red);
 }
 
 .status-color.safe {
-    background-color: var(--main-color-yellow);
+    background-color: var(--second-color-red);
+}
+
+.body-serial {
+    text-align: center;
+}
+
+.button-serial {
+    background-color: inherit;
+    color: var(--main-color-red);
+    border: 2px solid var(--main-color-red);
+    border-radius: 5px;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.button-serial:hover {
+    color: var(--main-font-white);
+    background-color: var(--main-color-red);
+}
+
+.button-serial:active {
+    transform: translateY(2px);
 }
 
 @media screen and (max-width: 1200px) {

@@ -1,0 +1,93 @@
+.modal-bg.read-serial-addnew {
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.modal-bg.read-serial-addnew.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.page-content.read-serial-addnew {
+    padding: 20px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+    transform: translateY(50px);
+    transition: 0.2s ease-out;
+}
+
+.page-content.read-serial-addnew.active {
+    transform: translateY(0);
+}
+
+.notice.focus-read-serial {
+    color: var(--fourth-color-red);
+    opacity: 0;
+}
+
+.notice.focus-read-serial.active {
+    opacity: 1;
+}
+
+.read-serial.inputbox {
+    width: 300px;
+    border-color: var(--second-color-grey);
+}
+
+.read-serial.inputbox:focus {
+    border-color: var(--main-color-grey);
+}
+
+.read-serial.button-group {
+    display: flex;
+    column-gap: 20px;
+    margin: 20px 0 10px 0;
+}
+
+.read-serial  .button-confirm {
+    padding: 0.7em 4em;
+    border-radius: 10px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: var(--main-bg);
+    background-color: var(--main-color-red);
+    border: solid 2px var(--main-color-red);
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.read-serial  .button-confirm:disabled {
+    background-color: var(--second-color-grey);
+    border-color: var(--second-color-grey);
+}
+
+.read-serial.button-confirm:hover {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
+}
+
+.read-serial .button-cancel {
+    padding: 0.7em 4em;
+    border-radius: 10px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: var(--main-color-yellow);
+    background-color: var(--main-bg);
+    border: solid 2px var(--main-color-yellow);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.read-serial .button-cancel:hover {
+    color: var(--main-font-white);
+    background-color: var(--main-color-yellow);
+}
+
+.read-serial .button-confirm:active,
+.read-serial .button-cancel:active {
+    transform: translateY(3px);
+}

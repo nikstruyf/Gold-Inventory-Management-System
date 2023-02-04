@@ -1,30 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 import './inventorypage.css';
 
 import AddIcon from '@mui/icons-material/Add';
 
 import InventoryTable from '../../components/inventorytable/InventoryTable';
 
-import { GetAllGoldDetailJoinInventory } from '../../functions/GetData';
-
-import { GoldDetailDataType } from '../../interfaces/GoldData';
-
 function InventoryPage() {
-  const [cookies] = useCookies(['access-token']);
-
-  const [allGoldDetail, setAllGoldDetail] = useState<GoldDetailDataType[]>([]);
-
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterType, setFilterType] = useState<string>('all');
   const [filterCode, setFilterCode] = useState<string>('');
-
-  useEffect(() => {
-    GetAllGoldDetailJoinInventory(cookies['access-token']).then((res) => {
-      setAllGoldDetail(res.data);
-    });
-  }, []);
 
   return (
     <div className="inventory page-background">
@@ -109,7 +94,6 @@ function InventoryPage() {
         {/* -- Page Table -- */}
         <div className="inventory-table page-content">
           <InventoryTable
-            goldData={allGoldDetail}
             status={filterStatus}
             type={filterType}
             code={filterCode}

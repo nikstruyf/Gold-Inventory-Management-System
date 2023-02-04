@@ -5,7 +5,8 @@ export interface GoldInventoryDataType {
     date_in: string,
     date_sold: string,
     note: string,
-    is_sold: string
+    is_sold: string,
+    tag_serail_number: number
 }
 
 export interface GoldDetailDataType {

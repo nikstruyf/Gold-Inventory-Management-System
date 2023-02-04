@@ -80,15 +80,15 @@
 }
 
 .transtype-color.sell {
-    background-color: var(--main-color-red);
+    background-color: var(--third-color-red);
 }
 
 .transtype-color.buy {
-    background-color: var(--main-color-yellow);
+    background-color: var(--second-color-red);
 }
 
 .transtype-color.change {
-    background-color: var(--main-color-blue);
+    background-color: var(--fifth-color-red);
 }
 
 .body-weight,

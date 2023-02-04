@@ -77,7 +77,7 @@ export default function EditGoodsPage() {
     if (CheckFillAll()) {
       setConfirm({
         active: true,
-        message: 'confirm save ?',
+        message: 'confirm save?',
         action: 'edit item',
         status: ''
       });

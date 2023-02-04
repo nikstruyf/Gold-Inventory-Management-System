@@ -2,6 +2,11 @@
     flex-direction: column;
 }
 
+.read-serial.button-cancel {
+    margin-top: 20px;
+    padding: 10px 20px;
+}
+
 .sell-transaction.page-header {
     justify-content: center;
     padding-left: 0 !important;
@@ -77,6 +82,17 @@
 
 .sell-transaction.button-search:active {
     transform: translateY(2px);
+}
+
+.sell-transaction.button-search.search-rfid {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+    margin: 0 0 10px 0;
+}
+
+.sell-transaction.button-search.search-rfid:hover {
+    background-color: var(--second-color-red);
+    border-color: var(--second-color-red);
 }
 
 .button-expand.hide {

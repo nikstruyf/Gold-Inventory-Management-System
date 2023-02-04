@@ -25,7 +25,7 @@ export default function ConfirmMessage() {
   };
 
   return (
-    <div className={`confirm-message-bg ${confirm.active ? 'active' : ''}`}>
+    <div className={`modal-bg confirm-message-bg ${confirm.active ? 'active' : ''}`}>
       <div className={`confirm-message page-content ${confirm.active ? 'active' : ''}`}>
         <div className="confirm-message message">
           {confirm.message}

@@ -12,6 +12,7 @@ import { useConfirm } from '../../contexts/ConfirmContext';
 import { FindQueryGoldByInventory, TradeTransaction } from '../../functions/CreateTransaction';
 import { ConvertWeight, CheckWeight } from '../../functions/ConvertWeight';
 import Delay from '../../functions/Delay';
+import { getGoldDetailJoinInventoyBySerial } from '../../functions/GetData';
 
 import { GoldDetailDataType, GoldInventoryDataType } from '../../interfaces/GoldData';
 
@@ -44,6 +45,10 @@ export default function TradeTransactionPage() {
   const [buyState, setBuyState] = useState<boolean>(false);
   const [submit, isSubmit] = useState<boolean>(false);
 
+  const [activateInputSerialNumber, setActivateInputSerialNumber] = useState<boolean>(false);
+  const [focusReadSerialRef, setFocusReadSerialRef] = useState<boolean>(false);
+  const [serialNumber, setSerialNumber] = useState<string>('');
+
   function CheckFillAll() {
     if (goldInventoryId === 0
       || goldPriceStart === 0
@@ -69,6 +74,21 @@ export default function TradeTransactionPage() {
       setWeightUnit('gram');
     }
   }
+
+  const searchByRFID = async (e: any) => {
+    e.preventDefault();
+    setLoading(true);
+    if (serialNumber !== '') {
+      const searchByRfidRes = await getGoldDetailJoinInventoyBySerial(
+        Number(serialNumber),
+        cookies['access-token']
+      );
+      setGoldInventoryId(searchByRfidRes.data.gold_inventory.gold_inventory_id);
+    }
+    setActivateInputSerialNumber(false);
+    setSerialNumber('');
+    setLoading(false);
+  };
 
   const query = async (e: any) => {
     e.preventDefault();
@@ -161,6 +181,43 @@ export default function TradeTransactionPage() {
 
   return (
     <div className="trade-transaction page-background">
+      {/* Read Serial Number Modal */}
+      <div className={`modal-bg read-serial-addnew ${activateInputSerialNumber ? 'active' : ''}`}>
+        <div className={`page-content read-serial-addnew ${activateInputSerialNumber ? 'active' : ''}`}>
+          <div className="page-content-header">
+            scan RFID tag
+          </div>
+          <div
+            className={`
+              notice focus-read-serial
+              ${focusReadSerialRef ? '' : 'active'}
+            `}
+          >
+            click on input box
+          </div>
+          <form onSubmit={searchByRFID}>
+            <input
+              className="inputbox read-serial"
+              type="text"
+              maxLength={10}
+              value={serialNumber}
+              onChange={(e) => { setSerialNumber(e.target.value); }}
+              onFocus={() => { setFocusReadSerialRef(true); }}
+              onBlur={() => { setFocusReadSerialRef(false); }}
+            />
+          </form>
+          <button
+            className="read-serial button-cancel"
+            type="button"
+            onClick={() => {
+              setSerialNumber('');
+              setActivateInputSerialNumber(false);
+            }}
+          >
+            cancle
+          </button>
+        </div>
+      </div>
       {/* Page Header */}
       <div className="trade-transaction page-header">
         change
@@ -173,6 +230,14 @@ export default function TradeTransactionPage() {
           <div className="trade-transaction page-content-header">
             query gold from inventory
           </div>
+          {/* Button Search By RFID */}
+          <button
+            className="sell-transaction button-search search-rfid"
+            type="button"
+            onClick={() => { setActivateInputSerialNumber(true); }}
+          >
+            search by RFID
+          </button>
           {/* Form Query Gold */}
           <form
             onSubmit={query}

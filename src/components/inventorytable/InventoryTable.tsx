@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import SensorsIcon from '@mui/icons-material/Sensors';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
@@ -13,24 +14,24 @@ import { useConfirm } from '../../contexts/ConfirmContext';
 import { ConvertWeight } from '../../functions/ConvertWeight';
 import { SplitDateAndTime } from '../../functions/ConvertDateAndTimeForDisplay';
 import { SetGoldStatus, DeleteGold } from '../../functions/EditGold';
+import { GetAllGoldDetailJoinInventory } from '../../functions/GetData';
 
 import { GoldDetailDataType, GoldInventoryDataType } from '../../interfaces/GoldData';
 
+import ReadSerialNumberModal from '../readserialnumber/ReadSerialNumberModal';
+
 export default function InventoryTable(
   props: {
-    goldData: GoldDetailDataType[],
     status: string,
     type: string,
     code: string
   }
 ) {
   const {
-    goldData,
     status,
     type,
     code
   }: {
-      goldData: GoldDetailDataType[],
       status: string,
       type: string,
       code: string
@@ -42,10 +43,20 @@ export default function InventoryTable(
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
 
+  const [goldData, setGoldData] = useState<GoldDetailDataType[]>([]);
+
+  const [serialNumberSelect, setSerialNumberSelect] = useState<number>(0);
+  const [activateInputSerialNumber, setActivateInputSerialNumber] = useState<boolean>(false);
   const [itemSelect, setItemSelect] = useState<number[]>([]);
   const [weightUnit, setWeightUnit] = useState<string>('gram');
 
   const [expand, setExpand] = useState<number[]>([]);
+
+  useEffect(() => {
+    GetAllGoldDetailJoinInventory(cookies['access-token']).then((res) => {
+      setGoldData(res.data);
+    });
+  }, []);
 
   function ConvertWeightUnit() {
     if (weightUnit === 'gram') {
@@ -71,13 +82,16 @@ export default function InventoryTable(
     }
     return res;
   }
-  const goldInventoryData = constructData();
+  let goldInventoryData = constructData();
 
   async function ChangeStatus(sta: string) {
     setLoading(true);
     const setStatusRes = await SetGoldStatus(itemSelect, sta, cookies['access-token']);
     if (setStatusRes === 'complete') {
-      window.location.reload();
+      setItemSelect([]);
+      GetAllGoldDetailJoinInventory(cookies['access-token']).then((res) => {
+        setGoldData(res.data);
+      });
     }
     setLoading(false);
   }
@@ -86,10 +100,17 @@ export default function InventoryTable(
     setLoading(true);
     const deleteGold = await DeleteGold(itemSelect, cookies['access-token']);
     if (deleteGold === 'complete') {
-      window.location.reload();
+      setItemSelect([]);
+      GetAllGoldDetailJoinInventory(cookies['access-token']).then((res) => {
+        setGoldData(res.data);
+      });
     }
     setLoading(false);
   }
+
+  useEffect(() => {
+    goldInventoryData = constructData();
+  }, [goldData]);
 
   useEffect(() => {
     if (confirm.status === 'confirm' && confirm.action === 'delete item') {
@@ -105,6 +126,12 @@ export default function InventoryTable(
 
   return (
     <div className="inventory table-main">
+      {/* Read Serial Number Modal */}
+      <ReadSerialNumberModal
+        inventoryId={serialNumberSelect}
+        active={activateInputSerialNumber}
+        action="set"
+      />
       {/* Select Item Option */}
       <div className={`inventory table-select ${itemSelect.length > 0 ? 'active' : ''}`}>
         <div className="inventory button-group">
@@ -133,7 +160,7 @@ export default function InventoryTable(
             onClick={() => {
               setConfirm({
                 active: true,
-                message: 'continue delete?',
+                message: `continue delete ${itemSelect.length} items?`,
                 action: 'delete item',
                 status: ''
               });
@@ -203,7 +230,7 @@ export default function InventoryTable(
               ))
               .map((detailData: GoldDetailDataType, index: number) => (
                 <React.Fragment key={detailData.gold_detail_id}>
-                  {/* Row By Type Detail */}
+                  {/* Row By Gold Inventory Data */}
                   <tr
                     className={`table-main-items ${index % 2 !== 0 ? 'odd' : 'even'}`}
                   >
@@ -291,6 +318,9 @@ export default function InventoryTable(
                             <th className="head-note">
                               note
                             </th>
+                            <th className="head-serial">
+                              serial number
+                            </th>
                           </tr>
                         </thead>
                         {/* Body Piece Detail */}
@@ -347,6 +377,18 @@ export default function InventoryTable(
                               </td>
                               <td className="body-note">
                                 {inventoryData.note}
+                              </td>
+                              <td className="body-serial">
+                                <button
+                                  type="button"
+                                  className="button-serial"
+                                  onClick={() => {
+                                    setSerialNumberSelect(inventoryData.gold_inventory_id);
+                                    setActivateInputSerialNumber(!activateInputSerialNumber);
+                                  }}
+                                >
+                                  <SensorsIcon />
+                                </button>
                               </td>
                             </tr>
                           ))

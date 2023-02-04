@@ -37,6 +37,18 @@ export async function GetGoldDetailById(id: string | null, token: string) {
   return goldDetail.data;
 }
 
+export async function getGoldDetailJoinInventoyBySerial(
+  serial: number,
+  token: string
+) {
+  const goldDetailJoinInventory = await axios.get(`${api.IP}${api.getGoldDetailJoinInventoyBySerial}${serial}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  });
+  return goldDetailJoinInventory.data;
+}
+
 export async function GetAllTransactionJoinGold(token: string) {
   const allTransactionDetail = await axios.get(`${api.IP}${api.getAllTransactionJoinGold}`, {
     headers: {
