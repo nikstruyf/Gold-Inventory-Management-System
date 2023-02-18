@@ -7,6 +7,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SignUpClick from '../../functions/SignUp';
 
 import { useLoading } from '../../contexts/LoadingContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 function RegisterContainer() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function RegisterContainer() {
   const [cookies] = useCookies(['access-token']);
 
   const { setLoading } = useLoading();
+  const { setAlert } = useAlert();
 
   const [username, setUsername] = useState<string>('');
   const [userPasswd, setUserPasswd] = useState<string>('');
@@ -44,7 +46,10 @@ function RegisterContainer() {
       } else if (signup === 'empty') {
         setFillAll(false);
       } else if (signup === 'incomplete') {
-        alert('incomplete to register!?');
+        setAlert({
+          active: true,
+          message: 'Error! can not register.\ntry again later.'
+        });
       }
       setLoading(false);
     }

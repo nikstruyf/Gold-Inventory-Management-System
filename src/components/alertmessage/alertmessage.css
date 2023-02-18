@@ -1,0 +1,26 @@
+.alert-message.page-content {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    column-gap: 10px;
+    width: 20em;
+    min-height: 5em;
+    padding: 15px;
+    top: 15px;
+    right: 15px;
+    z-index: 99;
+    color: var(--main-color-yellow);
+    opacity: 0;
+    transition: 0.3s;
+    transform: translateX(25em);
+}
+
+.alert-message.page-content.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.alert-message.message {
+    white-space: pre-line;
+}

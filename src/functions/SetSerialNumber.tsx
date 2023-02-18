@@ -18,6 +18,6 @@ export default async function SetSerialNumber(
     if (result.status === 200) {
       res = 'complete';
     }
-  });
+  }).catch(() => res);
   return res;
 }

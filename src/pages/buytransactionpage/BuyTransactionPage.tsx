@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import { CheckWeight } from '../../functions/ConvertWeight';
 import { BuyTransaction } from '../../functions/CreateTransaction';
@@ -15,6 +16,7 @@ export default function BuyTransactionPage() {
 
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
+  const { setAlert } = useAlert();
 
   const [goldPriceStart, setGoldPriceStart] = useState<number>(0);
   const [goldPriceEnd, setGoldPriceEnd] = useState<number>(0);
@@ -62,6 +64,11 @@ export default function BuyTransactionPage() {
     );
     if (buyResult === 'complete') {
       navigate('/transaction');
+    } else {
+      setAlert({
+        active: true,
+        message: 'Error! can not create transaction.\ntry agian later.'
+      });
     }
     setLoading(false);
   }

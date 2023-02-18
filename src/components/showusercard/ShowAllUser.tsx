@@ -25,7 +25,6 @@ function ShowAllUser() {
     GetQueryAllUser(cookies['access-token']).then((res) => {
       setUserData(res.data);
     });
-    console.log(userData);
   }, []);
 
   return (

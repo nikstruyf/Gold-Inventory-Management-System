@@ -4,6 +4,7 @@ import './signinpage.css';
 import { useCookies } from 'react-cookie';
 
 import { useLoading } from '../../contexts/LoadingContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import SigninClick from '../../functions/Signin';
 
@@ -13,6 +14,7 @@ function SignInPage() {
   const [, setCookie] = useCookies(['access-token']);
 
   const { setLoading } = useLoading();
+  const { setAlert } = useAlert();
 
   const [userID, setUserID] = useState<string>('');
   const [userPasswd, setUserPasswd] = useState<string>('');
@@ -33,6 +35,10 @@ function SignInPage() {
       navigate('/inventory');
     } else {
       setShowInvalid(true);
+      setAlert({
+        active: true,
+        message: 'invalid username or password'
+      });
     }
     setLoading(false);
   };

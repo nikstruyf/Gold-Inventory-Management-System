@@ -30,7 +30,7 @@ export async function EditGold(
     if (result.status === 200) {
       res = 'complete';
     }
-  });
+  }).catch(() => res);
   return res;
 }
 
@@ -51,7 +51,7 @@ export async function SetGoldStatus(
     if (result.status === 200) {
       res = 'complete';
     }
-  });
+  }).catch(() => res);
   return res;
 }
 
@@ -70,6 +70,6 @@ export async function DeleteGold(
     if (result.status === 200) {
       res = 'complete';
     }
-  });
+  }).catch(() => res);
   return res;
 }

@@ -26,3 +26,9 @@
     background-color: var(--main-color-red);
     opacity: 1;
 }
+
+@media screen and (max-width: 500px) {
+    .inventory-page-backtotop {
+        bottom: calc(var(--bottomnav-height) + 20px);
+    }
+}

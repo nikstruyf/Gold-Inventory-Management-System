@@ -5,6 +5,7 @@ import './formaddquerygold.css';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import { FindQueryGold, AddQueryGold } from '../../functions/AddGold';
 import { ConvertWeight, CheckWeight } from '../../functions/ConvertWeight';
@@ -18,6 +19,7 @@ export default function FormAddQueryGold() {
 
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
+  const { setAlert } = useAlert();
 
   const [queryState, setQueryState] = useState<number>(0);
   const queryResultRef = useRef<null | HTMLDivElement>(null);
@@ -131,6 +133,11 @@ export default function FormAddQueryGold() {
     );
     if (addQueryResult === 'complete') {
       navigate('/inventory');
+    } else {
+      setAlert({
+        active: true,
+        message: 'Error! can not add item.\ntry again later.'
+      });
     }
     setLoading(false);
   }

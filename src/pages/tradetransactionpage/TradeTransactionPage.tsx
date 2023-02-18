@@ -8,6 +8,7 @@ import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import { FindQueryGoldByInventory, TradeTransaction } from '../../functions/CreateTransaction';
 import { ConvertWeight, CheckWeight } from '../../functions/ConvertWeight';
@@ -22,6 +23,7 @@ export default function TradeTransactionPage() {
 
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
+  const { setAlert } = useAlert();
 
   const buyStateRef = useRef<null | HTMLDivElement>(null);
 
@@ -148,6 +150,11 @@ export default function TradeTransactionPage() {
     );
     if (sellResult === 'complete') {
       navigate('/transaction');
+    } else {
+      setAlert({
+        active: true,
+        message: 'Error! can not create transaction.\ntry agian later.'
+      });
     }
     setLoading(false);
   }

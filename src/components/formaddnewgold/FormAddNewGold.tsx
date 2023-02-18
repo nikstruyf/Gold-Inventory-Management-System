@@ -10,6 +10,7 @@ import { storage } from '../../functions/FirebaseConnection';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import { AddNewGold } from '../../functions/AddGold';
 import { CheckWeight } from '../../functions/ConvertWeight';
@@ -20,6 +21,7 @@ export default function FormAddNewGold() {
 
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
+  const { setAlert } = useAlert();
 
   const [code, setCode] = useState<string>('');
   const [type, setType] = useState<string>('');
@@ -86,8 +88,13 @@ export default function FormAddNewGold() {
     );
     if (addResult === 'complete') {
       navigate('/inventory');
-      setLoading(false);
+    } else {
+      setAlert({
+        active: true,
+        message: 'Error! can not add item.\ntry again later.'
+      });
     }
+    setLoading(false);
   }
 
   useEffect(() => {

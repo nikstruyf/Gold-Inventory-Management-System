@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { LoadingProvider } from './contexts/LoadingContext';
 import { ConfirmProvider } from './contexts/ConfirmContext';
+import { AlertProvider } from './contexts/AlertContext';
+
+import AlertMessage from './components/alertmessage/AlertMessage';
 
 import HomePage from './pages/homepage/HomePage';
 import SignInPage from './pages/signin/SignInPage';
@@ -23,29 +26,32 @@ import EmployeePage from './pages/employeepage/EmployeePage';
 function App() {
   return (
     <LoadingProvider>
-      <ConfirmProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/signin" element={<SignInPage />} />
-            <Route element={<Layout />}>
-              <Route path="/inventory" element={<InventoryPage />} />
-              <Route path="/inventory/addgoods" element={<AddGoodsPage />} />
-              <Route path="/inventory/editgoods" element={<EditGoodsPage />} />
-              <Route path="/transaction" element={<TransactionPage />} />
-              <Route path="/transaction/buy" element={<BuyTransactionPage />} />
-              <Route path="/transaction/sell" element={<SellTransactionPage />} />
-              <Route path="/transaction/trade" element={<TradeTransactionPage />} />
-              <Route path="/report" element={<ReportPage />} />
-              <Route element={<OrganizationPage />}>
-                <Route path="/organization" element={<ShowAllUser />} />
-                <Route path="/organization/register" element={<RegisterContainer />} />
+      <AlertProvider>
+        <ConfirmProvider>
+          <AlertMessage />
+          <Router>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/signin" element={<SignInPage />} />
+              <Route element={<Layout />}>
+                <Route path="/inventory" element={<InventoryPage />} />
+                <Route path="/inventory/addgoods" element={<AddGoodsPage />} />
+                <Route path="/inventory/editgoods" element={<EditGoodsPage />} />
+                <Route path="/transaction" element={<TransactionPage />} />
+                <Route path="/transaction/buy" element={<BuyTransactionPage />} />
+                <Route path="/transaction/sell" element={<SellTransactionPage />} />
+                <Route path="/transaction/trade" element={<TradeTransactionPage />} />
+                <Route path="/report" element={<ReportPage />} />
+                <Route element={<OrganizationPage />}>
+                  <Route path="/organization" element={<ShowAllUser />} />
+                  <Route path="/organization/register" element={<RegisterContainer />} />
+                </Route>
+                <Route path="/employee" element={<EmployeePage />} />
               </Route>
-              <Route path="/employee" element={<EmployeePage />} />
-            </Route>
-          </Routes>
-        </Router>
-      </ConfirmProvider>
+            </Routes>
+          </Router>
+        </ConfirmProvider>
+      </AlertProvider>
     </LoadingProvider>
   );
 }

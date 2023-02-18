@@ -3,6 +3,10 @@ import './bottomnav.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import selectMenuForUser from '../../functions/SelectMenuForUser';
 import { GetUserProfile } from '../../functions/GetData';
 
@@ -16,6 +20,7 @@ function BottomNav() {
   const navigate = useNavigate();
   const [cookies] = useCookies(['access-token']);
 
+  const [activeHamburger, setActiveHamburger] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<string>(location.pathname);
 
   const [userProfile, setUserProfile] = useState<profile>({
@@ -35,11 +40,32 @@ function BottomNav() {
   function handleClick(path: string) {
     setIsActive(path);
     navigate(path);
+    setActiveHamburger(false);
   }
 
   return (
     <div className="bottomnav">
-      <div className="bottomnav-menu">
+      <div className="bottomnav-hamburger">
+        <div
+          className=""
+          role="button"
+          tabIndex={0}
+          onClick={() => { setActiveHamburger(!activeHamburger); }}
+          onKeyDown={() => {}}
+        >
+          {
+            activeHamburger
+              ? <CloseIcon className="bottomnav-hamburger-icon" sx={{ fontSize: '3em' }} />
+              : <MenuIcon className="bottomnav-hamburger-icon" sx={{ fontSize: '3em' }} />
+          }
+        </div>
+      </div>
+      <div>
+        <div>
+          <LogoutIcon sx={{ fontSize: '2.5em' }} />
+        </div>
+      </div>
+      <div className={`bottomnav-menu ${activeHamburger ? 'active' : ''}`}>
         {
           selectMenuForUser(userProfile.role).map((data) => (
             <Link

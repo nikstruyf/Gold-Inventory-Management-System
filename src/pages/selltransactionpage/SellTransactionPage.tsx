@@ -7,6 +7,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import { FindQueryGoldByInventory, SellTransaction } from '../../functions/CreateTransaction';
 import { ConvertWeight, CheckWeight } from '../../functions/ConvertWeight';
@@ -20,6 +21,7 @@ export default function SellTransactionPage() {
 
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
+  const { setAlert } = useAlert();
 
   const [queryResultData, setQueryResultData] = useState<GoldDetailDataType[]>([]);
 
@@ -118,6 +120,11 @@ export default function SellTransactionPage() {
     );
     if (sellResult === 'complete') {
       navigate('/transaction');
+    } else {
+      setAlert({
+        active: true,
+        message: 'Error! can not create transaction.\ntry agian later.'
+      });
     }
     setLoading(false);
   }

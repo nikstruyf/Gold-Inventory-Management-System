@@ -7,6 +7,7 @@ import BadgeIcon from '@mui/icons-material/Badge';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import RemoveUser from '../../functions/RemoveUser';
 
@@ -17,12 +18,20 @@ function UserCard(props: {username: any, role: any}) {
 
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
+  const { setAlert } = useAlert();
 
   async function removeUser(user: string, token: string) {
     setLoading(true);
-    await RemoveUser(user, token);
+    const removeUserRes = await RemoveUser(user, token);
+    if (removeUserRes === 'complete') {
+      window.location.reload();
+    } else {
+      setAlert({
+        active: true,
+        message: 'Error! can not remover user.\ntry again later.'
+      });
+    }
     setLoading(false);
-    window.location.reload();
   }
 
   useEffect(() => {

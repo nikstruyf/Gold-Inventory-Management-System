@@ -10,6 +10,7 @@ import { storage } from '../../functions/FirebaseConnection';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import { CheckWeight, ConvertWeight } from '../../functions/ConvertWeight';
 import { EditGold } from '../../functions/EditGold';
@@ -24,6 +25,7 @@ export default function EditGoodsPage() {
 
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
+  const { setAlert } = useAlert();
 
   const [code, setCode] = useState<string>('');
   const [type, setType] = useState<string>('');
@@ -109,6 +111,11 @@ export default function EditGoodsPage() {
     );
     if (editResult === 'complete') {
       navigate('/inventory');
+    } else {
+      setAlert({
+        active: true,
+        message: 'Error! can not edit item.\ntry again later.'
+      });
     }
     setLoading(false);
   }

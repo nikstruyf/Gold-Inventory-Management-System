@@ -32,7 +32,7 @@ export async function AddNewGold(
     if (result.status === 200) {
       res = 'complete';
     }
-  });
+  }).catch(() => res);
   return res;
 }
 
@@ -84,6 +84,6 @@ export async function AddQueryGold(
     if (result.status === 200) {
       res = 'complete';
     }
-  });
+  }).catch(() => res);
   return res;
 }

@@ -10,6 +10,7 @@ import SensorsIcon from '@mui/icons-material/Sensors';
 
 import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import { ConvertWeight } from '../../functions/ConvertWeight';
 import { SplitDateAndTime } from '../../functions/ConvertDateAndTimeForDisplay';
@@ -42,6 +43,7 @@ export default function InventoryTable(
 
   const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
+  const { setAlert } = useAlert();
 
   const [goldData, setGoldData] = useState<GoldDetailDataType[]>([]);
 
@@ -55,6 +57,11 @@ export default function InventoryTable(
   useEffect(() => {
     GetAllGoldDetailJoinInventory(cookies['access-token']).then((res) => {
       setGoldData(res.data);
+    }).catch(() => {
+      setAlert({
+        active: true,
+        message: 'Error! can not get data'
+      });
     });
   }, []);
 
@@ -92,6 +99,11 @@ export default function InventoryTable(
       GetAllGoldDetailJoinInventory(cookies['access-token']).then((res) => {
         setGoldData(res.data);
       });
+    } else {
+      setAlert({
+        active: true,
+        message: 'Error! can not change status.\ntry agian later.'
+      });
     }
     setLoading(false);
   }
@@ -103,6 +115,11 @@ export default function InventoryTable(
       setItemSelect([]);
       GetAllGoldDetailJoinInventory(cookies['access-token']).then((res) => {
         setGoldData(res.data);
+      });
+    } else {
+      setAlert({
+        active: true,
+        message: 'Error! can not delete.\ntry agian later.'
       });
     }
     setLoading(false);

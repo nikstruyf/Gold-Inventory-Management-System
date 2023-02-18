@@ -23,7 +23,7 @@ export async function BuyTransaction(
     if (result.status === 200) {
       res = 'complete';
     }
-  });
+  }).catch(() => res);
   return res;
 }
 
@@ -74,7 +74,7 @@ export async function SellTransaction(
     if (result.status === 200) {
       res = 'complete';
     }
-  });
+  }).catch(() => res);
   return res;
 }
 
@@ -104,6 +104,6 @@ export async function TradeTransaction(
     if (result.status === 200) {
       res = 'complete';
     }
-  });
+  }).catch(() => res);
   return res;
 }

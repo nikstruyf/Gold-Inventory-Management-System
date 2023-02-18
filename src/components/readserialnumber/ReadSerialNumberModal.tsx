@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie';
 import SetSerialNumber from '../../functions/SetSerialNumber';
 
 import { useLoading } from '../../contexts/LoadingContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 export default function ReadSerialNumberModal(
   props: {
@@ -19,6 +20,7 @@ export default function ReadSerialNumberModal(
   const [cookies] = useCookies(['access-token']);
 
   const { setLoading } = useLoading();
+  const { setAlert } = useAlert();
 
   const [serialNumber, setSerialNumber] = useState<string>('');
   const [activeReadSerial, setActiveReadSerial] = useState<boolean>(false);
@@ -34,7 +36,10 @@ export default function ReadSerialNumberModal(
           setSerialNumber('');
         }
       } else {
-        alert('');
+        setAlert({
+          active: true,
+          message: 'Error! can not set serial number.'
+        });
       }
     }
     setLoading(false);
