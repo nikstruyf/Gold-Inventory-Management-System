@@ -324,7 +324,7 @@ export default function InventoryTable(
                               select
                             </th>
                             <th className="head-id">
-                              id
+                              ID
                             </th>
                             <th className="head-status">
                               status
@@ -398,7 +398,7 @@ export default function InventoryTable(
                               <td className="body-serial">
                                 <button
                                   type="button"
-                                  className="button-serial"
+                                  className={`button-serial ${inventoryData.tag_serail_number === 0 ? '' : 'edit'}`}
                                   onClick={() => {
                                     setSerialNumberSelect(inventoryData.gold_inventory_id);
                                     setActivateInputSerialNumber(!activateInputSerialNumber);

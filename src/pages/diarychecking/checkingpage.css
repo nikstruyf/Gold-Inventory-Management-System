@@ -1,0 +1,189 @@
+.checking-page.page-background {
+    flex-direction: column;
+}
+
+.checking-bar.page-content {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 8px;
+    z-index: 89;
+}
+
+.checking-bar.button-start-check {
+    display: flex;
+    background-color: var(--main-bg);
+    border: 2px solid var(--main-color-red);
+    border-radius: 5px;
+    padding: 2px 10px;
+    color: var(--main-color-red);
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 16px;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.checking-bar.button-start-check:hover {
+    background-color: var(--main-color-red);
+    color: var(--main-font-white);
+}
+
+.checking-bar.button-start-check:active {
+    transform: translateY(1px);
+}
+
+.form-checking {
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+}
+
+.input-serial::-webkit-outer-spin-button,
+.input-serial::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.inputbox.input-serial {
+    width: auto;
+    height: 32px;
+    border-color: var(--second-color-grey);
+}
+
+.inputbox.input-serial:focus {
+    border-color: var(--main-color-grey);
+}
+
+.button-group {
+    display: flex;
+    column-gap: 10px;
+}
+
+.checking-bar.button-done {
+    display: none;
+    background-color: var(--main-color-red);
+    border: 2px solid var(--main-color-red);
+    border-radius: 5px;
+    padding: 2px 10px;
+    color: var(--main-font-white);
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.checking-bar.button-done:hover {
+    background-color: var(--second-color-red);
+    border: 2px solid var(--second-color-red);
+}
+
+.checking-bar.button-reset {
+    display: none;
+    background-color: var(--main-bg);
+    border: 2px solid var(--main-color-yellow);
+    border-radius: 5px;
+    padding: 2px 10px;
+    color: var(--main-color-yellow);
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 16px;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.checking-bar.button-reset:hover {
+    background-color: var(--main-color-yellow);
+    color: var(--main-font-white);
+}
+
+.checking-bar.button-done.active,
+.checking-bar.button-reset.active {
+    display: flex;
+}
+
+.checking-bar.button-done:active,
+.checking-bar.button-reset:active {
+    transform: translateY(1px);
+}
+
+.checking-table.page-content {
+    margin-top: 10px;
+}
+
+.checking-table.page-content > table {
+    width: 100%;
+}
+
+.checking-table.row-header {
+    color: var(--main-color-red);
+    text-transform: capitalize;
+}
+
+.checking-table.row-header th {
+    padding: 5px 0;
+}
+
+.checking-table.head-icon {
+    width: 5%;
+}
+
+.checking-table.head-id {
+    width: 15%;
+}
+
+.checking-table.head-code {
+    width: 15%;
+}
+
+.checking-table.head-type {
+    width: 55%;
+}
+
+.checking-table.head-detail {
+    width: auto;
+}
+
+.checking-table.head-weight {
+    width: 8%;
+}
+
+.checking-table.head-gold-percent {
+    width: 8%;
+}
+
+.checking-table.head-gold-smith-fee {
+    width: 8%;
+}
+
+.checking-table.row-body > td {
+    border: 0;
+    border-top: 1px solid var(--second-color-grey);
+    padding: 10px;
+    background-color: var(--second-color-grey);
+    color: var(--main-color-grey);
+    text-transform: capitalize;
+    transition: all 0.3s;
+}
+
+.checking-table.row-body.checked > td {
+    background-color: var(--main-bg);
+    color: var(--main-font-black);
+    border-radius: 5px;
+}
+
+.checking-table.body-icon,
+.checking-table.body-type {
+    text-align: center;
+}
+
+.checking-table.body-weight,
+.checking-table.body-gold-percent,
+.checking-table.body-gold-smith-fee {
+    text-align: end;
+}

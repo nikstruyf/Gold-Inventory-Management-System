@@ -353,8 +353,14 @@
     cursor: pointer;
 }
 
+.button-serial.edit {
+    color: var(--main-color-grey);
+    border: 2px solid var(--main-color-grey);
+}
+
 .button-serial:hover {
     color: var(--main-font-white);
+    border: 2px solid var(--main-color-red);
     background-color: var(--main-color-red);
 }
 

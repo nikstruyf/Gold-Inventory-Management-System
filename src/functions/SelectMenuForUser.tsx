@@ -1,4 +1,5 @@
-import InventoryIcon from '@mui/icons-material/Inventory';
+import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 // import BadgeIcon from '@mui/icons-material/Badge';
@@ -6,9 +7,14 @@ import GroupsIcon from '@mui/icons-material/Groups';
 
 const AdminMenu = [
   {
-    icon: InventoryIcon,
+    icon: ViewListRoundedIcon,
     name: 'inventory',
     path: '/inventory'
+  },
+  {
+    icon: FactCheckIcon,
+    name: 'checking',
+    path: '/checking'
   },
   {
     icon: ReceiptIcon,
@@ -29,9 +35,14 @@ const AdminMenu = [
 
 const OwnerMenu = [
   {
-    icon: InventoryIcon,
+    icon: ViewListRoundedIcon,
     name: 'inventory',
     path: '/inventory'
+  },
+  {
+    icon: FactCheckIcon,
+    name: 'checking',
+    path: '/checking'
   },
   {
     icon: ReceiptIcon,
@@ -52,9 +63,14 @@ const OwnerMenu = [
 
 const EmployeeMenu = [
   {
-    icon: InventoryIcon,
+    icon: ViewListRoundedIcon,
     name: 'inventory',
     path: '/inventory'
+  },
+  {
+    icon: FactCheckIcon,
+    name: 'checking',
+    path: '/checking'
   },
   {
     icon: ReceiptIcon,

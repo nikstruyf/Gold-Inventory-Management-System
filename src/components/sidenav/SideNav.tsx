@@ -11,6 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import selectMenuForUser from '../../functions/SelectMenuForUser';
 import { GetUserProfile } from '../../functions/GetData';
 
+import { useSideNavWidth } from '../../contexts/SideNavWidthContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
 
 interface profile {
@@ -22,9 +23,10 @@ function SideNav() {
   const location = useLocation();
   const navigate = useNavigate();
   const [cookies, , removeCookie] = useCookies(['access-token']);
+  const { sideNavWidth, setSideNavWidth } = useSideNavWidth();
   const { confirm, setConfirm } = useConfirm();
 
-  const [isWide, setIsWide] = useState<boolean>(localStorage.getItem('sidenavWidth') === 'expand');
+  const [isWide, setIsWide] = useState<boolean>(sideNavWidth === 'expand');
   const [isActive, setIsActive] = useState<string>(location.pathname);
 
   const [userProfile, setUserProfile] = useState<profile>({
@@ -47,7 +49,7 @@ function SideNav() {
 
   function expandSidenavClick(wide: boolean) {
     setIsWide(wide);
-    localStorage.setItem('sidenavWidth', wide ? 'expand' : 'short');
+    setSideNavWidth(wide ? 'expand' : 'short');
   }
 
   async function logoutAccount() {
@@ -76,7 +78,7 @@ function SideNav() {
     window.addEventListener('resize', () => {
       setIsWide(window.innerWidth > 1024);
     });
-    localStorage.setItem('sidenavWidth', isWide ? 'expand' : 'short');
+    setSideNavWidth(isWide ? 'expand' : 'short');
   }, [isWide]);
 
   return (

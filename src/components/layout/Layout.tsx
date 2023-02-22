@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import { AuthUserProvider } from '../../contexts/AuthUserContex';
+import { useSideNavWidth } from '../../contexts/SideNavWidthContext';
 import { useLoading } from '../../contexts/LoadingContext';
 
 import SideNav from '../sidenav/SideNav';
@@ -14,20 +15,21 @@ import ConfirmMessage from '../confirmmessage/ConfirmMessage';
 
 function Layout() {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
-  const [wide, isWide] = useState(localStorage.getItem('sidenavWidth'));
+  const { sideNavWidth } = useSideNavWidth();
+  const [wide, isWide] = useState(sideNavWidth);
 
   const { loading } = useLoading();
 
   useEffect(() => {
     window.addEventListener('resize', () => {
       setWindowWidth(window.innerWidth);
-      isWide(localStorage.getItem('sidenavWidth'));
+      isWide(sideNavWidth);
     });
   }, [windowWidth]);
 
   useEffect(() => {
     window.addEventListener('click', () => {
-      isWide(localStorage.getItem('sidenavWidth'));
+      isWide(sideNavWidth);
     });
   }, [wide]);
 
@@ -45,7 +47,7 @@ function Layout() {
         }
         <div className={`
           layout-content
-          ${wide === 'short' ? '' : 'expand-sidenav'}
+          ${sideNavWidth === 'short' ? '' : 'expand-sidenav'}
         `}
         >
           <Outlet />
