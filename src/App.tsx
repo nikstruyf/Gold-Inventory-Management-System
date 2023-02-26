@@ -20,6 +20,7 @@ import BuyTransactionPage from './pages/buytransactionpage/BuyTransactionPage';
 import SellTransactionPage from './pages/selltransactionpage/SellTransactionPage';
 import TradeTransactionPage from './pages/tradetransactionpage/TradeTransactionPage';
 import ReportPage from './pages/reportpage/ReportPage';
+import PdfViewer from './pages/pdfviewer/PdfViewer';
 import OrganizationPage from './pages/organizationpage/OrganizationPage';
 import ShowAllUser from './components/showusercard/ShowAllUser';
 import RegisterContainer from './components/registercontainer/RegisterContainer';
@@ -52,6 +53,7 @@ function App() {
                   </Route>
                   <Route path="/employee" element={<EmployeePage />} />
                 </Route>
+                <Route path="/report/create-report-pdf" element={<PdfViewer />} />
               </Routes>
             </Router>
           </SideNavWidthProvider>

@@ -1,10 +1,15 @@
 .table-main {
     display: flex;
     flex-direction: column;
+    overflow: scroll;
     width: 100%;
 }
 
-.table-main table {
+.table-main::-webkit-scrollbar {
+    display: none;
+}
+
+.table-main > table {
     width: 100%;
 }
 
@@ -101,7 +106,7 @@
 }
 
 .head-picture {
-    width: 16%;
+    max-width: 10%;
 }
 
 .head-code {

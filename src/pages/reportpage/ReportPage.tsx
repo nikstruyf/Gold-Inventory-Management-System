@@ -1,25 +1,35 @@
 import React from 'react';
 import './reportpage.css';
 
-import { useSideNavWidth } from '../../contexts/SideNavWidthContext';
+// import { useSideNavWidth } from '../../contexts/SideNavWidthContext';
 // import { useAlert } from '../../contexts/AlertContext';
 
 import LineChartTransCount from '../../components/chart/LineChartTransCount';
 import DoughnutChartSoldType from '../../components/chart/DoughnutChartSoldType';
 
 function ReportPage() {
-  const { sideNavWidth } = useSideNavWidth();
+  // const { sideNavWidth } = useSideNavWidth();
   // const { setAlert } = useAlert();
 
   return (
-    <div className={`report-page page-background ${sideNavWidth === 'short' ? 'wide' : ''}`}>
+    <div className="report-page page-background">
       {/* -- Header -- */}
       <div className="page-header">
         report
       </div>
+      {/* -- Create PDF Document Button -- */}
+      <div className="container-create-pdf-button">
+        <button
+          className="create-pdf-button"
+          type="button"
+          onClick={() => window.open('/report/create-report-pdf', '_blank')}
+        >
+          Create Report.pdf
+        </button>
+      </div>
       {/* -- Container Inventory -- */}
       <div className="report-page page-container">
-        <div className={`report-page page-grid ${sideNavWidth === 'short' ? 'wide' : ''}`}>
+        <div className="report-page page-flex">
           <div className="report-page page-content trans-stat">
             <div className="trans-stat header">
               transaction
@@ -68,12 +78,16 @@ function ReportPage() {
               today
             </div>
           </div>
+        </div>
+        <div className="report-page page-flex">
           <div className="report-page page-content trans-chart-line">
             <LineChartTransCount />
           </div>
           <div className="report-page page-content trans-chart-doughnut">
             <DoughnutChartSoldType />
           </div>
+        </div>
+        <div className="report-page page-flex">
           <div className="report-page page-content trans-value">
             <div className="trans-value header">
               sell transaction cost total

@@ -81,7 +81,11 @@
     background-color: var(--main-bg);
     border-radius: 5px;
     box-shadow: var(--container-shadow);
-    overflow: hidden;
+    overflow: scroll;
+}
+
+.transaction-page-table::-webkit-scrollbar {
+    display: none;
 }
 
 @media screen and (max-width: 1200px) {

@@ -169,7 +169,7 @@ export default function FormAddQueryGold() {
     <div className="addgood-query">
       <div className="addgood-form-notice">
         <span>notice : </span>
-        add query gold
+        this form for add gold (have ever been add before)
       </div>
       {/* Form Find by Query */}
       <form onSubmit={query}>

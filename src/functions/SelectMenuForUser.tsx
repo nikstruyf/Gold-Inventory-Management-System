@@ -63,11 +63,6 @@ const OwnerMenu = [
 
 const EmployeeMenu = [
   {
-    icon: ViewListRoundedIcon,
-    name: 'inventory',
-    path: '/inventory'
-  },
-  {
     icon: FactCheckIcon,
     name: 'checking',
     path: '/checking'

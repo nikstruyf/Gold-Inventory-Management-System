@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,6 +26,7 @@ export default function LineChartTransCount() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
         position: 'top' as const,

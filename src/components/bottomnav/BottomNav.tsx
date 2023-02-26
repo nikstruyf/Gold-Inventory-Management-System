@@ -62,7 +62,7 @@ function BottomNav() {
       </div>
       <div>
         <div>
-          <LogoutIcon sx={{ fontSize: '2.5em' }} />
+          <LogoutIcon className="bottomnav-hamburger-icon-logout" sx={{ fontSize: '2.5em' }} />
         </div>
       </div>
       <div className={`bottomnav-menu ${activeHamburger ? 'active' : ''}`}>

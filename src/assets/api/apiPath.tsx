@@ -12,6 +12,7 @@ const api = {
   editGold: '/inventory/editgolddetail',
   getGoldDetailById: '/inventory/getgolddetailbygolddetailid/',
   getGoldDetailJoinInventoyBySerial: '/inventory/get-gold-by-tag-serial-number?serial-number=',
+  getFrontGold: '/inventory/get-front-gold',
   setGoldStatus: '/inventory/setgoldinventorystatus',
   deleteGold: '/inventory/delete-gold-inventory-by-id',
   getAllGoldDetail: '/inventory/getallgolddetail',

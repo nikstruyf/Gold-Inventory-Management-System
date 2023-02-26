@@ -49,6 +49,15 @@ export async function getGoldDetailJoinInventoyBySerial(
   return goldDetailJoinInventory.data;
 }
 
+export async function GetFrontGold(token: string) {
+  const storeFrontGold = await axios.get(`${api.IP}${api.getFrontGold}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  });
+  return storeFrontGold.data;
+}
+
 export async function GetAllTransactionJoinGold(token: string) {
   const allTransactionDetail = await axios.get(`${api.IP}${api.getAllTransactionJoinGold}`, {
     headers: {

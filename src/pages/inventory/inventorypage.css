@@ -1,6 +1,7 @@
 .inventory.page-background {
     flex-direction: column;
     box-sizing: border-box;
+    height: 100vh;
 }
 
 .page-container {     
@@ -158,10 +159,17 @@
     border-color: var(--second-color-red);
 }
 
-.inventory-page-table {
+.inventory-table {
+    display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    box-sizing: border-box;
+    overflow: scroll;
+    width: 100%;
+}
+
+.inventory-table::-webkit-scrollbar {
+    display: none;
 }
 
 @media screen and (max-width: 1200px) {
@@ -169,4 +177,26 @@
         flex-direction: column;
         row-gap: 10px;
     }
+}
+
+@media screen and (max-width: 800px) {
+    .option-input {
+        flex-direction: column;
+        row-gap: 10px;
+    }
+
+    .option-select-type select {
+        width: 100%;
+    }
+
+    .go-to-add-goods {
+        width: fit-content;
+    }
+}
+
+@media screen and (min-width: 501px) {
+    .inventory.page-background {
+        max-width: calc(100vw - var(--sidenav-short-width));
+    }
+    
 }

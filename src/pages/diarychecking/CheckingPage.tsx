@@ -1,19 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './checkingpage.css';
+import { useCookies } from 'react-cookie';
 
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import PanoramaFishEyeRoundedIcon from '@mui/icons-material/PanoramaFishEyeRounded';
+import CloseIcon from '@mui/icons-material/Close';
 
+import { GetFrontGold } from '../../functions/GetData';
 import { ConvertWeight } from '../../functions/ConvertWeight';
 
+import { useConfirm } from '../../contexts/ConfirmContext';
+import { useAlert } from '../../contexts/AlertContext';
+
+import { StoreFrontGold } from '../../interfaces/GoldData';
+
 export default function CheckingPage() {
+  const [cookies] = useCookies(['access-token']);
+
+  const { confirm, setConfirm } = useConfirm();
+  const { setAlert } = useAlert();
+
+  const [goldData, setGoldData] = useState<StoreFrontGold[]>([]);
+
   const [isChecking, setIsChecking] = useState<boolean>(false);
   const [focusReadSerialRef, setFocusReadSerialRef] = useState<boolean>(false);
+  const [isDone, setIsDone] = useState<boolean>(false);
 
   const [inputSerial, setInputSerial] = useState<string>('');
   const [itemChecked, setItemChecked] = useState<number[]>([]);
 
   const [weightUnit, setWeightUnit] = useState<string>('gram');
+
+  useEffect(() => {
+    GetFrontGold(cookies['access-token']).then((res) => {
+      setGoldData(res.data);
+    }).catch(() => {
+      setAlert({
+        active: true,
+        message: 'Error! can not get data'
+      });
+    });
+  }, []);
 
   function ConvertWeightUnit() {
     if (weightUnit === 'gram') {
@@ -31,6 +58,31 @@ export default function CheckingPage() {
     setInputSerial('');
     console.log(inputSerial, itemChecked);
   };
+
+  function DoneChecking() {
+    setConfirm({
+      active: true,
+      message: 'done?',
+      action: 'done checking',
+      status: ''
+    });
+  }
+
+  function ShowResult() {
+    setIsDone(true);
+  }
+
+  useEffect(() => {
+    if (confirm.status === 'confirm' && confirm.action === 'done checking') {
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+      ShowResult();
+    }
+  }, [confirm.status]);
 
   return (
     <div className="checking-page page-background">
@@ -81,7 +133,7 @@ export default function CheckingPage() {
             <button
               className={`checking-bar button-done ${itemChecked.length > 0 ? 'active' : ''}`}
               type="button"
-              onClick={() => {}}
+              onClick={() => { DoneChecking(); }}
             >
               done
             </button>
@@ -95,7 +147,7 @@ export default function CheckingPage() {
           </div>
         </div>
         {/* -- Checking Table -- */}
-        <div className="checking-table page-content">
+        <div className={`checking-table page-content ${isChecking ? 'active' : ''}`}>
           <table>
             {/* Table Head */}
             <thead>
@@ -135,38 +187,60 @@ export default function CheckingPage() {
             </thead>
             {/* Table Body */}
             <tbody>
-              <tr className={`checking-table row-body ${itemChecked.includes(0) ? 'checked' : ''}`}>
-                <td className="checking-table body-icon">
-                  {
-                    itemChecked.includes(0)
-                      ? <CheckCircleRoundedIcon sx={{ fontSize: 24, color: '#B93030' }} />
-                      : <PanoramaFishEyeRoundedIcon sx={{ fontSize: 24 }} />
-                  }
-                </td>
-                <td className="checking-table body-id">
-                  ID
-                </td>
-                <td className="checking-table body-code">
-                  code
-                </td>
-                <td className="checking-table body-type">
-                  type
-                </td>
-                <td className="checking-table body-detail">
-                  detail
-                </td>
-                <td className="checking-table body-weight">
-                  {weightUnit === 'Baht' ? ConvertWeight(15.2, 'gram') : 15.2}
-                </td>
-                <td className="checking-table body-gold-percent">
-                  0
-                </td>
-                <td className="checking-table body-gold-smith-fee">
-                  0
-                </td>
-              </tr>
+              {
+                goldData?.map((data: StoreFrontGold) => (
+                  <tr
+                    className={`checking-table row-body ${itemChecked.includes(data.gold_inventory.tag_serail_number) ? 'checked' : ''}`}
+                    key={data.gold_inventory.gold_inventory_id}
+                  >
+                    <td className="checking-table body-icon">
+                      {
+                        itemChecked.includes(data.gold_inventory.tag_serail_number)
+                          ? <CheckCircleRoundedIcon sx={{ fontSize: 24, color: '#B93030' }} />
+                          : <PanoramaFishEyeRoundedIcon sx={{ fontSize: 24 }} />
+                      }
+                    </td>
+                    <td className="checking-table body-id">
+                      {data.gold_inventory.gold_inventory_id}
+                    </td>
+                    <td className="checking-table body-code">
+                      {data.gold_detail.code}
+                    </td>
+                    <td className="checking-table body-type">
+                      {data.gold_detail.type}
+                    </td>
+                    <td className="checking-table body-detail">
+                      {data.gold_detail.detail}
+                    </td>
+                    <td className="checking-table body-weight">
+                      {weightUnit === 'Baht' ? ConvertWeight(data.gold_detail.weight, 'gram') : data.gold_detail.weight}
+                    </td>
+                    <td className="checking-table body-gold-percent">
+                      {data.gold_detail.gold_percent}
+                    </td>
+                    <td className="checking-table body-gold-smith-fee">
+                      {data.gold_detail.gold_smith_fee}
+                    </td>
+                  </tr>
+                ))
+              }
             </tbody>
           </table>
+        </div>
+        {/* Checking Result */}
+        <div className={`checking-result modal-bg ${isDone ? 'active' : ''}`}>
+          <div className={`checking-result page-content ${isDone ? 'active' : ''}`}>
+            <div className="checking-result page-content-header">
+              <div>
+                result
+              </div>
+              <CloseIcon
+                className="button-close"
+                sx={{ fontSize: 24 }}
+                onClick={() => { setIsDone(false); }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

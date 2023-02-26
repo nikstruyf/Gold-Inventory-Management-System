@@ -1,5 +1,7 @@
 .checking-page.page-background {
     flex-direction: column;
+    box-sizing: border-box;
+    height: 100vh;
 }
 
 .checking-bar.page-content {
@@ -113,7 +115,17 @@
 }
 
 .checking-table.page-content {
+    display: none;
     margin-top: 10px;
+    overflow: scroll;
+}
+
+.checking-table.page-content.active {
+    display: flex;
+}
+
+.checking-table.page-content::-webkit-scrollbar {
+    display: none;
 }
 
 .checking-table.page-content > table {
@@ -177,6 +189,7 @@
     border-radius: 5px;
 }
 
+.checking-table.body-detail,
 .checking-table.body-icon,
 .checking-table.body-type {
     text-align: center;

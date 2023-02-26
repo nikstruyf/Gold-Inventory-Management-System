@@ -138,7 +138,7 @@ export default function FormAddNewGold() {
     <div className="addgood-new">
       <div className="addgood-form-notice">
         <span>notice : </span>
-        add new gold
+        this form for add new gold (that have not been add before)
       </div>
       {/* Form */}
       <form onSubmit={save}>

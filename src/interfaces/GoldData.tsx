@@ -33,3 +33,8 @@ export interface GoldDetailByQuery {
     picture: string,
     status: string
 }
+
+export interface StoreFrontGold {
+    gold_detail: GoldDetailByQuery,
+    gold_inventory: GoldInventoryDataType
+}

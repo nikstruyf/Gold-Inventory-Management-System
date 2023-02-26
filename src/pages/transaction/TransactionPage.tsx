@@ -5,12 +5,16 @@ import { useCookies } from 'react-cookie';
 
 import TransactionTable from '../../components/transactiontable/TransactionTable';
 
+import { useAlert } from '../../contexts/AlertContext';
+
 import { GetAllTransactionJoinGold } from '../../functions/GetData';
 
 import { TransactionDataJoinGold } from '../../interfaces/TransactionData';
 
 function TransactionPage() {
   const [cookies] = useCookies(['access-token']);
+
+  const { setAlert } = useAlert();
 
   const [allTransactionDetail, setAllTransactionDetail] = useState<TransactionDataJoinGold[]>([]);
   const [filterStatus, setFilterStatus] = useState<string>('all');
@@ -29,6 +33,11 @@ function TransactionPage() {
   useEffect(() => {
     GetAllTransactionJoinGold(cookies['access-token']).then((res) => {
       setAllTransactionDetail(res.data);
+    }).catch(() => {
+      setAlert({
+        active: true,
+        message: 'Error! can not get data'
+      });
     });
   }, []);
 
