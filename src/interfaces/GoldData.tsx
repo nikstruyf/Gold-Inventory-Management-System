@@ -38,3 +38,10 @@ export interface StoreFrontGold {
     gold_detail: GoldDetailByQuery,
     gold_inventory: GoldInventoryDataType
 }
+
+export interface CheckingResult {
+    result: string,
+    miss_front_gold: StoreFrontGold[],
+    tag_empty_front_gold: StoreFrontGold[],
+    safe_gold: StoreFrontGold[],
+}

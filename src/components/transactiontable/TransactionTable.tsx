@@ -45,9 +45,9 @@ export default function TransactionTable(
   const dateAfter = new Date(time.split(' ')[0]);
   const dateBefore = new Date(time.split(' ')[1]);
 
-  if (time.split(' ')[1]) {
-    console.log(time.split(' ')[0], time.split(' ')[1], dateAfter, dateBefore);
-  }
+  // if (time.split(' ')[1]) {
+  //   console.log(time.split(' ')[0], time.split(' ')[1], dateAfter, dateBefore);
+  // }
 
   return (
     <div className="transaction table-main">

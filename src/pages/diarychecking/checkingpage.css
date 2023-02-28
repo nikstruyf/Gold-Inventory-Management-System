@@ -114,6 +114,22 @@
     transform: translateY(1px);
 }
 
+.checking-not {
+    display: none;
+    width: 100%;
+    height: 80vh;
+    color: var(--second-font-grey);
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.checking-not.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .checking-table.page-content {
     display: none;
     margin-top: 10px;
@@ -173,6 +189,14 @@
     width: 8%;
 }
 
+.checking-table.row-body {
+    display: none;
+}
+
+.checking-table.row-body.checked {
+    display: table-row;
+}
+
 .checking-table.row-body > td {
     border: 0;
     border-top: 1px solid var(--second-color-grey);
@@ -199,4 +223,170 @@
 .checking-table.body-gold-percent,
 .checking-table.body-gold-smith-fee {
     text-align: end;
+}
+
+.checking-result.modal-bg {
+    opacity: 0;
+    pointer-events: none;
+    box-sizing: border-box;
+    padding: 1em 5em;
+    overflow: scroll;
+}
+
+.checking-result.modal-bg::-webkit-scrollbar {
+    display: none;
+}
+
+.checking-result.modal-bg.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.checking-result.page-content {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.35s ease-out;
+    opacity: 0;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.checking-result.page-content.active {
+    opacity: 1;
+}
+
+.checking-result.page-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    padding: 10px;
+    border-bottom: 1px solid var(--second-color-grey);
+    height: 5%;
+    position: sticky;
+    top: -17px;
+    background-color: var(--main-bg);
+    box-shadow: 0 1px 3px #e5e5e5;
+}
+
+.checking-result.table-topic {
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+    text-transform: capitalize;
+    padding-left: 10px;
+    margin: 5px 0;
+}
+
+.checking-result.table-topic.miss {
+    color: var(--main-color-yellow);
+}
+
+.checking-result.table-topic.all {
+    color: var(--main-color-red);
+}
+
+.checking-result.table {
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.checking-result.table.none {
+    display: none;
+}
+
+.checking-result.table,
+.checking-result.table th {
+    border-top: solid 1px var(--second-color-grey);
+    border-bottom: solid 1px var(--main-color-grey);
+}
+
+.checking-result.table tr {
+    border-left: solid 1px var(--second-color-grey);
+    border-right: solid 1px var(--second-color-grey);
+}
+
+.checking-result.table th,
+.checking-result.table td {
+    padding: 5px 10px;
+}
+
+.checking-result.table th {
+    text-transform: capitalize;
+}
+
+.checking-result.table-head.picture {
+    width: 15%;
+}
+
+.checking-result.table-head.code {
+    width: 10%;
+    text-align: left;
+}
+
+.checking-result.table-head.type {
+    width: 9%;
+    text-align: left;
+}
+
+.checking-result.table-head.detail {
+    width: 22%;
+    text-align: left;
+}
+
+.checking-result.table-head.weight {
+    width: 7%;
+}
+
+.checking-result.table-head.gold-percent {
+    width: 7%;
+}
+
+.checking-result.table-head.gold-smith-fee {
+    width: 7%;
+}
+
+.checking-result.table-head.note {
+    width: 23%;
+    text-align: left;
+}
+
+.checking-result.table-row.even {
+    background-color: var(--second-bg);
+}
+
+.checking-result.table-body.picture img {
+    max-height: 5em;
+}
+
+.checking-result.table-body.picture {
+    width: 15%;
+    text-align: center;
+}
+
+.checking-result.table-body.code {
+    width: 10%;
+}
+
+.checking-result.table-body.type {
+    width: 9%;
+}
+
+.checking-result.table-body.detail {
+    width: 22%;
+}
+
+.checking-result.table-body.weight,
+.checking-result.table-body.gold-percent,
+.checking-result.table-body.gold-smith-fee {
+    text-align: right;
+}
+
+.checking-result.table-body.note {
+    width: 23%;
 }

@@ -280,7 +280,7 @@ export default function InventoryTable(
                       </button>
                     </td>
                     <td className="body-picture">
-                      <img src={detailData.picture} alt={String(detailData.gold_detail_id)} />
+                      <img src={detailData.picture} alt={String(detailData.code)} />
                     </td>
                     <td className="body-code">
                       {detailData.code}

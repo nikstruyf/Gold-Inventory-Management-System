@@ -107,42 +107,6 @@
     font-size: 30px;
 }
 
-.checking-result.modal-bg {
-    opacity: 0;
-    pointer-events: none;
-    box-sizing: border-box;
-    padding: 1em 5em;
-}
-
-.checking-result.modal-bg.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.checking-result.page-content {
-    transition: all 0.35s ease-out;
-    transform: translateY(100px);
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.checking-result.page-content.active {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.checking-result.page-content-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 20px;
-    padding: 10px;
-    border-bottom: 1px solid var(--second-color-grey);
-    height: 5%;
-    width: 100%;
-}
-
 @media screen and (max-width: 1024px) {
     .report-page.page-background {
         max-width: calc(100vw - var(--sidenav-short-width));

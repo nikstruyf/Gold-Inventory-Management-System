@@ -96,8 +96,11 @@ body, button, input {
     position: fixed;
     background-color: rgba(0,0,0,0.5);
     left: 0;
+    right: 0;
     top: 0;
-    height: 100vh;
+    bottom:0;
+    min-height: 100vh;
+    height: 100%;
     width: 100vw;
     z-index: 99;
 }

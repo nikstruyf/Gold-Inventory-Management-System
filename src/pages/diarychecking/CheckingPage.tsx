@@ -5,22 +5,33 @@ import { useCookies } from 'react-cookie';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import PanoramaFishEyeRoundedIcon from '@mui/icons-material/PanoramaFishEyeRounded';
 import CloseIcon from '@mui/icons-material/Close';
+import DomainVerificationIcon from '@mui/icons-material/DomainVerification';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 import { GetFrontGold } from '../../functions/GetData';
 import { ConvertWeight } from '../../functions/ConvertWeight';
+import DiaryChecking from '../../functions/DiaryChecking';
 
+// import { useLoading } from '../../contexts/LoadingContext';
 import { useConfirm } from '../../contexts/ConfirmContext';
 import { useAlert } from '../../contexts/AlertContext';
 
-import { StoreFrontGold } from '../../interfaces/GoldData';
+import { StoreFrontGold, CheckingResult } from '../../interfaces/GoldData';
 
 export default function CheckingPage() {
   const [cookies] = useCookies(['access-token']);
 
+  // const { setLoading } = useLoading();
   const { confirm, setConfirm } = useConfirm();
   const { setAlert } = useAlert();
 
   const [goldData, setGoldData] = useState<StoreFrontGold[]>([]);
+  const [resultData, setResultData] = useState<CheckingResult>({
+    result: '',
+    miss_front_gold: [],
+    tag_empty_front_gold: [],
+    safe_gold: [],
+  });
 
   const [isChecking, setIsChecking] = useState<boolean>(false);
   const [focusReadSerialRef, setFocusReadSerialRef] = useState<boolean>(false);
@@ -56,7 +67,6 @@ export default function CheckingPage() {
       setItemChecked([...itemChecked, Number(inputSerial)]);
     }
     setInputSerial('');
-    console.log(inputSerial, itemChecked);
   };
 
   function DoneChecking() {
@@ -68,7 +78,9 @@ export default function CheckingPage() {
     });
   }
 
-  function ShowResult() {
+  async function ShowResult() {
+    const CheckingRes = await DiaryChecking(itemChecked, cookies['access-token']);
+    setResultData(CheckingRes);
     setIsDone(true);
   }
 
@@ -113,6 +125,7 @@ export default function CheckingPage() {
                   <input
                     className="inputbox input-serial"
                     type="text"
+                    maxLength={10}
                     value={inputSerial}
                     onChange={(e) => { setInputSerial(e.target.value); }}
                     onFocus={() => { setFocusReadSerialRef(true); }}
@@ -144,6 +157,13 @@ export default function CheckingPage() {
             >
               reset
             </button>
+          </div>
+        </div>
+        {/* When not Checking */}
+        <div className={`checking-not ${!isChecking ? 'active' : ''}`}>
+          <DomainVerificationIcon sx={{ fontSize: 80 }} />
+          <div>
+            diary checking
           </div>
         </div>
         {/* -- Checking Table -- */}
@@ -232,7 +252,7 @@ export default function CheckingPage() {
           <div className={`checking-result page-content ${isDone ? 'active' : ''}`}>
             <div className="checking-result page-content-header">
               <div>
-                result
+                {resultData?.result}
               </div>
               <CloseIcon
                 className="button-close"
@@ -240,6 +260,273 @@ export default function CheckingPage() {
                 onClick={() => { setIsDone(false); }}
               />
             </div>
+            {/* Table Missing Gold In Storefront */}
+            <div>
+              {
+                resultData!?.miss_front_gold && resultData!?.miss_front_gold.length > 0
+                  ? (
+                    <span className="checking-result table-topic miss">
+                      <CancelIcon />
+                      missing gold in storefront
+                    </span>
+                  )
+                  : (
+                    <span className="checking-result table-topic all">
+                      <CheckCircleRoundedIcon />
+                      no missing gold in storefront
+                    </span>
+                  )
+              }
+            </div>
+            <table
+              className={`
+                checking-result table
+                ${resultData!?.miss_front_gold && resultData!?.miss_front_gold.length > 0 ? '' : 'none'}
+              `}
+            >
+              <thead>
+                <tr>
+                  <th className="checking-result table-head picture">
+                    picture
+                  </th>
+                  <th className="checking-result table-head code">
+                    code
+                  </th>
+                  <th className="checking-result table-head type">
+                    type
+                  </th>
+                  <th className="checking-result table-head detail">
+                    detail
+                  </th>
+                  <th className="checking-result table-head weight">
+                    weight (g)
+                  </th>
+                  <th className="checking-result table-head gold-percent">
+                    gold percent
+                  </th>
+                  <th className="checking-result table-head gold-smith-fee">
+                    gold smith fee
+                  </th>
+                  <th className="checking-result table-head note">
+                    note
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  resultData?.miss_front_gold
+                  && resultData?.miss_front_gold.map((data: StoreFrontGold, index: number) => (
+                    <tr
+                      className={`checking-result table-row ${index % 2 === 0 ? 'even' : 'odd'}`}
+                      key={data.gold_inventory.gold_inventory_id}
+                    >
+                      <td className="checking-result table-body picture">
+                        <img src={data.gold_detail.picture} alt={data.gold_detail.code} />
+                      </td>
+                      <td className="checking-result table-body code">
+                        {data.gold_detail.code}
+                      </td>
+                      <td className="checking-result table-body type">
+                        {data.gold_detail.type}
+                      </td>
+                      <td className="checking-result table-body detail">
+                        {data.gold_detail.detail}
+                      </td>
+                      <td className="checking-result table-body weight">
+                        {data.gold_detail.weight}
+                      </td>
+                      <td className="checking-result table-body gold-percent">
+                        {data.gold_detail.gold_percent}
+                      </td>
+                      <td className="checking-result table-body gold-smith-fee">
+                        {data.gold_detail.gold_smith_fee}
+                      </td>
+                      <td className="checking-result table-body note">
+                        {data.gold_inventory.note}
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+            {/* Table Gold In Storefront Have No Tag */}
+            <div>
+              {
+                resultData!?.tag_empty_front_gold && resultData!?.tag_empty_front_gold.length > 0
+                  ? (
+                    <span className="checking-result table-topic miss">
+                      <CancelIcon />
+                      have non serial number gold in storefront
+                    </span>
+                  )
+                  : (
+                    <span className="checking-result table-topic all">
+                      <CheckCircleRoundedIcon />
+                      have not non serial number gold in storefront
+                    </span>
+                  )
+              }
+            </div>
+            <table
+              className={`
+                checking-result table
+                ${resultData!?.tag_empty_front_gold && resultData!?.tag_empty_front_gold.length > 0 ? '' : 'none'}
+              `}
+            >
+              <thead>
+                <tr>
+                  <th className="checking-result table-head picture">
+                    picture
+                  </th>
+                  <th className="checking-result table-head code">
+                    code
+                  </th>
+                  <th className="checking-result table-head type">
+                    type
+                  </th>
+                  <th className="checking-result table-head detail">
+                    detail
+                  </th>
+                  <th className="checking-result table-head weight">
+                    weight (g)
+                  </th>
+                  <th className="checking-result table-head gold-percent">
+                    gold percent
+                  </th>
+                  <th className="checking-result table-head gold-smith-fee">
+                    gold smith fee
+                  </th>
+                  <th className="checking-result table-head note">
+                    note
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  resultData?.tag_empty_front_gold
+                  && resultData?.tag_empty_front_gold.map((data: StoreFrontGold, index: number) => (
+                    <tr
+                      className={`checking-result table-row ${index % 2 === 0 ? 'even' : 'odd'}`}
+                      key={data.gold_inventory.gold_inventory_id}
+                    >
+                      <td className="checking-result table-body picture">
+                        <img src={data.gold_detail.picture} alt={data.gold_detail.code} />
+                      </td>
+                      <td className="checking-result table-body code">
+                        {data.gold_detail.code}
+                      </td>
+                      <td className="checking-result table-body type">
+                        {data.gold_detail.type}
+                      </td>
+                      <td className="checking-result table-body detail">
+                        {data.gold_detail.detail}
+                      </td>
+                      <td className="checking-result table-body weight">
+                        {data.gold_detail.weight}
+                      </td>
+                      <td className="checking-result table-body gold-percent">
+                        {data.gold_detail.gold_percent}
+                      </td>
+                      <td className="checking-result table-body gold-smith-fee">
+                        {data.gold_detail.gold_smith_fee}
+                      </td>
+                      <td className="checking-result table-body note">
+                        {data.gold_inventory.note}
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+            {/* Table Missing Gold In Warehouse */}
+            <div>
+              {
+                resultData!?.safe_gold && resultData!?.safe_gold.length > 0
+                  ? (
+                    <span className="checking-result table-topic miss">
+                      <CancelIcon />
+                      serial number have checked gold in warehouse
+                    </span>
+                  )
+                  : (
+                    <span className="checking-result table-topic all">
+                      <CheckCircleRoundedIcon />
+                      no serial number have checked gold in warehouse
+                    </span>
+                  )
+              }
+            </div>
+            <table
+              className={`
+                checking-result table
+                ${resultData!?.safe_gold && resultData!?.safe_gold.length > 0 ? '' : 'none'}
+              `}
+            >
+              <thead>
+                <tr>
+                  <th className="checking-result table-head picture">
+                    picture
+                  </th>
+                  <th className="checking-result table-head code">
+                    code
+                  </th>
+                  <th className="checking-result table-head type">
+                    type
+                  </th>
+                  <th className="checking-result table-head detail">
+                    detail
+                  </th>
+                  <th className="checking-result table-head weight">
+                    weight (g)
+                  </th>
+                  <th className="checking-result table-head gold-percent">
+                    gold percent
+                  </th>
+                  <th className="checking-result table-head gold-smith-fee">
+                    gold smith fee
+                  </th>
+                  <th className="checking-result table-head note">
+                    note
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  resultData?.safe_gold
+                  && resultData?.safe_gold.map((data: StoreFrontGold, index: number) => (
+                    <tr
+                      className={`checking-result table-row ${index % 2 === 0 ? 'even' : 'odd'}`}
+                      key={data.gold_inventory.gold_inventory_id}
+                    >
+                      <td className="checking-result table-body picture">
+                        <img src={data.gold_detail.picture} alt={data.gold_detail.code} />
+                      </td>
+                      <td className="checking-result table-body code">
+                        {data.gold_detail.code}
+                      </td>
+                      <td className="checking-result table-body type">
+                        {data.gold_detail.type}
+                      </td>
+                      <td className="checking-result table-body detail">
+                        {data.gold_detail.detail}
+                      </td>
+                      <td className="checking-result table-body weight">
+                        {data.gold_detail.weight}
+                      </td>
+                      <td className="checking-result table-body gold-percent">
+                        {data.gold_detail.gold_percent}
+                      </td>
+                      <td className="checking-result table-body gold-smith-fee">
+                        {data.gold_detail.gold_smith_fee}
+                      </td>
+                      <td className="checking-result table-body note">
+                        {data.gold_inventory.note}
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
