@@ -233,3 +233,19 @@
 .sidenav.short .account-logout:hover .tooltip {
     opacity: 1;
 }
+
+@media screen and (max-height: 500px) {
+    .sidenav-menu {
+        padding-top: 0;
+    }
+
+    .sidenav-menu-item {
+        height: fit-content;
+        padding: 2px 0;
+    }
+
+    .sidenav-menu-item:not(.active)::before {
+        height: 30px;
+        padding: 2px 0;
+    }
+}

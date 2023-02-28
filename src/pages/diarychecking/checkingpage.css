@@ -1,7 +1,7 @@
 .checking-page.page-background {
     flex-direction: column;
     box-sizing: border-box;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .checking-bar.page-content {
@@ -281,6 +281,7 @@
     text-transform: capitalize;
     padding-left: 10px;
     margin: 5px 0;
+    width: 100%;
 }
 
 .checking-result.table-topic.miss {
@@ -294,6 +295,7 @@
 .checking-result.table {
     margin-bottom: 20px;
     border-collapse: collapse;
+    width: 100%;
 }
 
 .checking-result.table.none {
@@ -389,4 +391,30 @@
 
 .checking-result.table-body.note {
     width: 23%;
+}
+
+@media screen and (max-width: 500px) {
+    .checking-bar.page-content {
+        flex-direction: column;
+        row-gap: 10px;
+    }
+
+    .form-checking {
+        flex-direction: column;
+        row-gap: 10px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .checking-result.page-content {
+        overflow-x: clip;
+    }
+
+    .checking-result.page-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .checking-result.page-content-header {
+        left: 0;
+    }
 }
