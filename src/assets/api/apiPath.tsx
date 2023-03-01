@@ -23,6 +23,7 @@ const api = {
   findQueryGoldByInventory: '/inventory/getgolddetailjoininventorybydetail',
   createSellTransaction: '/transaction/newselltransaction',
   createChangeTransaction: '/transaction/newchangetransaction',
+  getTransactionDashboard: '/transaction/get-dashboard',
   IP: 'http://localhost:8080'
 };
 

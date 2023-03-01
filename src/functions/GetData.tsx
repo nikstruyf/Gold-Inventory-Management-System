@@ -66,3 +66,16 @@ export async function GetAllTransactionJoinGold(token: string) {
   });
   return allTransactionDetail.data;
 }
+
+export async function GetTransactionDashboard(
+  from: string,
+  to: string,
+  token: string
+) {
+  const transactionDashboard = await axios.get(`${api.IP}${api.getTransactionDashboard}?from=${from}&to=${to}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  });
+  return transactionDashboard.data;
+}

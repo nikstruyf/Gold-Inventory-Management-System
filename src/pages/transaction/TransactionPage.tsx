@@ -27,7 +27,7 @@ function TransactionPage() {
   }-${
     String(current.getMonth() + 1).padStart(2, '0')
   }-${
-    String(current.getDate() + 1).padStart(2, '0')
+    String(current.getDate()).padStart(2, '0')
   }`;
 
   useEffect(() => {

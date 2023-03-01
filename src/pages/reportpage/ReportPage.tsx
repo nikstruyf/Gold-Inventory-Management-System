@@ -1,15 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './reportpage.css';
+import { useCookies } from 'react-cookie';
 
 // import { useSideNavWidth } from '../../contexts/SideNavWidthContext';
-// import { useAlert } from '../../contexts/AlertContext';
+import { useAlert } from '../../contexts/AlertContext';
 
 import LineChartTransCount from '../../components/chart/LineChartTransCount';
 import DoughnutChartSoldType from '../../components/chart/DoughnutChartSoldType';
 
+// import { ConvertDateFoCal } from '../../functions/ConvertDateAndTimeForDisplay';
+import { GetTransactionDashboard } from '../../functions/GetData';
+
 function ReportPage() {
   // const { sideNavWidth } = useSideNavWidth();
-  // const { setAlert } = useAlert();
+  const { setAlert } = useAlert();
+  const [cookies] = useCookies(['access-token']);
+
+  const [data, setData] = useState();
+
+  const current = new Date();
+  const currentDate = `${
+    current.getFullYear()
+  }-${
+    String(current.getMonth() + 1).padStart(2, '0')
+  }-${
+    String(current.getDate()).padStart(2, '0')
+  }`;
+
+  const [startDate, setStartDate] = useState<string>(currentDate);
+  const [endDate, setEndDate] = useState<string>(currentDate);
+
+  useEffect(() => {
+    GetTransactionDashboard(
+      startDate,
+      endDate,
+      cookies['access-token']
+    ).then((res) => {
+      setData(res.data);
+    }).catch(() => {
+      setAlert({
+        active: true,
+        message: 'Error! can not get data'
+      });
+    });
+  }, [startDate, endDate]);
+
+  console.log(data);
 
   return (
     <div className="report-page page-background">
@@ -19,6 +55,20 @@ function ReportPage() {
       </div>
       {/* -- Create PDF Document Button -- */}
       <div className="container-create-pdf-button">
+        <div className="option-daterange">
+          <input
+            type="date"
+            max={endDate || currentDate}
+            onChange={(e) => { setStartDate(e.target.value); }}
+          />
+          <div>to</div>
+          <input
+            type="date"
+            min={startDate}
+            max={currentDate}
+            onChange={(e) => { setEndDate(e.target.value); }}
+          />
+        </div>
         <button
           className="create-pdf-button"
           type="button"

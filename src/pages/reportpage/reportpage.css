@@ -11,10 +11,10 @@
 
 .container-create-pdf-button {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     box-sizing: border-box;
     width: 100%;
-    padding: 0 10px;
+    padding: 10px 10px 0 10px;
 }
 
 .create-pdf-button {
