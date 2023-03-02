@@ -3,8 +3,8 @@ import {
   Page, Text, View, Document, StyleSheet
 } from '@react-pdf/renderer';
 
-// 1696511344
-// 386674373
+import { TransactionDashboard, TransactionDataJoinGold } from '../../interfaces/TransactionData';
+
 const styles = StyleSheet.create({
   doc: {
     margin: 10,
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize'
   },
   date: {
-    fontSize: '12px',
+    fontSize: '10px',
     textTransform: 'capitalize',
     marginBottom: '10px'
   },
@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
     width: '10%',
   },
   tableColNote: {
-    width: '35%',
+    width: '30%',
   },
   tableColGoldPrice: {
     width: '15%',
   },
   tableColWeight: {
-    width: '10%',
+    width: '15%',
   },
   tableColTotal: {
     width: '15%',
@@ -89,12 +89,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function PdfDocument() {
+export default function PdfDocument(
+  props: {data: TransactionDashboard, from: string | null, to: string | null}
+) {
+  const {
+    data,
+    from,
+    to
+  }: { data: TransactionDashboard, from: string | null, to: string | null } = props;
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>transaction reports</Text>
-        <Text style={styles.date}>start date: | end date: </Text>
+        <Text style={styles.date}>
+          {`start date: ${from} | end date: ${to} `}
+        </Text>
         <Text style={styles.line} />
         <Text style={styles.header}>transaction summary</Text>
         {/* Table */}
@@ -117,7 +127,7 @@ export default function PdfDocument() {
               <Text style={styles.tableCellValue}>gold price</Text>
             </View>
             <View style={styles.tableColWeight}>
-              <Text style={styles.tableCellValue}>weight</Text>
+              <Text style={styles.tableCellValue}>weight (gram)</Text>
             </View>
             <View style={styles.tableColTotal}>
               <Text style={styles.tableCellValue}>total amount</Text>
@@ -125,38 +135,150 @@ export default function PdfDocument() {
           </View>
           <Text style={styles.line} />
           {/* Table Body */}
-          <View style={styles.tableRow}>
-            <View style={styles.tableColDate}>
-              <Text style={styles.tableCell}>2019-02-20</Text>
-            </View>
-            <View style={styles.tableColType}>
-              <Text style={styles.tableCell}>change</Text>
-            </View>
-            <View style={styles.tableColBy}>
-              <Text style={styles.tableCell}>nik</Text>
-            </View>
-            <View style={styles.tableColNote}>
-              <Text style={styles.tableCell}>2019-02-20 - 2020-02-19</Text>
-            </View>
-            <View style={styles.tableColGoldPrice}>
-              <Text style={styles.tableCellValue}>5€</Text>
-            </View>
-            <View style={styles.tableColWeight}>
-              <Text style={styles.tableCellValue}>5€</Text>
-            </View>
-            <View style={styles.tableColTotal}>
-              <Text style={styles.tableCellValue}>5€</Text>
-            </View>
-          </View>
+          {
+            data?.buy_transaction.map((el: TransactionDataJoinGold) => (
+              <View style={styles.tableRow} key={el.transaction.transaction_id}>
+                <View style={styles.tableColDate}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.date.split('T')[0]}
+                  </Text>
+                </View>
+                <View style={styles.tableColType}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.transaction_type}
+                  </Text>
+                </View>
+                <View style={styles.tableColBy}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.username}
+                  </Text>
+                </View>
+                <View style={styles.tableColNote}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.note}
+                  </Text>
+                </View>
+                <View style={styles.tableColGoldPrice}>
+                  <Text style={styles.tableCellValue}>
+                    {el.transaction.gold_price}
+                  </Text>
+                </View>
+                <View style={styles.tableColWeight}>
+                  <Text style={styles.tableCellValue}>
+                    {el?.transaction.weight}
+                  </Text>
+                </View>
+                <View style={styles.tableColTotal}>
+                  <Text style={styles.tableCellValue}>
+                    {el.transaction.sell_price - el.transaction.buy_price}
+                  </Text>
+                </View>
+              </View>
+            ))
+          }
+          {
+            data?.sell_transaction.map((el: TransactionDataJoinGold) => (
+              <View style={styles.tableRow} key={el.transaction.transaction_id}>
+                <View style={styles.tableColDate}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.date.split('T')[0]}
+                  </Text>
+                </View>
+                <View style={styles.tableColType}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.transaction_type}
+                  </Text>
+                </View>
+                <View style={styles.tableColBy}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.username}
+                  </Text>
+                </View>
+                <View style={styles.tableColNote}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.note}
+                  </Text>
+                </View>
+                <View style={styles.tableColGoldPrice}>
+                  <Text style={styles.tableCellValue}>
+                    {el.transaction.gold_price}
+                  </Text>
+                </View>
+                <View style={styles.tableColWeight}>
+                  <Text style={styles.tableCellValue}>
+                    {el?.transaction.weight}
+                  </Text>
+                </View>
+                <View style={styles.tableColTotal}>
+                  <Text style={styles.tableCellValue}>
+                    {el.transaction.sell_price - el.transaction.buy_price}
+                  </Text>
+                </View>
+              </View>
+            ))
+          }
+          {
+            data?.change_transaction.map((el: TransactionDataJoinGold) => (
+              <View style={styles.tableRow} key={el.transaction.transaction_id}>
+                <View style={styles.tableColDate}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.date.split('T')[0]}
+                  </Text>
+                </View>
+                <View style={styles.tableColType}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.transaction_type}
+                  </Text>
+                </View>
+                <View style={styles.tableColBy}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.username}
+                  </Text>
+                </View>
+                <View style={styles.tableColNote}>
+                  <Text style={styles.tableCell}>
+                    {el.transaction.note}
+                  </Text>
+                </View>
+                <View style={styles.tableColGoldPrice}>
+                  <Text style={styles.tableCellValue}>
+                    {el.transaction.gold_price}
+                  </Text>
+                </View>
+                <View style={styles.tableColWeight}>
+                  <Text style={styles.tableCellValue}>
+                    {`${el?.gold_detail.weight} / `}
+                    {el?.transaction.weight}
+                  </Text>
+                </View>
+                <View style={styles.tableColTotal}>
+                  <Text style={styles.tableCellValue}>
+                    {el.transaction.sell_price - el.transaction.buy_price}
+                  </Text>
+                </View>
+              </View>
+            ))
+          }
         </View>
         <Text style={styles.line} />
         {/* Table Sum */}
         <View style={styles.tableRowSum}>
           <View style={styles.tableColSum}>
-            <Text style={styles.tableCell}>total transaction: </Text>
+            <Text style={styles.tableCell}>
+              {`total transaction: ${
+                (data.buy_transaction?.length || 0)
+                + (data.sell_transaction?.length || 0)
+                + (data.change_transaction?.length || 0)
+              }`}
+            </Text>
+          </View>
+          <View style={styles.tableColWeight}>
+            <Text style={styles.tableCellValue}>Total: </Text>
           </View>
           <View style={styles.tableColTotal}>
-            <Text style={styles.tableCellValue}>5€</Text>
+            <Text style={styles.tableCellValue}>
+              {data.total_price}
+            </Text>
           </View>
         </View>
         <Text style={styles.line} />

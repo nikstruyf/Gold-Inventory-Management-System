@@ -12,7 +12,13 @@ import {
 } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
-export default function DoughnutChartSoldType() {
+import { TransactionType } from '../../interfaces/TransactionData';
+
+export default function DoughnutChartSoldType(
+  props: {chartData: TransactionType | object, title: string}
+) {
+  const { chartData, title }: { chartData: TransactionType | object, title: string } = props;
+
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -24,33 +30,49 @@ export default function DoughnutChartSoldType() {
     ArcElement
   );
 
+  // const key = Object.keys(chartData);
+
   const options = {
     responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom' as const
+      },
+      title: {
+        display: true,
+        text: title
+      }
+    }
   };
 
   const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    labels: Object.keys(chartData),
     datasets: [
       {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Count ',
+        data: Object.values(chartData),
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
+          '#B93030 ',
+          '#6B4C9A',
+          '#1F77B4',
+          '#FF7F0E',
+          '#2CA02C',
+          '#D62728',
+          '#9467BD',
+          '#8C564B',
+          '#E377C2',
+          '#7F7F7F',
+          '#BCBD22',
+          '#17BECF',
+          '#FDBF6F',
+          '#9EDAE5',
+          '#F7B6D2',
+          '#C7C7C7',
+          '#AEC7E8',
+          '#FFBB78',
+          '#98DF8A',
+          '#FF9896',
         ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
       },
     ],
   };

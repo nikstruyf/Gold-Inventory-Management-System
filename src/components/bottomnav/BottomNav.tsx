@@ -55,14 +55,14 @@ function BottomNav() {
         >
           {
             activeHamburger
-              ? <CloseIcon className="bottomnav-hamburger-icon" sx={{ fontSize: '3em' }} />
-              : <MenuIcon className="bottomnav-hamburger-icon" sx={{ fontSize: '3em' }} />
+              ? <CloseIcon className="bottomnav-hamburger-icon" sx={{ fontSize: '2em' }} />
+              : <MenuIcon className="bottomnav-hamburger-icon" sx={{ fontSize: '2em' }} />
           }
         </div>
       </div>
       <div>
         <div>
-          <LogoutIcon className="bottomnav-hamburger-icon-logout" sx={{ fontSize: '2.5em' }} />
+          <LogoutIcon className="bottomnav-hamburger-icon-logout" sx={{ fontSize: '2em' }} />
         </div>
       </div>
       <div className={`bottomnav-menu ${activeHamburger ? 'active' : ''}`}>

@@ -21,24 +21,28 @@ export interface TransactionDataJoinGold {
     gold_inventory: GoldInventoryDataType,
 }
 
-export interface TransactionDasghboard {
+export interface TransactionType {
+    Necklace: number,
+    Bracelet: number,
+    Ring: number,
+    Pendant: number,
+    Earring: number,
+    Bangle: number,
+}
+
+export interface TransactionDashboard {
     buy_price: number,
     buy_transaction: TransactionDataJoinGold[],
-    change_incone_price: number,
+    change_income_price: number,
     change_outcome_price: number,
     change_transaction: TransactionDataJoinGold[],
-    gold_type_count: {
-        necklace: number,
-        bracelet: number,
-        ring: number,
-        pendant: number,
-        earring: number,
-        bangle: number,
-    },
     income_price: number,
     outcome_price: number,
     sell_price: number,
     sell_transaction: TransactionDataJoinGold[],
     total_change_price: number,
     total_price: number,
+    gold_type_count: TransactionType,
+    weight_count: object,
+    user_count: object
 }

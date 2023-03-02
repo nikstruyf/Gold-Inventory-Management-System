@@ -68,8 +68,8 @@ export async function GetAllTransactionJoinGold(token: string) {
 }
 
 export async function GetTransactionDashboard(
-  from: string,
-  to: string,
+  from: string | null,
+  to: string | null,
   token: string
 ) {
   const transactionDashboard = await axios.get(`${api.IP}${api.getTransactionDashboard}?from=${from}&to=${to}`, {

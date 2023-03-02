@@ -1,6 +1,7 @@
 .bottomnav {
     position: fixed;
     bottom: 0;
+    left: 0;
     background-color: #B93030;
     display: flex;
     justify-content: space-between;

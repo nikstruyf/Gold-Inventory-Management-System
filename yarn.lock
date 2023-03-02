@@ -8773,6 +8773,11 @@ react-pdf-table@^1.0.0-alfa.3:
     "@babel/polyfill" "^7.12.1"
     "@react-pdf/renderer" "^2.0.21"
 
+react-pdfmake@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-pdfmake/-/react-pdfmake-0.3.0.tgz#7bfacac0f19edafa74e162966a46e52f05c8b5cb"
+  integrity sha512-/7TvMNkVibyqcUkYMW7/dq8XvkUk9F+59j7ww3tbU9tv5vMibFXJIg0Btos0JMu37bdrE54tvPL4uaDyXxQ4Xg==
+
 react-reconciler@^0.23.0:
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.23.0.tgz#5f0bfc35dda030b0220c07de11f93131c5d6db63"

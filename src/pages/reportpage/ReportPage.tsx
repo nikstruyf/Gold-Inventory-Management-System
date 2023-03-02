@@ -5,18 +5,63 @@ import { useCookies } from 'react-cookie';
 // import { useSideNavWidth } from '../../contexts/SideNavWidthContext';
 import { useAlert } from '../../contexts/AlertContext';
 
-import LineChartTransCount from '../../components/chart/LineChartTransCount';
 import DoughnutChartSoldType from '../../components/chart/DoughnutChartSoldType';
 
-// import { ConvertDateFoCal } from '../../functions/ConvertDateAndTimeForDisplay';
 import { GetTransactionDashboard } from '../../functions/GetData';
+
+import { TransactionDashboard } from '../../interfaces/TransactionData';
 
 function ReportPage() {
   // const { sideNavWidth } = useSideNavWidth();
   const { setAlert } = useAlert();
   const [cookies] = useCookies(['access-token']);
 
-  const [data, setData] = useState();
+  const [data, setData] = useState<TransactionDashboard>({
+    buy_price: 0,
+    buy_transaction: [],
+    change_income_price: 0,
+    change_outcome_price: 0,
+    change_transaction: [],
+    gold_type_count: {
+      Necklace: 0,
+      Bracelet: 0,
+      Ring: 0,
+      Pendant: 0,
+      Earring: 0,
+      Bangle: 0,
+    },
+    income_price: 0,
+    outcome_price: 0,
+    sell_price: 0,
+    sell_transaction: [],
+    total_change_price: 0,
+    total_price: 0,
+    weight_count: {},
+    user_count: {}
+  });
+  const [dataToday, setDataToday] = useState<TransactionDashboard>({
+    buy_price: 0,
+    buy_transaction: [],
+    change_income_price: 0,
+    change_outcome_price: 0,
+    change_transaction: [],
+    gold_type_count: {
+      Necklace: 0,
+      Bracelet: 0,
+      Ring: 0,
+      Pendant: 0,
+      Earring: 0,
+      Bangle: 0,
+    },
+    income_price: 0,
+    outcome_price: 0,
+    sell_price: 0,
+    sell_transaction: [],
+    total_change_price: 0,
+    total_price: 0,
+    weight_count: {},
+    user_count: {}
+  });
 
   const current = new Date();
   const currentDate = `${
@@ -45,7 +90,20 @@ function ReportPage() {
     });
   }, [startDate, endDate]);
 
-  console.log(data);
+  useEffect(() => {
+    GetTransactionDashboard(
+      currentDate,
+      currentDate,
+      cookies['access-token']
+    ).then((res) => {
+      setDataToday(res.data);
+    }).catch(() => {
+      setAlert({
+        active: true,
+        message: 'Error! can not get data'
+      });
+    });
+  }, []);
 
   return (
     <div className="report-page page-background">
@@ -58,12 +116,14 @@ function ReportPage() {
         <div className="option-daterange">
           <input
             type="date"
-            max={endDate || currentDate}
+            value={startDate}
+            max={endDate}
             onChange={(e) => { setStartDate(e.target.value); }}
           />
           <div>to</div>
           <input
             type="date"
+            value={endDate}
             min={startDate}
             max={currentDate}
             onChange={(e) => { setEndDate(e.target.value); }}
@@ -72,7 +132,7 @@ function ReportPage() {
         <button
           className="create-pdf-button"
           type="button"
-          onClick={() => window.open('/report/create-report-pdf', '_blank')}
+          onClick={() => window.open(`/report/create-report-pdf?from=${startDate}&to=${endDate}`, '_blank')}
         >
           Create Report.pdf
         </button>
@@ -85,10 +145,20 @@ function ReportPage() {
               transaction
             </div>
             <div className="trans-stat value">
-              1111
+              {
+                (data.buy_transaction?.length || 0)
+                + (data.sell_transaction?.length || 0)
+                + (data.change_transaction?.length || 0)
+              }
             </div>
             <div className="trans-stat today">
-              <span className="today-value"> +6 </span>
+              <span className="today-value">
+                {`
+                   +${(data.buy_transaction?.length || 0)
+                  + (data.sell_transaction?.length || 0)
+                  + (data.change_transaction?.length || 0)} 
+                `}
+              </span>
               today
             </div>
           </div>
@@ -97,10 +167,12 @@ function ReportPage() {
               buy transaction
             </div>
             <div className="trans-stat value">
-              1111
+              {data.buy_transaction?.length || 0}
             </div>
             <div className="trans-stat today">
-              <span className="today-value"> +6 </span>
+              <span className="today-value">
+                {` +${dataToday.buy_transaction?.length || 0} `}
+              </span>
               today
             </div>
           </div>
@@ -109,10 +181,12 @@ function ReportPage() {
               sell transaction
             </div>
             <div className="trans-stat value">
-              1111
+              {data.sell_transaction?.length || 0}
             </div>
             <div className="trans-stat today">
-              <span className="today-value"> +6 </span>
+              <span className="today-value">
+                {` +${dataToday.sell_transaction?.length || 0} `}
+              </span>
               today
             </div>
           </div>
@@ -121,20 +195,25 @@ function ReportPage() {
               change transaction
             </div>
             <div className="trans-stat value">
-              1111
+              {data.change_transaction?.length || 0}
             </div>
             <div className="trans-stat today">
-              <span className="today-value"> +6 </span>
+              <span className="today-value">
+                {` +${dataToday.change_transaction?.length || 0} `}
+              </span>
               today
             </div>
           </div>
         </div>
         <div className="report-page page-flex">
-          <div className="report-page page-content trans-chart-line">
-            <LineChartTransCount />
+          <div className="report-page page-content trans-chart">
+            <DoughnutChartSoldType chartData={data.gold_type_count} title="Gold Type Sell And Change " />
           </div>
-          <div className="report-page page-content trans-chart-doughnut">
-            <DoughnutChartSoldType />
+          <div className="report-page page-content trans-chart">
+            <DoughnutChartSoldType chartData={data.weight_count} title="Weight Sell And Change" />
+          </div>
+          <div className="report-page page-content trans-chart">
+            <DoughnutChartSoldType chartData={data.user_count} title="User Create Sell And Change Transaction" />
           </div>
         </div>
         <div className="report-page page-flex">
@@ -143,9 +222,15 @@ function ReportPage() {
               sell transaction cost total
             </div>
             <div className="trans-value cost">
-              <span className="value">฿ 1111</span>
+              <span className="value">
+                {`฿ ${data.sell_price}`}
+              </span>
               <span className="trans-value-today">
-                <span className="today-value">(+฿ 6)</span>
+                <span className="today-value">
+                  (
+                  {`+฿ ${dataToday.sell_price}`}
+                  )
+                </span>
               </span>
             </div>
           </div>
@@ -154,9 +239,15 @@ function ReportPage() {
               buy transaction cost total
             </div>
             <div className="trans-value cost">
-              <span className="value">฿ 1111</span>
+              <span className="value">
+                {`฿ ${data.buy_price}`}
+              </span>
               <span className="trans-value-today">
-                <span className="today-value">(+฿ 6)</span>
+                <span className="today-value">
+                  (
+                  {`-฿ ${dataToday.buy_price}`}
+                  )
+                </span>
               </span>
             </div>
           </div>
@@ -165,9 +256,18 @@ function ReportPage() {
               change transaction cost total
             </div>
             <div className="trans-value cost">
-              <span className="value">฿ 1111</span>
+              <span className="value">
+                {`฿ ${data.change_income_price - data.change_outcome_price}`}
+              </span>
               <span className="trans-value-today">
-                <span className="today-value">(+฿ 6)</span>
+                <span className="today-value">
+                  (
+                  {`
+                    ${dataToday.total_change_price < 0 ? '-' : '+'}
+                    ฿ ${dataToday.total_change_price}
+                  `}
+                  )
+                </span>
               </span>
             </div>
           </div>
