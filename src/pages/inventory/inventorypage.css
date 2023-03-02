@@ -200,3 +200,10 @@
     }
     
 }
+
+@media screen and (max-width: 500px) {
+    .inventory.page-background,
+    .page-container {
+        padding-bottom: var(--bottomnav-height);
+    }
+}

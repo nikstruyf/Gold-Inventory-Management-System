@@ -6,6 +6,7 @@
 
 .report-page.page-container {
     row-gap: 10px;
+    overflow: hidden;
 }
 
 .container-create-pdf-button {
@@ -48,7 +49,7 @@
     flex: 25%;
     display: flex;
     flex-direction: column;
-    height: 16vh;
+    max-height: 16vh;
 }
 
 .report-page.page-content.trans-chart {
@@ -56,14 +57,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 54vh;
+    max-height: 54vh;
 }
 
 .report-page.page-content.trans-value {
     flex: 33%;
     display: flex;
     flex-direction: column;
-    height: 11vh;
+    max-height: 11vh;
 }
 
 .trans-stat.header {
@@ -108,10 +109,24 @@
     .report-page.page-background {
         max-width: calc(100vw - var(--sidenav-short-width));
     }
+
+    .report-page.page-flex {
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 500px) {
     .report-page.page-background {
         max-width: 100%;
+    }
+
+    .container-create-pdf-button {
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 10px;
+    }
+
+    .report-page.page-flex {
+        flex-direction: column;
     }
 }

@@ -246,6 +246,10 @@
 
 @media screen and (max-width: 650px) {
 
+    .addgood-form-notice {
+        width: auto;
+    }
+
     .addgood-form {
         max-width: 100vw;
     }
@@ -271,6 +275,7 @@
 
     .inputbox {
         width: 100%;
+        min-width: none;
     }
 
     .select-type select {
@@ -295,5 +300,9 @@
 
     .label.input-button {
         display: flex;
+    }
+
+    .add-good.custom-arrow {
+        height: 100%;
     }
 }

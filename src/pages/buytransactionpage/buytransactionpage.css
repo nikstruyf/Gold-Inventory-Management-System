@@ -95,3 +95,24 @@
     background-color: var(--second-color-red);
     border-color: var(--second-color-red);
 }
+
+@media screen and (max-width: 650px) {
+    .buy-transaction.page-content {
+        width: 100%;
+    }
+
+    .inputbox,
+    .gold-price {
+        width: 100%;
+        min-width: auto;
+        max-width: 100%;
+    }
+
+    .buy-transaction.input-weight .select-weightUnit select {
+        width: 100%;
+    }
+
+    .custom-arrow {
+        height: 100%;
+    }
+}

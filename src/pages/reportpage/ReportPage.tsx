@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './reportpage.css';
 import { useCookies } from 'react-cookie';
 
-// import { useSideNavWidth } from '../../contexts/SideNavWidthContext';
 import { useAlert } from '../../contexts/AlertContext';
 
 import DoughnutChartSoldType from '../../components/chart/DoughnutChartSoldType';
@@ -12,7 +11,6 @@ import { GetTransactionDashboard } from '../../functions/GetData';
 import { TransactionDashboard } from '../../interfaces/TransactionData';
 
 function ReportPage() {
-  // const { sideNavWidth } = useSideNavWidth();
   const { setAlert } = useAlert();
   const [cookies] = useCookies(['access-token']);
 

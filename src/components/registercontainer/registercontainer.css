@@ -89,7 +89,7 @@
     outline: none;
 }
 
-.custom-arrow {
+.register.custom-arrow {
     display: block;
     background-color: var(--main-color-grey);
     border-radius: 0 4px 4px 0;
@@ -101,7 +101,7 @@
     pointer-events: none
 }
 
-.custom-arrow::after {
+.register.custom-arrow::after {
     --size: 0.4em;
     border-left: var(--size) solid transparent;
     border-right: var(--size) solid transparent;
@@ -124,7 +124,7 @@
         margin-left: 0;
     }
 
-    .custom-arrow {
+    .register.custom-arrow {
         height: 59%;
         transform: translateY(70%);
     }

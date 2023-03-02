@@ -237,3 +237,20 @@
     height: auto;
     font-size: 17px;
 }
+
+@media screen and (max-width: 650px) {
+    .sell-transaction.page-container.query-state {
+        grid-template-columns: auto !important;
+        grid-template-rows: auto auto auto;
+    }
+
+    .sell-transaction.page-content.query-result-table {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .sell-transaction.page-content.query-select {
+        grid-column: 1;
+        grid-row: 3;
+    }
+}

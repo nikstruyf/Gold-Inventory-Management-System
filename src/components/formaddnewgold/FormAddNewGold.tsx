@@ -169,7 +169,7 @@ export default function FormAddNewGold() {
               <option value="Earring">earring</option>
               <option value="Bangle">bangle</option>
             </select>
-            <span className="custom-arrow" />
+            <span className="add-good custom-arrow" />
           </div>
           <div className={`important-mark ${CheckFillAll() || type !== '' ? '' : 'show'}`}>
             *
@@ -205,7 +205,7 @@ export default function FormAddNewGold() {
                 <option value="gram">gram</option>
                 <option value="baht">baht</option>
               </select>
-              <span className="custom-arrow" />
+              <span className="add-good custom-arrow" />
             </div>
           </div>
           <div className={`important-mark ${CheckFillAll() || weight !== 0 ? '' : 'show'}`}>

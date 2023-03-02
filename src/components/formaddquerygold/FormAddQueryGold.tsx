@@ -197,7 +197,7 @@ export default function FormAddQueryGold() {
               <option value="Earring">earring</option>
               <option value="Bangle">bangle</option>
             </select>
-            <span className="custom-arrow" />
+            <span className="add-good custom-arrow" />
           </div>
         </div>
         {/* Detail */}
@@ -227,7 +227,7 @@ export default function FormAddQueryGold() {
                 <option value="gram">gram</option>
                 <option value="baht">baht</option>
               </select>
-              <span className="custom-arrow" />
+              <span className="add-good custom-arrow" />
             </div>
           </div>
         </div>

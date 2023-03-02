@@ -1,6 +1,7 @@
 .bottomnav {
     position: fixed;
     bottom: 0;
+    right: 0;
     left: 0;
     background-color: #B93030;
     display: flex;
@@ -25,6 +26,7 @@
 
 .bottomnav-hamburger-icon-logout {
     color: var(--third-color-red);
+    margin-right: 10px;
 }
 
 .bottomnav-menu {

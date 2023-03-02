@@ -10,6 +10,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import selectMenuForUser from '../../functions/SelectMenuForUser';
 import { GetUserProfile } from '../../functions/GetData';
 
+import { useConfirm } from '../../contexts/ConfirmContext';
+
 interface profile {
   username: string,
   role: string
@@ -18,7 +20,8 @@ interface profile {
 function BottomNav() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [cookies] = useCookies(['access-token']);
+  const [cookies, , removeCookie] = useCookies(['access-token']);
+  const { confirm, setConfirm } = useConfirm();
 
   const [activeHamburger, setActiveHamburger] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<string>(location.pathname);
@@ -43,6 +46,28 @@ function BottomNav() {
     setActiveHamburger(false);
   }
 
+  async function logoutAccount() {
+    setConfirm({
+      active: true,
+      message: 'continue sign out ?',
+      action: 'logout',
+      status: ''
+    });
+  }
+
+  useEffect(() => {
+    if (confirm.status === 'confirm' && confirm.action === 'logout') {
+      removeCookie('access-token');
+      navigate('/signin');
+      setConfirm({
+        active: false,
+        message: '',
+        action: '',
+        status: ''
+      });
+    }
+  }, [confirm.status]);
+
   return (
     <div className="bottomnav">
       <div className="bottomnav-hamburger">
@@ -61,7 +86,12 @@ function BottomNav() {
         </div>
       </div>
       <div>
-        <div>
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => { logoutAccount(); }}
+          onKeyDown={() => {}}
+        >
           <LogoutIcon className="bottomnav-hamburger-icon-logout" sx={{ fontSize: '2em' }} />
         </div>
       </div>

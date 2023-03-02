@@ -117,7 +117,7 @@ function RegisterContainer() {
               <option value="owner">owner</option>
               <option value="employee">employee</option>
             </select>
-            <span className="custom-arrow" />
+            <span className="register custom-arrow" />
           </div>
           {/* Fill All Input Message */}
           <div className={`input-fillall ${fillAll ? '' : 'invalid'}`}>

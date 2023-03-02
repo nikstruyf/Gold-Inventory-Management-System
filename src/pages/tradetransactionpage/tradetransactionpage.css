@@ -276,3 +276,28 @@
     background-color: var(--second-color-red);
     border-color: var(--second-color-red);
 }
+
+@media screen and (max-width: 650px) {
+    .trade-transaction.page-container.query-state {
+        grid-template-columns: auto !important;
+        grid-template-rows: auto auto auto;
+    }
+
+    .trade-transaction.page-content.query-result-table {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .trade-transaction.page-content.query-select {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    .buy-state .trade-transaction.page-content {
+        width: 100%;
+    }
+
+    .buy-state .trade-transaction.input-weight .select-weightUnit select {
+        width: 100%;
+    }
+}
