@@ -1,25 +1,33 @@
 import React from 'react';
 import {
-  Page, Text, View, Document, StyleSheet
+  Page, Text, View, Document, StyleSheet, Font
 } from '@react-pdf/renderer';
 
 import { TransactionDashboard, TransactionDataJoinGold } from '../../interfaces/TransactionData';
 
+import THSarabunNewFront from '../../assets/fonts/THSarabunNew.ttf';
+
+Font.register({
+  family: 'THSarabunNew',
+  src: THSarabunNewFront
+});
+
 const styles = StyleSheet.create({
   doc: {
-    margin: 10,
+    margin: 20,
   },
   page: {
     backgroundColor: '#ffffff',
-    padding: 10,
+    padding: 15,
+    fontFamily: 'THSarabunNew',
   },
   title: {
-    fontSize: 24,
-    marginBottom: '5px',
+    fontSize: '26px',
+    fontWeight: 'bold',
     textTransform: 'capitalize'
   },
   date: {
-    fontSize: '10px',
+    fontSize: '14px',
     textTransform: 'capitalize',
     marginBottom: '10px'
   },
@@ -31,11 +39,12 @@ const styles = StyleSheet.create({
     borderBottom: '2px',
   },
   header: {
-    fontSize: '12px',
+    fontSize: '14px',
+    fontWeight: 'extrabold',
     textTransform: 'capitalize',
     color: 'white',
     backgroundColor: 'black',
-    padding: '2px',
+    padding: '0 2px',
     marginTop: '20px',
   },
   table: {
@@ -48,7 +57,7 @@ const styles = StyleSheet.create({
   },
   tableRow: {
     flexDirection: 'row',
-    padding: '2px',
+    padding: '0 2px',
   },
   tableRowSum: {
     flexDirection: 'row',
@@ -79,11 +88,12 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   tableCell: {
-    fontSize: '8px',
+    fontSize: '12px',
+    fontWeight: 'bold',
     textTransform: 'capitalize',
   },
   tableCellValue: {
-    fontSize: '8px',
+    fontSize: '12px',
     textAlign: 'right',
     textTransform: 'capitalize',
   },
@@ -170,7 +180,7 @@ export default function PdfDocument(
                 </View>
                 <View style={styles.tableColTotal}>
                   <Text style={styles.tableCellValue}>
-                    {el.transaction.sell_price - el.transaction.buy_price}
+                    {el.transaction.price}
                   </Text>
                 </View>
               </View>
@@ -211,7 +221,7 @@ export default function PdfDocument(
                 </View>
                 <View style={styles.tableColTotal}>
                   <Text style={styles.tableCellValue}>
-                    {el.transaction.sell_price - el.transaction.buy_price}
+                    {el.transaction.price}
                   </Text>
                 </View>
               </View>
