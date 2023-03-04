@@ -164,7 +164,7 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    overflow: scroll;
+    overflow: clip;
     width: 100%;
 }
 

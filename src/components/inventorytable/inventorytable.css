@@ -1,7 +1,7 @@
 .table-main {
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow: clip;
     width: 100%;
 }
 
@@ -33,9 +33,7 @@
 }
 
 .inventory.table-select {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 55px;
+    
     display: none;
     justify-content: space-between;
     align-items: center;
@@ -49,6 +47,9 @@
 
 .inventory.table-select.active {
     display: flex;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 55px;
 }
 
 .inventory.button-group {
@@ -374,8 +375,14 @@
 }
 
 @media screen and (max-width: 1200px) {
-    .inventory.table-select {
+    .inventory.table-select.active {
         top: 90px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .inventory.table-select.active {
+        top: 170px;
     }
 }
 
