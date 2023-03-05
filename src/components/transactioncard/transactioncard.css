@@ -110,6 +110,10 @@
     padding: 1% 0;
 }
 
+.transaction-detail .detail.hide {
+    display: none;
+}
+
 .datail-head {
     font-size: 18px;
     text-transform: capitalize;

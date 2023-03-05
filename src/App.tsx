@@ -19,6 +19,7 @@ import TransactionPage from './pages/transaction/TransactionPage';
 import BuyTransactionPage from './pages/buytransactionpage/BuyTransactionPage';
 import SellTransactionPage from './pages/selltransactionpage/SellTransactionPage';
 import TradeTransactionPage from './pages/tradetransactionpage/TradeTransactionPage';
+import PdfBillViewer from './pages/pdfviewer/PdfViewerBill';
 import ReportPage from './pages/reportpage/ReportPage';
 import PdfViewer from './pages/pdfviewer/PdfViewer';
 import OrganizationPage from './pages/organizationpage/OrganizationPage';
@@ -53,6 +54,7 @@ function App() {
                   </Route>
                   <Route path="/employee" element={<EmployeePage />} />
                 </Route>
+                <Route path="/transaction/create-bill-pdf" element={<PdfBillViewer />} />
                 <Route path="/report/create-report-pdf" element={<PdfViewer />} />
               </Routes>
             </Router>

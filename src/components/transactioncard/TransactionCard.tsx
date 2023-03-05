@@ -122,7 +122,14 @@ export default function TransactionCard(
                 ${ConvertWeight(data ? data?.transaction.weight : 0, 'gram')}Baht`}
               </div>
             </div>
-            <div className="detail">
+            <div
+              className={`
+                detail
+                ${data?.transaction.transaction_type === 'buy'
+                ? 'hide' : ''
+                }
+              `}
+            >
               <div className="datail-head">code:</div>
               <div className="detail-value">{data?.gold_detail.code}</div>
             </div>
