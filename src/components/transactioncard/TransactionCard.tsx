@@ -29,7 +29,9 @@ export default function TransactionCard(
     <div className={`transaction-card-bg ${activate ? 'active' : ''}`}>
       <div className="transaction-card page-content">
         <div className="card-content-left">
-          <ReceiptLongIcon sx={{ fontSize: 90 }} />
+          <div className="transaction-icon">
+            <ReceiptLongIcon sx={{ fontSize: 90 }} />
+          </div>
           <div className="transaction-type">
             {data?.transaction.transaction_type}
           </div>
