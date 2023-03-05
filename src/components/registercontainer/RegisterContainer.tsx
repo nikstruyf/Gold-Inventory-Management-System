@@ -79,18 +79,21 @@ function RegisterContainer() {
         <div className="register-form">
           {/* Input */}
           <input
+            className="inputbox register"
             type="text"
             placeholder="Account Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
+            className="inputbox register"
             type="password"
             placeholder="Account Password"
             value={userPasswd}
             onChange={(e) => setUserPasswd(e.target.value)}
           />
           <input
+            className="inputbox register"
             type="password"
             placeholder="Confirm Account Password"
             value={confirmUserPasswd}

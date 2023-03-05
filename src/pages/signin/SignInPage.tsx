@@ -32,7 +32,11 @@ function SignInPage() {
     if (signin.res) {
       setShowInvalid(false);
       setCookie('access-token', signin.token, { expires: new Date(Date.now() + 86400000 * 2) });
-      navigate('/inventory');
+      if (signin.role === 'employee') {
+        navigate('/checking');
+      } else {
+        navigate('/inventory');
+      }
     } else {
       setShowInvalid(true);
       setAlert({

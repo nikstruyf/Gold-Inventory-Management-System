@@ -4,14 +4,16 @@ import api from '../assets/api/apiPath';
 interface signinRes {
   res: boolean,
   token: string,
-  username: string
+  username: string,
+  role: string
 }
 
 const SigninClick = async (username: string, password: string) => {
   let res: signinRes = {
     res: false,
     token: '',
-    username: ''
+    username: '',
+    role: ''
   };
   if (username === '' || password === '') {
     return res;
@@ -24,7 +26,8 @@ const SigninClick = async (username: string, password: string) => {
       res = {
         res: true,
         token: result.data.accesstoken,
-        username: result.data.username
+        username: result.data.username,
+        role: result.data.role
       };
     }
   }).catch(() => res);

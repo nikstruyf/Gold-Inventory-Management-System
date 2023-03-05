@@ -160,3 +160,9 @@
 .button-signup:hover {
     background-color: var(--main-color-red);
 }
+
+@media screen and (max-width: 500px) {
+    .button-signup {
+        width: 100%;
+    }
+}

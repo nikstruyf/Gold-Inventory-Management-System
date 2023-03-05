@@ -205,5 +205,6 @@
     .inventory.page-background,
     .page-container {
         padding-bottom: var(--bottomnav-height);
+        margin-bottom: var(--bottomnav-height);
     }
 }

@@ -1,4 +1,4 @@
-.table-main {
+.table-main.main {
     display: flex;
     flex-direction: column;
     overflow: clip;
@@ -6,6 +6,15 @@
 }
 
 .table-main::-webkit-scrollbar {
+    display: none;
+}
+
+.inventory.main-table-container {
+    width: 100%;
+    overflow: scroll;
+}
+
+.inventory.main-table-container::-webkit-scrollbar {
     display: none;
 }
 
@@ -50,6 +59,7 @@
     position: -webkit-sticky;
     position: sticky;
     top: 55px;
+    left: 0;
 }
 
 .inventory.button-group {
@@ -390,5 +400,11 @@
     .inventory.table-select {
         flex-direction: column;
         row-gap: 10px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .table-main {
+        margin-bottom: var(--bottomnav-height);
     }
 }
