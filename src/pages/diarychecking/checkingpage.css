@@ -289,7 +289,7 @@
 }
 
 .checking-result.table-topic.all {
-    color: var(--main-color-red);
+    color: var(--main-color-green);
 }
 
 .checking-result.table {
