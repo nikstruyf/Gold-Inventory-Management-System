@@ -253,6 +253,7 @@
 
 .buy-state .trade-transaction.input-weight .inputbox {
     width: 300px;
+    min-width: unset;
     border-radius: 5px 0 0 5px;
 }
 
@@ -300,5 +301,20 @@
 
     .buy-state .trade-transaction.input-weight .select-weightUnit select {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .buy-state .trade-transaction.input-weight {
+        flex-direction: column;
+    }
+
+    .buy-state .trade-transaction.input-weight .inputbox {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .buy-state .trade-transaction.input-weight .select-weightUnit select {
+        border-radius: 5px;
     }
 }

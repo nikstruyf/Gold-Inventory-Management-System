@@ -254,4 +254,19 @@
         grid-column: 1;
         grid-row: 3;
     }
+
+    .sell-transaction.gold-price {
+        flex-direction: row;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .sell-transaction.gold-price {
+        flex-direction: column;
+    }
+
+    .sell-transaction.gold-price .inputbox {
+        width: 60%;
+        min-width: min-content;
+    }
 }

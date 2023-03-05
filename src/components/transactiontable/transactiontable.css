@@ -1,5 +1,6 @@
 .transaction.table-main {
     border-collapse: collapse;
+    width: 100%;
 }
 
 .transaction.table-main thead {
@@ -96,3 +97,8 @@
     text-align: end;
 }
 
+@media screen and (max-width: 500px) {
+    .table-main {
+        margin-bottom: var(--bottomnav-height);
+    }
+}

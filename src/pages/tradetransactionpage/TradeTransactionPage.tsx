@@ -42,6 +42,7 @@ export default function TradeTransactionPage() {
 
   const [unit, setUnit] = useState<string>('gram');
   const [weightUnit, setWeightUnit] = useState<string>('gram');
+  const [weightUnitChange, setWeightUnitChange] = useState<string>('gram');
 
   const [showQueryForm, setShowQueryForm] = useState<boolean>(true);
   const [buyState, setBuyState] = useState<boolean>(false);
@@ -142,7 +143,7 @@ export default function TradeTransactionPage() {
     const sellResult = await TradeTransaction(
       goldInventoryId,
       `${goldPriceStart} - ${goldPriceEnd}`,
-      weight,
+      CheckWeight(weight, weightUnitChange),
       note,
       buyPrice,
       sellPrice,
@@ -585,12 +586,12 @@ export default function TradeTransactionPage() {
                   <input
                     type="number"
                     step="0.00000001"
-                    className="inputbox"
+                    className="inputbox weigth-trade"
                     onChange={(e) => { setWeight(e.target.valueAsNumber); }}
                   />
                   <div className="select-weightUnit">
                     <select
-                      onChange={(e) => { setWeightUnit(e.target.value); }}
+                      onChange={(e) => { setWeightUnitChange(e.target.value); }}
                     >
                       <option value="gram">gram</option>
                       <option value="baht">baht</option>
